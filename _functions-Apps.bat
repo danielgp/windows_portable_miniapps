@@ -7,27 +7,29 @@ REM ----------------------------------------------------------------------------
 :EstablishVersions
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
-    SET version_git=2.28.0
+    SET version_git=2.29.1
     SET version_git_windows_compilation=.windows.1
-    SET version_notepad_plus_plus=7.8.9
-    SET version_pea_zip=7.3.2
-    SET version_php=7.4.9
+    SET version_notepad_plus_plus=7.9
+    SET version_pea_zip=7.4.2
+    SET version_php=7.4.12
     SET version_putty=0.74
     SET version_python36x_major_minor=3.6
     SET version_python36x_major_minor_build=3.6.11
     SET version_python37x_major_minor=3.7
-    SET version_python37x_major_minor_build=3.7.8
+    SET version_python37x_major_minor_build=3.7.9
     SET version_python38x_major_minor=3.8
-    SET version_python38x_major_minor_build=3.8.5
+    SET version_python38x_major_minor_build=3.8.6
+    SET version_python38x_major_minor=3.9
+    SET version_python38x_major_minor_build=3.9.0
     SET version_tree_size=4.4.2
     SET version_vlc=3.0.11
-    SET version_winscp=5.17.7
+    SET version_winscp=5.17.8
 GOTO END
 
 :EstablishDownloadingSourceAddress
     SET url_double_commander=https://github.com/double-commander/doublecmd/releases/download/%version_double_commander%/DoubleCmd-%version_double_commander_kit%-Win32X64.7z
     SET url_git=https://github.com/git-for-windows/git/releases/download/v%version_git%%version_git_windows_compilation%/PortableGit-%version_git%-64-bit.7z.exe
-    SET url_notepad_plus_plus=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v%version_notepad_plus_plus%/npp.%version_notepad_plus_plus%.bin.x64.zip
+    SET url_notepad_plus_plus=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v%version_notepad_plus_plus%/npp.%version_notepad_plus_plus%.portable.x64.zip
     SET url_peazip=https://github.com/giorgiotani/PeaZip/releases/download/%version_pea_zip%/peazip_portable-%version_pea_zip%.WIN64.zip
     SET url_php=https://windows.php.net/downloads/releases/php-%version_php%-nts-Win32-vc15-x64.zip
     SET url_putty=https://the.earth.li/~sgtatham/putty/latest/w64/putty.zip
@@ -155,7 +157,7 @@ GOTO END
             DEL %path_downloads%PortableGit-%version_git%-64-bit.7z.exe
         )
     )
-    for %%i in (2.26.1 2.26.2 2.27.0) do (
+    for %%i in (2.26.1 2.26.2 2.27.0 2.28.0 2.29.0) do (
         IF EXIST "%path_developer_applications%Git\%%i-64bit" (
             ECHO Removing %path_developer_applications%Git\%%i-64bit
             RMDIR /Q /S %path_developer_applications%Git\%%i-64bit
@@ -177,7 +179,7 @@ GOTO END
             powershell.exe Expand-Archive -Path %path_downloads%notepad.zip -DestinationPath %path_developer_applications_notepad_plus_plus%
         )
     )
-    for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8) do (
+    for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9) do (
         IF EXIST "%path_developer_applications%Notepad++\%%i-64bit" (
             IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\session.xml" (
                 COPY %path_developer_applications%Notepad++\%%i-64bit\session.xml %path_developer_applications_notepad_plus_plus%
@@ -186,7 +188,7 @@ GOTO END
                 COPY %path_developer_applications%Notepad++\%%i-64bit\config.xml %path_developer_applications_notepad_plus_plus%
             )
             IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\backup\" (
-                XCOPY "%path_developer_applications%Notepad++\%%i-64bit\backup\" %path_developer_applications_notepad_plus_plus% /c /s /r /h /y
+                XCOPY "%path_developer_applications%Notepad++\%%i-64bit\backup\" %path_developer_applications_notepad_plus_plus%\backup\ /c /s /r /h /y
             )
             ECHO Removing %path_developer_applications%Notepad++\%%i-64bit
             RMDIR /Q /S %path_developer_applications%Notepad++\%%i-64bit
@@ -213,7 +215,7 @@ GOTO END
             XCOPY %path_downloads%peazip_portable-%version_pea_zip%.WIN64 %path_developer_applications_peazip% /c /s /r /h /y
         )
     )
-    for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1) do (
+    for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1) do (
         IF EXIST "%path_developer_applications%PeaZip\%%i-64bit" (
             ECHO Removing %path_developer_applications%PeaZip\%%i-64bit
             RMDIR /Q /S %path_developer_applications%PeaZip\%%i-64bit
@@ -235,7 +237,7 @@ GOTO END
             powershell.exe Expand-Archive -Path %path_downloads%php.zip -DestinationPath %path_developer_applications_php%
         )
     )
-    for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8) do (
+    for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11) do (
         IF EXIST %path_web_applications%PHP\%%i-64bit (
             ECHO Removing %path_web_applications%PHP\%%i-64bit
             RMDIR /Q /S %path_web_applications%PHP\%%i-64bit
@@ -420,10 +422,12 @@ GOTO END
             )
         )
     )
-    SET path_older_version=%path_developer_applications%WinSCP\5.17.5-64bit
-    CALL :RemoveFolderWithOlderVersion
-    SET path_older_version=%path_developer_applications%WinSCP\5.17.6-64bit
-    CALL :RemoveFolderWithOlderVersion
+    for %%i in (5.17.5 5.17.6 5.17.7) do (
+        IF EXIST %path_developer_applications%WinSCP\%%i-64bit (
+            ECHO Removing %path_developer_applications%WinSCP\%%i-64bit
+            RMDIR /Q /S %path_developer_applications%WinSCP\%%i-64bit
+        )
+    )
     REM CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 

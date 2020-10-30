@@ -7,7 +7,7 @@ REM ----------------------------------------------------------------------------
 :EstablishVersions
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
-    SET version_git=2.29.1
+    SET version_git=2.29.2
     SET version_git_windows_compilation=.windows.1
     SET version_notepad_plus_plus=7.9
     SET version_pea_zip=7.4.2
@@ -157,7 +157,7 @@ GOTO END
             DEL %path_downloads%PortableGit-%version_git%-64-bit.7z.exe
         )
     )
-    for %%i in (2.26.1 2.26.2 2.27.0 2.28.0 2.29.0) do (
+    for %%i in (2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1) do (
         IF EXIST "%path_developer_applications%Git\%%i-64bit" (
             ECHO Removing %path_developer_applications%Git\%%i-64bit
             RMDIR /Q /S %path_developer_applications%Git\%%i-64bit

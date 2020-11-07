@@ -8,8 +8,8 @@ REM ----------------------------------------------------------------------------
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.29.2
-    SET version_git_windows_compilation=.windows.1
-    SET version_notepad_plus_plus=7.9
+    SET version_git_windows_compilation=.windows.2
+    SET version_notepad_plus_plus=7.9.1
     SET version_pea_zip=7.4.2
     SET version_php=7.4.12
     SET version_putty=0.74
@@ -19,8 +19,8 @@ REM ----------------------------------------------------------------------------
     SET version_python37x_major_minor_build=3.7.9
     SET version_python38x_major_minor=3.8
     SET version_python38x_major_minor_build=3.8.6
-    SET version_python38x_major_minor=3.9
-    SET version_python38x_major_minor_build=3.9.0
+    SET version_python39x_major_minor=3.9
+    SET version_python39x_major_minor_build=3.9.0
     SET version_tree_size=4.4.2
     SET version_vlc=3.0.11
     SET version_winscp=5.17.8
@@ -28,7 +28,12 @@ GOTO END
 
 :EstablishDownloadingSourceAddress
     SET url_double_commander=https://github.com/double-commander/doublecmd/releases/download/%version_double_commander%/DoubleCmd-%version_double_commander_kit%-Win32X64.7z
-    SET url_git=https://github.com/git-for-windows/git/releases/download/v%version_git%%version_git_windows_compilation%/PortableGit-%version_git%-64-bit.7z.exe
+    SET version_git_enhanced=%version_git%
+    IF "%version_git_windows_compilation%"==".windows.2" (
+        SET version_git_enhanced=%version_git%.2
+    )
+    SET git_downloaded_kit=PortableGit-%version_git_enhanced%-64-bit.7z.exe
+    SET url_git=https://github.com/git-for-windows/git/releases/download/v%version_git%%version_git_windows_compilation%/%git_downloaded_kit%
     SET url_notepad_plus_plus=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v%version_notepad_plus_plus%/npp.%version_notepad_plus_plus%.portable.x64.zip
     SET url_peazip=https://github.com/giorgiotani/PeaZip/releases/download/%version_pea_zip%/peazip_portable-%version_pea_zip%.WIN64.zip
     SET url_php=https://windows.php.net/downloads/releases/php-%version_php%-nts-Win32-vc15-x64.zip
@@ -38,6 +43,8 @@ GOTO END
     SET url_python37x_virtualenv=https://bootstrap.pypa.io/virtualenv/%version_python37x_major_minor%/virtualenv.pyz
     SET url_python38x=https://www.python.org/ftp/python/%version_python38x_major_minor_build%/python-%version_python38x_major_minor_build%-embed-amd64.zip
     SET url_python38x_virtualenv=https://bootstrap.pypa.io/virtualenv/%version_python38x_major_minor%/virtualenv.pyz
+    SET url_python39x=https://www.python.org/ftp/python/%version_python39x_major_minor_build%/python-%version_python39x_major_minor_build%-embed-amd64.zip
+    SET url_python39x_virtualenv=https://bootstrap.pypa.io/virtualenv/%version_python39x_major_minor%/virtualenv.pyz
     SET url_tree_size=https://downloads.jam-software.de/treesize_free/TreeSizeFree-Portable.zip
     SET url_vlc=https://download.videolan.org/pub/videolan/vlc/%version_vlc%/win64/vlc-%version_vlc%-win64.zip
     SET url_winscp=https://pilotfiber.dl.sourceforge.net/project/winscp/WinSCP/%version_winscp%/WinSCP-%version_winscp%-Portable.zip
@@ -48,7 +55,7 @@ GOTO END
     SET path_web_applications=C:\www\App\
     SET path_developer_applications=C:\www\AppForDeveloper\
     SET path_developer_applications_double_commander=%path_developer_applications%DoubleCommander\%version_double_commander%-64bit
-    SET path_developer_applications_git=%path_developer_applications%Git\%version_git%-64bit
+    SET path_developer_applications_git=%path_developer_applications%Git\%version_git_enhanced%-64bit
     SET path_developer_applications_notepad_plus_plus=%path_developer_applications%Notepad++\%version_notepad_plus_plus%-64bit
     SET path_developer_applications_peazip=%path_developer_applications%PeaZip\%version_pea_zip%-64bit
     SET path_developer_applications_php=%path_web_applications%PHP\%version_php%-64bit
@@ -57,6 +64,8 @@ GOTO END
     SET path_developer_applications_python37x_modules=%path_developer_applications%Python\%version_python37x_major_minor_build%-modules
     SET path_developer_applications_python38x=%path_developer_applications%Python\%version_python38x_major_minor_build%-64bit
     SET path_developer_applications_python38x_modules=%path_developer_applications%Python\%version_python38x_major_minor_build%-modules
+    SET path_developer_applications_python39x=%path_developer_applications%Python\%version_python39x_major_minor_build%-64bit
+    SET path_developer_applications_python39x_modules=%path_developer_applications%Python\%version_python39x_major_minor_build%-modules
     SET path_developer_applications_tree_size=%path_developer_applications%TreeSize\%version_tree_size%-32bit
     SET path_developer_applications_vlc=%path_developer_applications%VLC\%version_vlc%-64bit
     SET path_developer_applications_winscp=%path_developer_applications%WinSCP\%version_winscp%-64bit
@@ -132,14 +141,14 @@ GOTO END
 :InitiateOrUpdateFrameworkInfrastructure__Git
     CALL :CreateDownloadsFolder
     IF NOT EXIST %path_developer_applications_git%\bin\git.exe (
-        IF NOT EXIST %path_downloads%PortableGit-%version_git%-64-bit.7z.exe (
+        IF NOT EXIST %path_downloads%%git_downloaded_kit% (
             ECHO Will download portable version of Git application for Windows, using PowerShell
-            powershell -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_git%','%path_downloads%PortableGit-%version_git%-64-bit.7z.exe')"
+            powershell -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_git%','%path_downloads%%git_downloaded_kit%')"
         )
-        IF EXIST %path_downloads%PortableGit-%version_git%-64-bit.7z.exe (
+        IF EXIST %path_downloads%%git_downloaded_kit% (
             IF NOT EXIST %path_downloads%PortableGit (
                 ECHO Will extract downloaded kit of Git for Windows to a folder from where it will be used
-                %path_downloads%PortableGit-%version_git%-64-bit.7z.exe -y
+                %path_downloads%%git_downloaded_kit% -y
             )
         )
         IF NOT EXIST %path_developer_applications_git% (
@@ -152,12 +161,12 @@ GOTO END
         IF EXIST %path_downloads%PortableGit (
             RMDIR /Q /S %path_downloads%PortableGit
         )
-        IF EXIST %path_downloads%PortableGit-%version_git%-64-bit.7z.exe (
+        IF EXIST %path_downloads%%git_downloaded_kit% (
             ECHO Will remove/delete portable version of Git application for Windows as no longer needed and occupies space for nothing
-            DEL %path_downloads%PortableGit-%version_git%-64-bit.7z.exe
+            DEL %path_downloads%%git_downloaded_kit%
         )
     )
-    for %%i in (2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1) do (
+    for %%i in (2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2) do (
         IF EXIST "%path_developer_applications%Git\%%i-64bit" (
             ECHO Removing %path_developer_applications%Git\%%i-64bit
             RMDIR /Q /S %path_developer_applications%Git\%%i-64bit
@@ -272,6 +281,17 @@ GOTO END
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseLatest
+    SET path_developer_applications_python=%path_developer_applications_python39x%
+    SET path_developer_applications_python_modules=%path_developer_applications_python39x_modules%
+    SET version_python_major_minor_build=%version_python39x_major_minor_build%
+    SET url_python=%url_python39x%
+    SET url_python_virtualenv=%url_python39x_virtualenv%
+    SET python_compiled_modules_archive=python39.zip
+    CALL :InitiateOrUpdateFrameworkInfrastructure__Python
+    SET applied_virtual_environment_folder=virtual_environment_%version_python39x_major_minor%.x
+GOTO END
+
+:InitiateOrUpdateFrameworkInfrastructure__PythonStableReleasePriorToLatest
     SET path_developer_applications_python=%path_developer_applications_python38x%
     SET path_developer_applications_python_modules=%path_developer_applications_python38x_modules%
     SET version_python_major_minor_build=%version_python38x_major_minor_build%
@@ -279,10 +299,10 @@ GOTO END
     SET url_python_virtualenv=%url_python38x_virtualenv%
     SET python_compiled_modules_archive=python38.zip
     CALL :InitiateOrUpdateFrameworkInfrastructure__Python
-    SET applied_virtual_environment_folder=virtual_environment
+    SET applied_virtual_environment_folder=virtual_environment_%version_python38x_major_minor%.x
 GOTO END
 
-:InitiateOrUpdateFrameworkInfrastructure__PythonStableReleasePriorToLatest
+:InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseTwoMinorVersionsPriorToLatest
     SET path_developer_applications_python=%path_developer_applications_python37x%
     SET path_developer_applications_python_modules=%path_developer_applications_python37x_modules%
     SET version_python_major_minor_build=%version_python37x_major_minor_build%
@@ -290,10 +310,10 @@ GOTO END
     SET url_python_virtualenv=%url_python37x_virtualenv%
     SET python_compiled_modules_archive=python37.zip
     CALL :InitiateOrUpdateFrameworkInfrastructure__Python
-    SET applied_virtual_environment_folder=virtual_environment_3.7.x
+    SET applied_virtual_environment_folder=virtual_environment_%version_python37x_major_minor%.x
 GOTO END
 
-:InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseTwoMinorVersionsPriorToLatest
+:InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseThreeMinorVersionsPriorToLatest
     SET path_developer_applications_python=%path_developer_applications_python36x%
     SET path_developer_applications_python_modules=%path_developer_applications_python36x_modules%
     SET version_python_major_minor_build=%version_python36x_major_minor_build%
@@ -301,7 +321,7 @@ GOTO END
     SET url_python_virtualenv=%url_python36x_virtualenv%
     SET python_compiled_modules_archive=python36.zip
     CALL :InitiateOrUpdateFrameworkInfrastructure__Python
-    SET applied_virtual_environment_folder=virtual_environment_3.6.x
+    SET applied_virtual_environment_folder=virtual_environment_%version_python36x_major_minor%.x
 GOTO END
 
 :SetPythonGlobalVariables
@@ -438,23 +458,24 @@ GOTO END
     ECHO ===========================================================================================================
     ECHO Installation to Perform, released on %this_script_version%
     ECHO ===========================================================================================================
-    ECHO From below list choose desired installation:                                               Network req.
+    ECHO From below list choose desired installation:                               Network req.    Version
     ECHO -----------------------------------------------------------------------------------------------------------
     ECHO Environment supporting applications, to be chosen only on new system or when specified to do so
-    ECHO ig.    Install Git for Windows - versioning engine                                         Internet
-    ECHO ip.    Install Python 3.8.x for Windows - script engine latest GA                          Internet
+    ECHO ig.    Install Git for Windows - versioning engine                         Internet        %version_git%
+    ECHO ip.    Install Python 3.9.x for Windows - script engine latest GA          Internet        %version_python39x_major_minor_build%
     ECHO -----------------------------------------------------------------------------------------------------------
     ECHO Optional software packages available only to certain users, if you see this U R special
-    ECHO id.    Install Double Commander for Windows - file manager                                 Internet
-    ECHO in.    Install Notepad++ - advanced text editor                                            Internet
-    ECHO iz.    Install PeaZip for Windows - archiver                                               Internet
-    ECHO ih.    Install PHP for Windows - script engine                                             Internet
-    ECHO iy.    Install PuTTY for Windows - remote shell                                            Internet
-    ECHO ip36.  Install Python 3.6.x for Windows - script engine legacy                             Internet
-    ECHO ip37.  Install Python 3.7.x for Windows - script engine legacy                             Internet
-    ECHO it.    Install TreeSize - files, folders and drives analyzer                               Internet
-    ECHO iv.    Install VLC - multimedia files player                                               Internet
-    ECHO iw.    Install WinSCP - open source and multiple protocol file handler                     Internet
+    ECHO id.    Install Double Commander for Windows - file manager                 Internet        %version_double_commander%
+    ECHO in.    Install Notepad++ - advanced text editor                            Internet        %version_notepad_plus_plus%
+    ECHO iz.    Install PeaZip for Windows - archiver                               Internet        %version_pea_zip%
+    ECHO ih.    Install PHP for Windows - script engine                             Internet        %version_php%
+    ECHO iy.    Install PuTTY for Windows - remote shell                            Internet        %version_putty%
+    ECHO ip36.  Install Python 3.6.x for Windows - script engine legacy             Internet        %version_python36x_major_minor_build%
+    ECHO ip37.  Install Python 3.7.x for Windows - script engine legacy             Internet        %version_python37x_major_minor_build%
+    ECHO ip38.  Install Python 3.8.x for Windows - script engine legacy             Internet        %version_python38x_major_minor_build%
+    ECHO it.    Install TreeSize - files, folders and drives analyzer               Internet        %version_tree_size%
+    ECHO iv.    Install VLC - multimedia files player                               Internet        %version_vlc%
+    ECHO iw.    Install WinSCP - open source and multiple protocol file handler     Internet        %version_winscp%
     ECHO -----------------------------------------------------------------------------------------------------------
     ECHO z.     Quit
     ECHO -----------------------------------------------------------------------------------------------------------
@@ -475,29 +496,45 @@ GOTO END
     IF "%CHOICE_INSTALL%"=="IZ" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZip ) ELSE (
     IF "%CHOICE_INSTALL%"=="iy" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PuTTY ) ELSE (
     IF "%CHOICE_INSTALL%"=="IY" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PuTTY ) ELSE (
-    IF "%CHOICE_INSTALL%"=="ip" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseLatest ) ELSE (
-    IF "%CHOICE_INSTALL%"=="IP" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseLatest ) ELSE (
-    IF "%CHOICE_INSTALL%"=="ip36" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseTwoMinorVersionsPriorToLatest ) ELSE (
-    IF "%CHOICE_INSTALL%"=="IP36" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseTwoMinorVersionsPriorToLatest ) ELSE (
-    IF "%CHOICE_INSTALL%"=="ip37" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleasePriorToLatest ) ELSE (
-    IF "%CHOICE_INSTALL%"=="IP37" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleasePriorToLatest ) ELSE (
-    IF "%CHOICE_INSTALL%"=="it" ( CALL :InitiateOrUpdateFrameworkInfrastructure__TreeSize ) ELSE (
-    IF "%CHOICE_INSTALL%"=="IT" ( CALL :InitiateOrUpdateFrameworkInfrastructure__TreeSize ) ELSE (
-    IF "%CHOICE_INSTALL%"=="iv" ( CALL :InitiateOrUpdateFrameworkInfrastructure__VLC ) ELSE (
-    IF "%CHOICE_INSTALL%"=="IV" ( CALL :InitiateOrUpdateFrameworkInfrastructure__VLC ) ELSE (
-    IF "%CHOICE_INSTALL%"=="iw" ( CALL :InitiateOrUpdateFrameworkInfrastructure__WinSCP ) ELSE (
-    IF "%CHOICE_INSTALL%"=="IW" ( CALL :InitiateOrUpdateFrameworkInfrastructure__WinSCP ) ELSE (
-        IF "%CHOICE_INSTALL%"=="dbe-c" ( CALL :ConsideredInstallChoice_CreateLocalArchive_DatabaseExtractor ) ELSE (
-        IF "%CHOICE_INSTALL%"=="DBE-C" ( CALL :ConsideredInstallChoice_CreateLocalArchive_DatabaseExtractor ) ELSE (
-        IF "%CHOICE_INSTALL%"=="dbe-p" ( CALL :ConsideredInstallChoice_PublishLocalArchive_DatabaseExtractor ) ELSE (
-        IF "%CHOICE_INSTALL%"=="DBE-P" ( CALL :ConsideredInstallChoice_PublishLocalArchive_DatabaseExtractor ) ELSE (
-        IF "%CHOICE_INSTALL%"=="thm-c" ( CALL :ConsideredInstallChoice_CreateLocalArchive_TableauHyperManagement ) ELSE (
-        IF "%CHOICE_INSTALL%"=="THM-C" ( CALL :ConsideredInstallChoice_CreateLocalArchive_TableauHyperManagement ) ELSE (
-        IF "%CHOICE_INSTALL%"=="thm-p" ( CALL :ConsideredInstallChoice_PublishLocalArchive_TableauHyperManagement ) ELSE (
-        IF "%CHOICE_INSTALL%"=="THM-P" ( CALL :ConsideredInstallChoice_PublishLocalArchive_TableauHyperManagement ) ELSE (
-            IF "%CHOICE_INSTALL%"=="z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
-            IF "%CHOICE_INSTALL%"=="Z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
-                CALL :ConsideredInstallChoice_Invalid
+        IF "%CHOICE_INSTALL%"=="ip" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseLatest ) ELSE (
+        IF "%CHOICE_INSTALL%"=="IP" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseLatest ) ELSE (
+        IF "%CHOICE_INSTALL%"=="ip36" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseThreeMinorVersionsPriorToLatest ) ELSE (
+        IF "%CHOICE_INSTALL%"=="IP36" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseThreeMinorVersionsPriorToLatest ) ELSE (
+        IF "%CHOICE_INSTALL%"=="ip37" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseTwoMinorVersionsPriorToLatest ) ELSE (
+        IF "%CHOICE_INSTALL%"=="IP37" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseTwoMinorVersionsPriorToLatest ) ELSE (
+        IF "%CHOICE_INSTALL%"=="ip38" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleasePriorToLatest ) ELSE (
+        IF "%CHOICE_INSTALL%"=="IP38" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleasePriorToLatest ) ELSE (
+            IF "%CHOICE_INSTALL%"=="it" ( CALL :InitiateOrUpdateFrameworkInfrastructure__TreeSize ) ELSE (
+            IF "%CHOICE_INSTALL%"=="IT" ( CALL :InitiateOrUpdateFrameworkInfrastructure__TreeSize ) ELSE (
+            IF "%CHOICE_INSTALL%"=="iv" ( CALL :InitiateOrUpdateFrameworkInfrastructure__VLC ) ELSE (
+            IF "%CHOICE_INSTALL%"=="IV" ( CALL :InitiateOrUpdateFrameworkInfrastructure__VLC ) ELSE (
+            IF "%CHOICE_INSTALL%"=="iw" ( CALL :InitiateOrUpdateFrameworkInfrastructure__WinSCP ) ELSE (
+            IF "%CHOICE_INSTALL%"=="IW" ( CALL :InitiateOrUpdateFrameworkInfrastructure__WinSCP ) ELSE (
+                IF "%CHOICE_INSTALL%"=="dbe-c" ( CALL :ConsideredInstallChoice_CreateLocalArchive_DatabaseExtractor ) ELSE (
+                IF "%CHOICE_INSTALL%"=="DBE-C" ( CALL :ConsideredInstallChoice_CreateLocalArchive_DatabaseExtractor ) ELSE (
+                IF "%CHOICE_INSTALL%"=="dbe-p" ( CALL :ConsideredInstallChoice_PublishLocalArchive_DatabaseExtractor ) ELSE (
+                IF "%CHOICE_INSTALL%"=="DBE-P" ( CALL :ConsideredInstallChoice_PublishLocalArchive_DatabaseExtractor ) ELSE (
+                IF "%CHOICE_INSTALL%"=="thm-c" ( CALL :ConsideredInstallChoice_CreateLocalArchive_TableauHyperManagement ) ELSE (
+                IF "%CHOICE_INSTALL%"=="THM-C" ( CALL :ConsideredInstallChoice_CreateLocalArchive_TableauHyperManagement ) ELSE (
+                IF "%CHOICE_INSTALL%"=="thm-p" ( CALL :ConsideredInstallChoice_PublishLocalArchive_TableauHyperManagement ) ELSE (
+                IF "%CHOICE_INSTALL%"=="THM-P" ( CALL :ConsideredInstallChoice_PublishLocalArchive_TableauHyperManagement ) ELSE (
+                    IF "%CHOICE_INSTALL%"=="z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
+                    IF "%CHOICE_INSTALL%"=="Z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
+                        CALL :ConsideredInstallChoice_Invalid
+                    )
+                    )
+                )
+                )
+                )
+                )
+                )
+                )
+                )
+                )
+            )
+            )
+            )
+            )
             )
             )
         )
@@ -508,18 +545,6 @@ GOTO END
         )
         )
         )
-    )
-    )
-    )
-    )
-    )
-    )
-    )
-    )
-    )
-    )
-    )
-    )
     )
     )
     )

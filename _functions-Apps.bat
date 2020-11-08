@@ -14,7 +14,7 @@ REM ----------------------------------------------------------------------------
     SET version_php=7.4.12
     SET version_putty=0.74
     SET version_python36x_major_minor=3.6
-    SET version_python36x_major_minor_build=3.6.11
+    SET version_python36x_major_minor_build=3.6.8
     SET version_python37x_major_minor=3.7
     SET version_python37x_major_minor_build=3.7.9
     SET version_python38x_major_minor=3.8

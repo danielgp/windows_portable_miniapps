@@ -24,6 +24,7 @@ REM ----------------------------------------------------------------------------
     SET version_tree_size=4.4.2
     SET version_vlc=3.0.11
     SET version_winscp=5.17.8
+    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:82.0) Gecko/20100101 Firefox/82.0
 GOTO END
 
 :EstablishDownloadingSourceAddress
@@ -44,7 +45,7 @@ GOTO END
     SET url_python38x=https://www.python.org/ftp/python/%version_python38x_major_minor_build%/python-%version_python38x_major_minor_build%-embed-amd64.zip
     SET url_python38x_virtualenv=https://bootstrap.pypa.io/virtualenv/%version_python38x_major_minor%/virtualenv.pyz
     SET url_python39x=https://www.python.org/ftp/python/%version_python39x_major_minor_build%/python-%version_python39x_major_minor_build%-embed-amd64.zip
-    SET url_python39x_virtualenv=https://bootstrap.pypa.io/virtualenv/%version_python39x_major_minor%/virtualenv.pyz
+    SET url_python39x_virtualenv=https://bootstrap.pypa.io/virtualenv/virtualenv.pyz
     SET url_tree_size=https://downloads.jam-software.de/treesize_free/TreeSizeFree-Portable.zip
     SET url_vlc=https://download.videolan.org/pub/videolan/vlc/%version_vlc%/win64/vlc-%version_vlc%-win64.zip
     SET url_winscp=https://pilotfiber.dl.sourceforge.net/project/winscp/WinSCP/%version_winscp%/WinSCP-%version_winscp%-Portable.zip
@@ -79,6 +80,10 @@ REM ----------------------------------------------------------------------------
     SET variable_invalid_install_choice_typed=YES
 GOTO Menu__InstallationsToDo
 
+:ConsideredPythonVirtualEnvironment_Invalid
+    SET variable_invalid_virtual_environment_choice_typed=YES
+GOTO Menu__PythonVirtualEnvironmentInitiationOrUpdate
+
 :CreateDownloadsFolder
     IF NOT EXIST "%path_downloads%" (
         ECHO As the %path_downloads% does not exists, will be created
@@ -95,7 +100,6 @@ GOTO END
     CALL :EstablishVersions
     CALL :EstablishDownloadingSourceAddress
     CALL :EstablishInstallingFolders
-    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101 Firefox/78.0
 GOTO END
 
 :RemoveDownloadsFolderWithAnyContent
@@ -116,6 +120,45 @@ REM End of Project Specific variable initialize
 REM Start of Main Part
 REM ----------------------------------------------------------------------------
 
+:SetPythonGlobalVariables
+    :: IF NOT DEFINED PY_PIP (
+        ECHO Setting global variables for Python %version_python_major_minor_build% ...
+        SET PYTHONHOME=%path_developer_applications_python%
+        SET PYTHONPATH=%path_developer_applications_python%
+        SET PY_PIP=%path_developer_applications_python%\Scripts
+        REM SET PY_LIBS=%path_developer_applications_python%\Lib;%path_developer_applications_python%\Lib\site-packages
+        REM SET PATH="%path_developer_applications_python%;%PY_PIP%;%PY_LIBS%;%PATH%"
+    :: )
+GOTO END
+
+:AdditionalTask_InitiatePythonVirtualEnvironment
+REM https://virtualenv.pypa.io/en/latest/installation.html#via-zipapp
+    REM CALL :SetPythonGlobalVariables
+    IF NOT EXIST "%path_developer_applications_python_modules%\virtualenv.pyz" (
+        IF NOT EXIST %path_developer_applications_python_modules% (
+            ECHO Will crate a new folder named %path_developer_applications_python_modules%
+            MD %path_developer_applications_python_modules%
+        )
+        ECHO Will download Python Virtual Environment module, using PowerShell
+        powershell.exe "$cli=New-Object System.Net.WebClient;$cli.Headers['User-Agent']='%custom_user_agent%';$cli.DownloadFile('%url_python_virtualenv%','%path_developer_applications_python_modules%\virtualenv.pyz');"
+    )
+    IF EXIST "%path_developer_applications_python%\python.exe" (
+        IF EXIST "%path_developer_applications_python_modules%\virtualenv.pyz" (
+            IF NOT EXIST "%CHOICE_PYTHON_PROJECT%\%applied_virtual_environment_folder%\Scripts\python.exe" (
+                CD %CHOICE_PYTHON_PROJECT%
+                ECHO Creating Python Virtual Environment to %CHOICE_PYTHON_PROJECT%\%applied_virtual_environment_folder%
+                REM --extra-search-dir=%path_developer_applications_python%\DLLs --extra-search-dir=%path_developer_applications_python%\Scripts --extra-search-dir=%path_developer_applications_python%\Lib --extra-search-dir=%path_developer_applications_python%\Lib\site-packages
+                REM %path_developer_applications_python%\python.exe %path_developer_applications_python_modules%\virtualenv.pyz --help
+                REM %path_developer_applications_python%\python.exe %path_developer_applications_python_modules%\virtualenv.pyz --version --clear --with-traceback --verbosity=4 --always-copy --extra-search-dir=%path_developer_applications_python%\DLLs --extra-search-dir=%path_developer_applications_python%\Scripts --extra-search-dir=%path_developer_applications_python%\Lib --extra-search-dir=%path_developer_applications_python%\Lib\site-packages %CHOICE_PYTHON_PROJECT%\%applied_virtual_environment_folder%\
+                %path_developer_applications_python%\python.exe %path_developer_applications_python_modules%\virtualenv.pyz --python=%path_developer_applications_python%\python.exe --extra-search-dir=%path_developer_applications_python%\DLLs %applied_virtual_environment_folder%
+                REM ECHO -----------------
+                REM %path_developer_applications_python%\python.exe %path_developer_applications_python_modules%\virtualenv.pyz --help
+            )
+        )
+    )
+    REM %path_developer_applications_python%\python.exe -m virtualenv %applied_virtual_environment_folder%
+GOTO END
+
 :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander
     CALL :CreateDownloadsFolder
     IF NOT EXIST "%path_developer_applications_double_commander%\doublecmd.exe" (
@@ -123,9 +166,7 @@ REM ----------------------------------------------------------------------------
         :: Donwload the archive but only if is not already done
         IF NOT EXIST "%path_downloads%DoubleCmd-%version_double_commander_kit%-Win32X64.7z" (
             ECHO Will download portable version of Double Commander for Windows, using PowerShell
-            ECHO powershell -command "$cli=New-Object System.Net.WebClient;$cli.Headers['User-Agent']='%custom_user_agent%';$cli.DownloadFile('%url_double_commander%','%path_downloads%DoubleCmd-%version_double_commander_kit%-Win32X64.7z');"
-            REM powershell -command "$cli=New-Object System.Net.WebClient;$cli.Headers['User-Agent']='%custom_user_agent%';$cli.DownloadFile('%url_double_commander%','%path_downloads%DoubleCmd-%version_double_commander_kit%-Win32X64.7z')"
-            powershell -command "$cli=New-Object System.Net.WebClient;$cli.Headers['User-Agent']='%custom_user_agent%';$cli.DownloadFile('%url_double_commander%','%path_downloads%DoubleCmd-%version_double_commander_kit%-Win32X64.7z');" > out.log
+            powershell.exe -command "$cli=New-Object System.Net.WebClient;$cli.Headers['User-Agent']='%custom_user_agent%';$cli.DownloadFile('%url_double_commander%','%path_downloads%DoubleCmd-%version_double_commander_kit%-Win32X64.7z');" > out.log
         )
         IF EXIST "%path_downloads%DoubleCmd-%version_double_commander_kit%-Win32X64.7z" (
             IF NOT EXIST "%path_developer_applications_double_commander%" (
@@ -143,7 +184,7 @@ GOTO END
     IF NOT EXIST %path_developer_applications_git%\bin\git.exe (
         IF NOT EXIST %path_downloads%%git_downloaded_kit% (
             ECHO Will download portable version of Git application for Windows, using PowerShell
-            powershell -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_git%','%path_downloads%%git_downloaded_kit%')"
+            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_git%','%path_downloads%%git_downloaded_kit%')"
         )
         IF EXIST %path_downloads%%git_downloaded_kit% (
             IF NOT EXIST %path_downloads%PortableGit (
@@ -181,20 +222,20 @@ GOTO END
         :: Donwload the archive but only if is not already done
         IF NOT EXIST %path_downloads%npp.%version_notepad_plus_plus%.bin.x64.zip (
             ECHO Will download portable version of Notepad++ for Windows, using PowerShell
-            powershell -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_notepad_plus_plus%','%path_downloads%notepad.zip')"
+            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_notepad_plus_plus%','%path_downloads%notepad.zip')"
         )
         IF EXIST %path_downloads%notepad.zip (
             ECHO Will extract downloaded kit to a folder from where it will be used, using PowerShell
             powershell.exe Expand-Archive -Path %path_downloads%notepad.zip -DestinationPath %path_developer_applications_notepad_plus_plus%
         )
     )
-    for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9) do (
+    for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9) do (
         IF EXIST "%path_developer_applications%Notepad++\%%i-64bit" (
             IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\session.xml" (
-                COPY %path_developer_applications%Notepad++\%%i-64bit\session.xml %path_developer_applications_notepad_plus_plus%
+                COPY %path_developer_applications%Notepad++\%%i-64bit\session.xml %path_developer_applications_notepad_plus_plus% /C /R /Y
             )
             IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\config.xml" (
-                COPY %path_developer_applications%Notepad++\%%i-64bit\config.xml %path_developer_applications_notepad_plus_plus%
+                COPY %path_developer_applications%Notepad++\%%i-64bit\config.xml %path_developer_applications_notepad_plus_plus% /C /R /Y
             )
             IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\backup\" (
                 XCOPY "%path_developer_applications%Notepad++\%%i-64bit\backup\" %path_developer_applications_notepad_plus_plus%\backup\ /c /s /r /h /y
@@ -212,7 +253,7 @@ GOTO END
         :: Donwload the archive but only if is not already done
         IF NOT EXIST %path_downloads%peazip_portable-%version_pea_zip%.WIN64.zip (
             ECHO Will download portable version of Peazip for Windows, using PowerShell
-            powershell -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_peazip%','%path_downloads%peazip_portable-%version_pea_zip%.WIN64.zip')"
+            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_peazip%','%path_downloads%peazip_portable-%version_pea_zip%.WIN64.zip')"
         )
         IF EXIST %path_downloads%peazip_portable-%version_pea_zip%.WIN64.zip (
             ECHO Will extract downloaded kit to a folder from where it will be used, using PowerShell
@@ -239,7 +280,7 @@ GOTO END
         :: Donwload the archive but only if is not already done
         IF NOT EXIST %path_downloads%php.zip (
             ECHO Will download portable version of PHP for Windows, using PowerShell
-            powershell -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_php%','%path_downloads%php.zip')"
+            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_php%','%path_downloads%php.zip')"
         )
         IF EXIST %path_downloads%php.zip (
             ECHO Will extract downloaded kit to a folder from where it will be used, using PowerShell
@@ -261,7 +302,7 @@ GOTO END
         :: Donwload the archive but only if is not already done
         IF NOT EXIST %path_downloads%putty.zip (
             ECHO Will download portable version of PuTTY, using PowerShell
-            powershell -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_putty%','%path_downloads%putty.zip')"
+            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_putty%','%path_downloads%putty.zip')"
         )
         IF EXIST %path_downloads%putty.zip (
             IF NOT EXIST %path_developer_applications_putty% (
@@ -274,65 +315,72 @@ GOTO END
     REM CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
-:InitiateOrUpdateFrameworkInfrastructure__PythonWorkingVersion
-    CALL :SetPythonGlobalVariables
-    CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseLatest
-    CALL :SetPythonGlobalVariables
-GOTO END
-
-:InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseLatest
-    SET path_developer_applications_python=%path_developer_applications_python39x%
-    SET path_developer_applications_python_modules=%path_developer_applications_python39x_modules%
-    SET version_python_major_minor_build=%version_python39x_major_minor_build%
-    SET url_python=%url_python39x%
-    SET url_python_virtualenv=%url_python39x_virtualenv%
-    SET python_compiled_modules_archive=python39.zip
-    CALL :InitiateOrUpdateFrameworkInfrastructure__Python
-    SET applied_virtual_environment_folder=virtual_environment_%version_python39x_major_minor%.x
-GOTO END
-
-:InitiateOrUpdateFrameworkInfrastructure__PythonStableReleasePriorToLatest
-    SET path_developer_applications_python=%path_developer_applications_python38x%
-    SET path_developer_applications_python_modules=%path_developer_applications_python38x_modules%
-    SET version_python_major_minor_build=%version_python38x_major_minor_build%
-    SET url_python=%url_python38x%
-    SET url_python_virtualenv=%url_python38x_virtualenv%
-    SET python_compiled_modules_archive=python38.zip
-    CALL :InitiateOrUpdateFrameworkInfrastructure__Python
-    SET applied_virtual_environment_folder=virtual_environment_%version_python38x_major_minor%.x
-GOTO END
-
-:InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseTwoMinorVersionsPriorToLatest
-    SET path_developer_applications_python=%path_developer_applications_python37x%
-    SET path_developer_applications_python_modules=%path_developer_applications_python37x_modules%
-    SET version_python_major_minor_build=%version_python37x_major_minor_build%
-    SET url_python=%url_python37x%
-    SET url_python_virtualenv=%url_python37x_virtualenv%
-    SET python_compiled_modules_archive=python37.zip
-    CALL :InitiateOrUpdateFrameworkInfrastructure__Python
-    SET applied_virtual_environment_folder=virtual_environment_%version_python37x_major_minor%.x
-GOTO END
-
-:InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseThreeMinorVersionsPriorToLatest
+:InitiateOrUpdateFrameworkInfrastructure__Python36x
     SET path_developer_applications_python=%path_developer_applications_python36x%
-    SET path_developer_applications_python_modules=%path_developer_applications_python36x_modules%
     SET version_python_major_minor_build=%version_python36x_major_minor_build%
     SET url_python=%url_python36x%
-    SET url_python_virtualenv=%url_python36x_virtualenv%
     SET python_compiled_modules_archive=python36.zip
     CALL :InitiateOrUpdateFrameworkInfrastructure__Python
-    SET applied_virtual_environment_folder=virtual_environment_%version_python36x_major_minor%.x
 GOTO END
 
-:SetPythonGlobalVariables
-    REM IF NOT DEFINED PY_PIP (
-        REM ECHO Setting global variables for Python %version_python_major_minor_build%
-        SET PYTHONHOME=%path_developer_applications_python%
-        SET PYTHONPATH=%path_developer_applications_python%
-        SET PY_PIP=%path_developer_applications_python%\Scripts
-        SET PY_LIBS=%path_developer_applications_python%\Lib;%path_developer_applications_python%\Lib\site-packages
-        SET PATH="%path_developer_applications_python%;%PY_PIP%;%PY_LIBS%;%PATH%"
-    REM )
+:InitiateOrUpdateFrameworkInfrastructure__Python37x
+    SET path_developer_applications_python=%path_developer_applications_python37x%
+    SET version_python_major_minor_build=%version_python37x_major_minor_build%
+    SET url_python=%url_python37x%
+    SET python_compiled_modules_archive=python37.zip
+    CALL :InitiateOrUpdateFrameworkInfrastructure__Python
+GOTO END
+
+:InitiateOrUpdateFrameworkInfrastructure__Python38x
+    SET path_developer_applications_python=%path_developer_applications_python38x%
+    SET version_python_major_minor_build=%version_python38x_major_minor_build%
+    SET url_python=%url_python38x%
+    SET python_compiled_modules_archive=python38.zip
+    CALL :InitiateOrUpdateFrameworkInfrastructure__Python
+GOTO END
+
+:InitiateOrUpdateFrameworkInfrastructure__Python39x
+    SET path_developer_applications_python=%path_developer_applications_python39x%
+    SET version_python_major_minor_build=%version_python39x_major_minor_build%
+    SET url_python=%url_python39x%
+    SET python_compiled_modules_archive=python39.zip
+    CALL :InitiateOrUpdateFrameworkInfrastructure__Python
+GOTO END
+
+:InitiateOrUpdate__Python36xVirtualEnvironment
+    SET version_python_major_minor_build=%version_python36x_major_minor_build%
+    SET url_python_virtualenv=%url_python36x_virtualenv%
+    SET path_developer_applications_python_modules=%path_developer_applications_python36x_modules%
+    SET path_developer_applications_python=%path_developer_applications_python36x%
+    SET applied_virtual_environment_folder=virtual_environment_%version_python36x_major_minor%.x
+    CALL :AdditionalTask_InitiatePythonVirtualEnvironment
+GOTO END
+
+:InitiateOrUpdate__Python37xVirtualEnvironment
+    SET version_python_major_minor_build=%version_python37x_major_minor_build%
+    SET url_python_virtualenv=%url_python37x_virtualenv%
+    SET path_developer_applications_python_modules=%path_developer_applications_python37x_modules%
+    SET path_developer_applications_python=%path_developer_applications_python37x%
+    SET applied_virtual_environment_folder=virtual_environment_%version_python37x_major_minor%.x
+    CALL :AdditionalTask_InitiatePythonVirtualEnvironment
+GOTO END
+
+:InitiateOrUpdate__Python38xVirtualEnvironment
+    SET version_python_major_minor_build=%version_python38x_major_minor_build%
+    SET url_python_virtualenv=%url_python38x_virtualenv%
+    SET path_developer_applications_python_modules=%path_developer_applications_python38x_modules%
+    SET path_developer_applications_python=%path_developer_applications_python38x%
+    SET applied_virtual_environment_folder=virtual_environment_%version_python38x_major_minor%.x
+    CALL :AdditionalTask_InitiatePythonVirtualEnvironment
+GOTO END
+
+:InitiateOrUpdate__Python39xVirtualEnvironment
+    SET version_python_major_minor_build=%version_python39x_major_minor_build%
+    SET url_python_virtualenv=%url_python39x_virtualenv%
+    SET path_developer_applications_python_modules=%path_developer_applications_python39x_modules%
+    SET path_developer_applications_python=%path_developer_applications_python39x%
+    SET applied_virtual_environment_folder=virtual_environment_%version_python39x_major_minor%.x
+    CALL :AdditionalTask_InitiatePythonVirtualEnvironment
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__Python
@@ -341,7 +389,7 @@ GOTO END
         :: Donwload the archive but only if is not already done
         IF NOT EXIST %path_downloads%python-%version_python_major_minor_build%-embed-amd64.zip (
             ECHO Will download portable version of Python for Windows, using PowerShell
-            powershell -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_python%','%path_downloads%python-%version_python_major_minor_build%-embed-amd64.zip')"
+            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_python%','%path_downloads%python-%version_python_major_minor_build%-embed-amd64.zip')"
         )
         IF EXIST %path_downloads%python-%version_python_major_minor_build%-embed-amd64.zip (
             ECHO Will extract downloaded kit to a folder from where it will be used, using PowerShell
@@ -363,7 +411,7 @@ GOTO END
     IF NOT EXIST "%path_developer_applications_python%\Scripts\pip.exe" (
         IF NOT EXIST "%path_downloads%get-pip.py" (
             ECHO Will download Python Package Manager, using PowerShell
-            powershell "(new-object System.Net.WebClient).DownloadFile('%url_python_pip%','%path_downloads%get-pip.py')"
+            powershell.exe "(new-object System.Net.WebClient).DownloadFile('%url_python_pip%','%path_downloads%get-pip.py')"
         )
         IF EXIST "%path_downloads%get-pip.py" (
             ECHO Initialize Python Package Manager: PIP
@@ -379,7 +427,7 @@ GOTO END
         :: Donwload the archive but only if is not already done
         IF NOT EXIST %path_downloads%TreeSizeFree-Portable.zip (
             ECHO Will download portable version of TreeSize, using PowerShell
-            powershell -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_tree_size%','%path_downloads%TreeSizeFree-Portable.zip')"
+            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_tree_size%','%path_downloads%TreeSizeFree-Portable.zip')"
         )
         IF EXIST %path_downloads%TreeSizeFree-Portable.zip (
             IF NOT EXIST %path_developer_applications_tree_size% (
@@ -402,7 +450,7 @@ GOTO END
         :: Donwload the archive but only if is not already done
         IF NOT EXIST %path_downloads%vlc-64bit-portable.zip (
             ECHO Will download portable version of VLC, using PowerShell
-            powershell -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_vlc%','%path_downloads%vlc-64bit-portable.zip')"
+            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_vlc%','%path_downloads%vlc-64bit-portable.zip')"
         )
         IF EXIST %path_downloads%vlc-64bit-portable.zip (
             IF NOT EXIST %path_downloads%vlc-%version_vlc% (
@@ -432,7 +480,7 @@ GOTO END
         :: Donwload the archive but only if is not already done
         IF NOT EXIST %path_downloads%winscp-portable.zip (
             ECHO Will download portable version of WinSCP, using PowerShell
-            powershell -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_winscp%','%path_downloads%winscp-portable.zip')"
+            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_winscp%','%path_downloads%winscp-portable.zip')"
         )
         IF EXIST %path_downloads%winscp-portable.zip (
             IF NOT EXIST %path_developer_applications_winscp% (
@@ -451,31 +499,102 @@ GOTO END
     REM CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
+:Menu__PythonVirtualEnvironmentInitiationOrUpdate
+    ECHO ===========================================================================================================
+    ECHO Initiate or update Virtual Environment for %CHOICE_PYTHON_PROJECT%
+    ECHO ===========================================================================================================
+    ECHO 36x.   Python 3.6.x Virtual Environment                 Internet        %version_python36x_major_minor_build%
+    ECHO 37x.   Python 3.7.x Virtual Environment                 Internet        %version_python37x_major_minor_build%
+    ECHO 38x.   Python 3.8.x Virtual Environment                 Internet        %version_python38x_major_minor_build%
+    ECHO 39x.   Python 3.9.x Virtual Environment                 Internet        %version_python39x_major_minor_build%
+    ECHO -----------------------------------------------------------------------------------------------------------
+    ECHO x.     Return to Python project specification
+    ECHO y.     Return to Installation to perform menu
+    ECHO z.     Quit
+    ECHO -----------------------------------------------------------------------------------------------------------
+    IF DEFINED variable_invalid_virtual_environment_choice_typed (
+        ECHO !!! YOU REALLY HAVE TO PAY ATTENTION TO AVAILABLE CHOICES !!!
+        ECHO Choice provided [%CHOICE_VIRTUAL_ENVIRONMENT%] is not a valid one... :-(
+    )
+    SET /P CHOICE_VIRTUAL_ENVIRONMENT=Please express your choice now:
+    IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="36x" ( CALL :InitiateOrUpdate__Python36xVirtualEnvironment ) ELSE (
+    IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="36X" ( CALL :InitiateOrUpdate__Python36xVirtualEnvironment ) ELSE (
+    IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="37x" ( CALL :InitiateOrUpdate__Python37xVirtualEnvironment ) ELSE (
+    IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="37X" ( CALL :InitiateOrUpdate__Python37xVirtualEnvironment ) ELSE (
+    IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="38x" ( CALL :InitiateOrUpdate__Python38xVirtualEnvironment ) ELSE (
+    IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="38X" ( CALL :InitiateOrUpdate__Python38xVirtualEnvironment ) ELSE (
+    IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="39x" ( CALL :InitiateOrUpdate__Python39xVirtualEnvironment ) ELSE (
+    IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="39X" ( CALL :InitiateOrUpdate__Python39xVirtualEnvironment ) ELSE (
+        IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="x" ( CALL :Menu__PythonProject ) ELSE (
+        IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="X" ( CALL :Menu__PythonProject ) ELSE (
+            IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="y" ( CALL :Menu__InstallationsToDo ) ELSE (
+            IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="Y" ( CALL :Menu__InstallationsToDo ) ELSE (
+                IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
+                IF "%CHOICE_VIRTUAL_ENVIRONMENT%"=="Z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
+                    CALL :ConsideredPythonVirtualEnvironment_Invalid
+                )
+                )
+            )
+            )
+        )
+        )
+    )
+    )
+    )
+    )
+    )
+    )
+    )
+    )
+GOTO END
+
+:Menu__PythonProject
+    ECHO ===========================================================================================================
+    ECHO Choosing Python Virtual Environment initiation or update for Given Python project
+    ECHO ===========================================================================================================
+    ECHO y.     Return to Installation to perform menu
+    ECHO z.     Quit
+    ECHO -----------------------------------------------------------------------------------------------------------
+    SET /P CHOICE_PYTHON_PROJECT=Type an existing Python project folder where a setup.py exists:
+    IF NOT EXIST "%CHOICE_PYTHON_PROJECT%\setup.py" (
+        ECHO !!! YOU REALLY HAVE TO PROVIDE A PYTHON PROJECT FOLDER CONTAINING A setup.py file in it !!!
+        ECHO Choice provided [%CHOICE_PYTHON_PROJECT%] is not a valid one... :-(
+    )
+    IF EXIST "%CHOICE_PYTHON_PROJECT%\setup.py" ( CALL :Menu__PythonVirtualEnvironmentInitiationOrUpdate ) ELSE (
+        IF "%CHOICE_PYTHON_PROJECT%"=="y" ( CALL :Menu__InstallationsToDo ) ELSE (
+        IF "%CHOICE_PYTHON_PROJECT%"=="Y" ( CALL :Menu__InstallationsToDo ) ELSE (
+            IF "%CHOICE_PYTHON_PROJECT%"=="z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
+                IF "%CHOICE_PYTHON_PROJECT%"=="Z" ( CALL :DecisionToQuitTakeFinalMessage )
+            )
+        )
+        )
+    )
+GOTO END
+
 :Menu__InstallationsToDo
     IF NOT DEFINED CHOICE_INSTALL (
         CLS
     )
     ECHO ===========================================================================================================
-    ECHO Installation to Perform, released on %this_script_version%
+    ECHO Installation to perform, released on %this_script_version%
     ECHO ===========================================================================================================
-    ECHO From below list choose desired installation:                               Network req.    Version
+    ECHO From below list choose desired installation:                       Network req.    Version
     ECHO -----------------------------------------------------------------------------------------------------------
-    ECHO Environment supporting applications, to be chosen only on new system or when specified to do so
-    ECHO ig.    Install Git for Windows - versioning engine                         Internet        %version_git%
-    ECHO ip.    Install Python 3.9.x for Windows - script engine latest GA          Internet        %version_python39x_major_minor_build%
+    ECHO id.    Double Commander for Windows - file manager                 Internet        %version_double_commander%
+    ECHO ig.    Git for Windows - versioning engine                         Internet        %version_git%
+    ECHO in.    Notepad++ - advanced text editor                            Internet        %version_notepad_plus_plus%
+    ECHO iz.    PeaZip for Windows - archiver                               Internet        %version_pea_zip%
+    ECHO ih.    PHP for Windows - script engine                             Internet        %version_php%
+    ECHO iy.    PuTTY for Windows - remote shell                            Internet        %version_putty%
+    ECHO ip36.  Python 3.6.x for Windows - script engine legacy             Internet        %version_python36x_major_minor_build%
+    ECHO ip37.  Python 3.7.x for Windows - script engine legacy             Internet        %version_python37x_major_minor_build%
+    ECHO ip38.  Python 3.8.x for Windows - script engine legacy             Internet        %version_python38x_major_minor_build%
+    ECHO ip39.  Python 3.9.x for Windows - script engine latest GA          Internet        %version_python39x_major_minor_build%
+    ECHO it.    TreeSize - files, folders and drives analyzer               Internet        %version_tree_size%
+    ECHO iv.    VLC - multimedia files player                               Internet        %version_vlc%
+    ECHO iw.    WinSCP - open source and multiple protocol file handler     Internet        %version_winscp%
     ECHO -----------------------------------------------------------------------------------------------------------
-    ECHO Optional software packages available only to certain users, if you see this U R special
-    ECHO id.    Install Double Commander for Windows - file manager                 Internet        %version_double_commander%
-    ECHO in.    Install Notepad++ - advanced text editor                            Internet        %version_notepad_plus_plus%
-    ECHO iz.    Install PeaZip for Windows - archiver                               Internet        %version_pea_zip%
-    ECHO ih.    Install PHP for Windows - script engine                             Internet        %version_php%
-    ECHO iy.    Install PuTTY for Windows - remote shell                            Internet        %version_putty%
-    ECHO ip36.  Install Python 3.6.x for Windows - script engine legacy             Internet        %version_python36x_major_minor_build%
-    ECHO ip37.  Install Python 3.7.x for Windows - script engine legacy             Internet        %version_python37x_major_minor_build%
-    ECHO ip38.  Install Python 3.8.x for Windows - script engine legacy             Internet        %version_python38x_major_minor_build%
-    ECHO it.    Install TreeSize - files, folders and drives analyzer               Internet        %version_tree_size%
-    ECHO iv.    Install VLC - multimedia files player                               Internet        %version_vlc%
-    ECHO iw.    Install WinSCP - open source and multiple protocol file handler     Internet        %version_winscp%
+    ECHO ipve.  Python Virtual Environment initiation or update for Given Python project
     ECHO -----------------------------------------------------------------------------------------------------------
     ECHO z.     Quit
     ECHO -----------------------------------------------------------------------------------------------------------
@@ -496,39 +615,25 @@ GOTO END
     IF "%CHOICE_INSTALL%"=="IZ" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZip ) ELSE (
     IF "%CHOICE_INSTALL%"=="iy" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PuTTY ) ELSE (
     IF "%CHOICE_INSTALL%"=="IY" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PuTTY ) ELSE (
-        IF "%CHOICE_INSTALL%"=="ip" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseLatest ) ELSE (
-        IF "%CHOICE_INSTALL%"=="IP" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseLatest ) ELSE (
-        IF "%CHOICE_INSTALL%"=="ip36" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseThreeMinorVersionsPriorToLatest ) ELSE (
-        IF "%CHOICE_INSTALL%"=="IP36" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseThreeMinorVersionsPriorToLatest ) ELSE (
-        IF "%CHOICE_INSTALL%"=="ip37" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseTwoMinorVersionsPriorToLatest ) ELSE (
-        IF "%CHOICE_INSTALL%"=="IP37" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleaseTwoMinorVersionsPriorToLatest ) ELSE (
-        IF "%CHOICE_INSTALL%"=="ip38" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleasePriorToLatest ) ELSE (
-        IF "%CHOICE_INSTALL%"=="IP38" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PythonStableReleasePriorToLatest ) ELSE (
+        IF "%CHOICE_INSTALL%"=="ip36" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python36x ) ELSE (
+        IF "%CHOICE_INSTALL%"=="IP36" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python36x ) ELSE (
+        IF "%CHOICE_INSTALL%"=="ip37" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python37x ) ELSE (
+        IF "%CHOICE_INSTALL%"=="IP37" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python37x ) ELSE (
+        IF "%CHOICE_INSTALL%"=="ip38" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python38x ) ELSE (
+        IF "%CHOICE_INSTALL%"=="IP38" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python38x ) ELSE (
+        IF "%CHOICE_INSTALL%"=="ip39" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python39x ) ELSE (
+        IF "%CHOICE_INSTALL%"=="IP39" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python39x ) ELSE (
+        IF "%CHOICE_INSTALL%"=="ipve" ( CALL :Menu__PythonProject ) ELSE (
+        IF "%CHOICE_INSTALL%"=="IPVE" ( CALL :Menu__PythonProject ) ELSE (
             IF "%CHOICE_INSTALL%"=="it" ( CALL :InitiateOrUpdateFrameworkInfrastructure__TreeSize ) ELSE (
             IF "%CHOICE_INSTALL%"=="IT" ( CALL :InitiateOrUpdateFrameworkInfrastructure__TreeSize ) ELSE (
             IF "%CHOICE_INSTALL%"=="iv" ( CALL :InitiateOrUpdateFrameworkInfrastructure__VLC ) ELSE (
             IF "%CHOICE_INSTALL%"=="IV" ( CALL :InitiateOrUpdateFrameworkInfrastructure__VLC ) ELSE (
             IF "%CHOICE_INSTALL%"=="iw" ( CALL :InitiateOrUpdateFrameworkInfrastructure__WinSCP ) ELSE (
             IF "%CHOICE_INSTALL%"=="IW" ( CALL :InitiateOrUpdateFrameworkInfrastructure__WinSCP ) ELSE (
-                IF "%CHOICE_INSTALL%"=="dbe-c" ( CALL :ConsideredInstallChoice_CreateLocalArchive_DatabaseExtractor ) ELSE (
-                IF "%CHOICE_INSTALL%"=="DBE-C" ( CALL :ConsideredInstallChoice_CreateLocalArchive_DatabaseExtractor ) ELSE (
-                IF "%CHOICE_INSTALL%"=="dbe-p" ( CALL :ConsideredInstallChoice_PublishLocalArchive_DatabaseExtractor ) ELSE (
-                IF "%CHOICE_INSTALL%"=="DBE-P" ( CALL :ConsideredInstallChoice_PublishLocalArchive_DatabaseExtractor ) ELSE (
-                IF "%CHOICE_INSTALL%"=="thm-c" ( CALL :ConsideredInstallChoice_CreateLocalArchive_TableauHyperManagement ) ELSE (
-                IF "%CHOICE_INSTALL%"=="THM-C" ( CALL :ConsideredInstallChoice_CreateLocalArchive_TableauHyperManagement ) ELSE (
-                IF "%CHOICE_INSTALL%"=="thm-p" ( CALL :ConsideredInstallChoice_PublishLocalArchive_TableauHyperManagement ) ELSE (
-                IF "%CHOICE_INSTALL%"=="THM-P" ( CALL :ConsideredInstallChoice_PublishLocalArchive_TableauHyperManagement ) ELSE (
-                    IF "%CHOICE_INSTALL%"=="z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
-                    IF "%CHOICE_INSTALL%"=="Z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
-                        CALL :ConsideredInstallChoice_Invalid
-                    )
-                    )
-                )
-                )
-                )
-                )
-                )
-                )
+                IF "%CHOICE_INSTALL%"=="z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
+                IF "%CHOICE_INSTALL%"=="Z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
+                    CALL :ConsideredInstallChoice_Invalid
                 )
                 )
             )
@@ -537,6 +642,8 @@ GOTO END
             )
             )
             )
+        )
+        )
         )
         )
         )

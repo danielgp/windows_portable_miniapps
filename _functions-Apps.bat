@@ -5,6 +5,9 @@ REM ----------------------------------------------------------------------------
 REM Versioning
 REM ----------------------------------------------------------------------------
 :EstablishVersions
+    SET this_script_version=0.1.4
+    SET this_script_release_date=2020-11-11
+REM ----------------------------------------------------------------------------
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.29.2
@@ -576,7 +579,7 @@ GOTO END
         CLS
     )
     ECHO ===========================================================================================================
-    ECHO Installation to perform, released on %this_script_version%
+    ECHO Installation to perform, released on %this_script_version% released on date %this_script_release_date% (year-month-day)
     ECHO ===========================================================================================================
     ECHO From below list choose desired installation:                       Network req.    Version
     ECHO -----------------------------------------------------------------------------------------------------------

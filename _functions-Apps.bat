@@ -13,7 +13,7 @@ REM ----------------------------------------------------------------------------
     SET version_git=2.29.2
     SET version_git_windows_compilation=.windows.2
     SET version_notepad_plus_plus=7.9.1
-    SET version_pea_zip=7.4.2
+    SET version_pea_zip=7.5.0
     SET version_php=7.4.12
     SET version_putty=0.74
     SET version_python36x_major_minor=3.6
@@ -107,7 +107,7 @@ GOTO END
 
 :RemoveDownloadsFolderWithAnyContent
     IF EXIST %path_downloads% (
-        RMDIR /Q /S %path_downloads%
+        REM RMDIR /Q /S %path_downloads%
     )
     SET CHOICE_INSTALL=0
 GOTO END
@@ -129,32 +129,35 @@ REM ----------------------------------------------------------------------------
         SET PYTHONHOME=%path_developer_applications_python%
         SET PYTHONPATH=%path_developer_applications_python%
         SET PY_PIP=%path_developer_applications_python%\Scripts
-        REM SET PY_LIBS=%path_developer_applications_python%\Lib;%path_developer_applications_python%\Lib\site-packages
-        REM SET PATH="%path_developer_applications_python%;%PY_PIP%;%PY_LIBS%;%PATH%"
+        SET PY_LIBS=%path_developer_applications_python%\Lib;%path_developer_applications_python%\Lib\site-packages
+        SET PATH="%path_developer_applications_python%;%PY_PIP%;%PY_LIBS%;%PATH%"
     :: )
 GOTO END
 
 :AdditionalTask_InitiatePythonVirtualEnvironment
 REM https://virtualenv.pypa.io/en/latest/installation.html#via-zipapp
-    REM CALL :SetPythonGlobalVariables
     IF NOT EXIST "%path_developer_applications_python_modules%\virtualenv.pyz" (
         IF NOT EXIST %path_developer_applications_python_modules% (
             ECHO Will crate a new folder named %path_developer_applications_python_modules%
             MD %path_developer_applications_python_modules%
+            IF EXIST "%path_developer_applications_python_modules%" (
+                ECHO %path_developer_applications_python_modules% folder has been created
+            )
         )
         ECHO Will download Python Virtual Environment module, using PowerShell
         powershell.exe "$cli=New-Object System.Net.WebClient;$cli.Headers['User-Agent']='%custom_user_agent%';$cli.DownloadFile('%url_python_virtualenv%','%path_developer_applications_python_modules%\virtualenv.pyz');"
     )
+    CALL :SetPythonGlobalVariables
     IF EXIST "%path_developer_applications_python%\python.exe" (
         IF EXIST "%path_developer_applications_python_modules%\virtualenv.pyz" (
             IF NOT EXIST "%CHOICE_PYTHON_PROJECT%\%applied_virtual_environment_folder%\Scripts\python.exe" (
                 CD %CHOICE_PYTHON_PROJECT%
                 ECHO Creating Python Virtual Environment to %CHOICE_PYTHON_PROJECT%\%applied_virtual_environment_folder%
-                REM --extra-search-dir=%path_developer_applications_python%\DLLs --extra-search-dir=%path_developer_applications_python%\Scripts --extra-search-dir=%path_developer_applications_python%\Lib --extra-search-dir=%path_developer_applications_python%\Lib\site-packages
+                ECHO -----------------
                 REM %path_developer_applications_python%\python.exe %path_developer_applications_python_modules%\virtualenv.pyz --help
-                REM %path_developer_applications_python%\python.exe %path_developer_applications_python_modules%\virtualenv.pyz --version --clear --with-traceback --verbosity=4 --always-copy --extra-search-dir=%path_developer_applications_python%\DLLs --extra-search-dir=%path_developer_applications_python%\Scripts --extra-search-dir=%path_developer_applications_python%\Lib --extra-search-dir=%path_developer_applications_python%\Lib\site-packages %CHOICE_PYTHON_PROJECT%\%applied_virtual_environment_folder%\
-                %path_developer_applications_python%\python.exe %path_developer_applications_python_modules%\virtualenv.pyz --python=%path_developer_applications_python%\python.exe --extra-search-dir=%path_developer_applications_python%\DLLs %applied_virtual_environment_folder%
-                REM ECHO -----------------
+                %path_developer_applications_python%\python.exe %path_developer_applications_python_modules%\virtualenv.pyz --verbose --always-copy --python=%path_developer_applications_python%\python.exe --creator builtin --with-traceback --clear --extra-search-dir=%path_developer_applications_python% --extra-search-dir=%path_developer_applications_python%\DLLs --extra-search-dir=%path_developer_applications_python%\Scripts --extra-search-dir=%path_developer_applications_python%\Lib --extra-search-dir=%path_developer_applications_python%\Lib\site-packages %CHOICE_PYTHON_PROJECT%\%applied_virtual_environment_folder%\
+                REM %path_developer_applications_python%\python.exe %path_developer_applications_python_modules%\virtualenv.pyz --python=%path_developer_applications_python%\python.exe --extra-search-dir=%path_developer_applications_python%\DLLs %applied_virtual_environment_folder%
+                ECHO -----------------
                 REM %path_developer_applications_python%\python.exe %path_developer_applications_python_modules%\virtualenv.pyz --help
             )
         )
@@ -179,7 +182,7 @@ GOTO END
             %path_developer_applications_peazip%\res\7z\7z.exe x %path_downloads%DoubleCmd-%version_double_commander_kit%-Win32X64.7z -o%path_developer_applications_double_commander%
         )
     )
-    REM CALL :RemoveDownloadsFolderWithAnyContent
+    CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__Git
@@ -216,7 +219,7 @@ GOTO END
             RMDIR /Q /S %path_developer_applications%Git\%%i-64bit
         )
     )
-    REM CALL :RemoveDownloadsFolderWithAnyContent
+    CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus
@@ -247,7 +250,7 @@ GOTO END
             RMDIR /Q /S %path_developer_applications%Notepad++\%%i-64bit
         )
     )
-    REM CALL :RemoveDownloadsFolderWithAnyContent
+    CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__PeaZip
@@ -268,13 +271,13 @@ GOTO END
             XCOPY %path_downloads%peazip_portable-%version_pea_zip%.WIN64 %path_developer_applications_peazip% /c /s /r /h /y
         )
     )
-    for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1) do (
+    for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2) do (
         IF EXIST "%path_developer_applications%PeaZip\%%i-64bit" (
             ECHO Removing %path_developer_applications%PeaZip\%%i-64bit
             RMDIR /Q /S %path_developer_applications%PeaZip\%%i-64bit
         )
     )
-    REM CALL :RemoveDownloadsFolderWithAnyContent
+    CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__Php
@@ -296,7 +299,7 @@ GOTO END
             RMDIR /Q /S %path_web_applications%PHP\%%i-64bit
         )
     )
-    REM CALL :RemoveDownloadsFolderWithAnyContent
+    CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__PuTTY
@@ -315,7 +318,7 @@ GOTO END
             )
         )
     )
-    REM CALL :RemoveDownloadsFolderWithAnyContent
+    CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__Python36x
@@ -440,11 +443,13 @@ GOTO END
             )
         )
     )
-    SET path_older_version=%path_developer_applications%TreeSize\4.4.0-32bit
-    CALL :RemoveFolderWithOlderVersion
-    SET path_older_version=%path_developer_applications%TreeSize\4.4.1-32bit
-    CALL :RemoveFolderWithOlderVersion
-    REM CALL :RemoveDownloadsFolderWithAnyContent
+    for %%i in (4.4.0 4.4.1) do (
+        IF EXIST %path_developer_applications%TreeSize\%%i-32bit (
+            ECHO Removing %path_developer_applications%TreeSize\%%i-32bit
+            RMDIR /Q /S %path_developer_applications%TreeSize\%%i-32bit
+        )
+    )
+    CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__VLC
@@ -474,7 +479,7 @@ GOTO END
             RMDIR /Q /S %path_developer_applications%VLC\%%i-64bit
         )
     )
-    REM CALL :RemoveDownloadsFolderWithAnyContent
+    CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__WinSCP
@@ -499,7 +504,7 @@ GOTO END
             RMDIR /Q /S %path_developer_applications%WinSCP\%%i-64bit
         )
     )
-    REM CALL :RemoveDownloadsFolderWithAnyContent
+    CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :Menu__PythonVirtualEnvironmentInitiationOrUpdate

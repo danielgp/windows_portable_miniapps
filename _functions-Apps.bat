@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 :EstablishVersions
     SET this_script_version=0.1.4
-    SET this_script_release_date=2020-11-11
+    SET this_script_release_date=2020-11-17
 REM ----------------------------------------------------------------------------
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
@@ -27,7 +27,7 @@ REM ----------------------------------------------------------------------------
     SET version_tree_size=4.4.2
     SET version_vlc=3.0.11
     SET version_winscp=5.17.8
-    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:82.0) Gecko/20100101 Firefox/82.0
+    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0
 GOTO END
 
 :EstablishDownloadingSourceAddress

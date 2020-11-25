@@ -265,10 +265,11 @@ GOTO END
             ECHO Will extract downloaded kit to a folder from where it will be used, using PowerShell
             powershell.exe Expand-Archive -Path %path_downloads%peazip_portable-%version_pea_zip%.WIN64.zip -DestinationPath %path_downloads%
         )
-        IF NOT EXIST %path_developer_applications_peazip% (
+        IF NOT EXIST %path_developer_applications_peazip%peazip.exe (
             MD %path_developer_applications_peazip%
             ECHO Will move files
             XCOPY %path_downloads%peazip_portable-%version_pea_zip%.WIN64 %path_developer_applications_peazip% /c /s /r /h /y
+            RMDIR /Q /S %path_downloads%peazip_portable-%version_pea_zip%.WIN64
         )
     )
     for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2) do (

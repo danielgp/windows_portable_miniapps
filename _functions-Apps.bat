@@ -5,8 +5,8 @@ REM ----------------------------------------------------------------------------
 REM Versioning
 REM ----------------------------------------------------------------------------
 :EstablishVersions
-    SET this_script_version=0.1.4
-    SET this_script_release_date=2020-11-17
+    SET this_script_version=0.1.6
+    SET this_script_release_date=2020-11-25
 REM ----------------------------------------------------------------------------
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
@@ -14,7 +14,8 @@ REM ----------------------------------------------------------------------------
     SET version_git_windows_compilation=.windows.2
     SET version_notepad_plus_plus=7.9.1
     SET version_pea_zip=7.5.0
-    SET version_php=7.4.12
+    SET version_php_74x=7.4.13
+    SET version_php_80x=8.0.0
     SET version_putty=0.74
     SET version_python36x_major_minor=3.6
     SET version_python36x_major_minor_build=3.6.8
@@ -26,7 +27,7 @@ REM ----------------------------------------------------------------------------
     SET version_python39x_major_minor_build=3.9.0
     SET version_tree_size=4.4.2
     SET version_vlc=3.0.11
-    SET version_winscp=5.17.8
+    SET version_winscp=5.17.9
     SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0
 GOTO END
 
@@ -40,7 +41,10 @@ GOTO END
     SET url_git=https://github.com/git-for-windows/git/releases/download/v%version_git%%version_git_windows_compilation%/%git_downloaded_kit%
     SET url_notepad_plus_plus=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v%version_notepad_plus_plus%/npp.%version_notepad_plus_plus%.portable.x64.zip
     SET url_peazip=https://github.com/giorgiotani/PeaZip/releases/download/%version_pea_zip%/peazip_portable-%version_pea_zip%.WIN64.zip
-    SET url_php=https://windows.php.net/downloads/releases/php-%version_php%-nts-Win32-vc15-x64.zip
+    SET url_php_archive_74x=php-%version_php_74x%-nts-Win32-vc15-x64.zip
+    SET url_php_74x=https://windows.php.net/downloads/releases/%url_php_archive_74x%
+    SET url_php_archive_80x=php-%version_php_80x%-nts-Win32-vs16-x64.zip
+    SET url_php_80x=https://windows.php.net/downloads/releases/%url_php_archive_80x%
     SET url_putty=https://the.earth.li/~sgtatham/putty/latest/w64/putty.zip
     SET url_python_pip=https://bootstrap.pypa.io/get-pip.py
     SET url_python37x=https://www.python.org/ftp/python/%version_python37x_major_minor_build%/python-%version_python37x_major_minor_build%-embed-amd64.zip
@@ -62,7 +66,8 @@ GOTO END
     SET path_developer_applications_git=%path_developer_applications%Git\%version_git_enhanced%-64bit
     SET path_developer_applications_notepad_plus_plus=%path_developer_applications%Notepad++\%version_notepad_plus_plus%-64bit
     SET path_developer_applications_peazip=%path_developer_applications%PeaZip\%version_pea_zip%-64bit
-    SET path_developer_applications_php=%path_web_applications%PHP\%version_php%-64bit
+    SET path_developer_applications_php_74x=%path_web_applications%PHP\%version_php_74x%-64bit
+    SET path_developer_applications_php_80x=%path_web_applications%PHP\%version_php_80x%-64bit
     SET path_developer_applications_putty=%path_developer_applications%PuTTY\%version_putty%-64bit
     SET path_developer_applications_python37x=%path_developer_applications%Python\%version_python37x_major_minor_build%-64bit
     SET path_developer_applications_python37x_modules=%path_developer_applications%Python\%version_python37x_major_minor_build%-modules
@@ -90,7 +95,7 @@ GOTO Menu__PythonVirtualEnvironmentInitiationOrUpdate
 :CreateDownloadsFolder
     IF NOT EXIST "%path_downloads%" (
         ECHO As the %path_downloads% does not exists, will be created
-        md "%path_downloads%"
+        MD "%path_downloads%"
     )
 GOTO END
 
@@ -238,10 +243,10 @@ GOTO END
     for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9) do (
         IF EXIST "%path_developer_applications%Notepad++\%%i-64bit" (
             IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\session.xml" (
-                COPY %path_developer_applications%Notepad++\%%i-64bit\session.xml %path_developer_applications_notepad_plus_plus% /C /R /Y
+                COPY /Y %path_developer_applications%Notepad++\%%i-64bit\session.xml %path_developer_applications_notepad_plus_plus%
             )
             IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\config.xml" (
-                COPY %path_developer_applications%Notepad++\%%i-64bit\config.xml %path_developer_applications_notepad_plus_plus% /C /R /Y
+                COPY /Y %path_developer_applications%Notepad++\%%i-64bit\config.xml %path_developer_applications_notepad_plus_plus%
             )
             IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\backup\" (
                 XCOPY "%path_developer_applications%Notepad++\%%i-64bit\backup\" %path_developer_applications_notepad_plus_plus%\backup\ /c /s /r /h /y
@@ -281,23 +286,49 @@ GOTO END
     CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
-:InitiateOrUpdateFrameworkInfrastructure__Php
+:InitiateOrUpdateFrameworkInfrastructure__PhpGeneric
     CALL :CreateDownloadsFolder
     IF NOT EXIST %path_developer_applications_php%\php.exe (
         :: Donwload the archive but only if is not already done
-        IF NOT EXIST %path_downloads%php.zip (
-            ECHO Will download portable version of PHP for Windows, using PowerShell
-            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_php%','%path_downloads%php.zip')"
+        IF NOT EXIST %path_downloads%%url_php_archive% (
+            ECHO Will download portable version of PHP %version_php% for Windows, using PowerShell
+            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_php%','%path_downloads%%url_php_archive%')"
         )
-        IF EXIST %path_downloads%php.zip (
-            ECHO Will extract downloaded kit to a folder from where it will be used, using PowerShell
-            powershell.exe Expand-Archive -Path %path_downloads%php.zip -DestinationPath %path_developer_applications_php%
+        IF EXIST %path_downloads%%url_php_archive% (
+            ECHO Will extract downloaded kit %path_downloads%%url_php_archive% to a folder from where it will be used, using PowerShell
+            powershell.exe Expand-Archive -Path %path_downloads%%url_php_archive% -DestinationPath %path_developer_applications_php%
         )
     )
-    for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11) do (
+GOTO END
+
+:InitiateOrUpdateFrameworkInfrastructure__Php74x
+    SET version_php=%version_php_74x%
+    SET url_php_archive=%url_php_archive_74x%
+    SET url_php=%url_php_74x%
+    SET path_developer_applications_php=%path_developer_applications_php_74x%
+    ECHO ... %path_developer_applications_php% ...
+    CALL :InitiateOrUpdateFrameworkInfrastructure__PhpGeneric
+    IF EXIST %path_developer_applications_php%\php.exe (
+        for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12) do (
+            IF EXIST %path_web_applications%PHP\%%i-64bit (
+                ECHO Removing %path_web_applications%PHP\%%i-64bit
+                RMDIR /Q /S %path_web_applications%PHP\%%i-64bit
+            )
+        )
+    )
+    CALL :RemoveDownloadsFolderWithAnyContent
+GOTO END
+
+:InitiateOrUpdateFrameworkInfrastructure__Php80x
+    SET version_php=%version_php_80x%
+    SET path_developer_applications_php=%path_developer_applications_php_80x%
+    SET url_php_archive=%url_php_archive_80x%
+    SET url_php=%url_php_80x%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__PhpGeneric
+    for %%i in (8.0.0) do (
         IF EXIST %path_web_applications%PHP\%%i-64bit (
-            ECHO Removing %path_web_applications%PHP\%%i-64bit
-            RMDIR /Q /S %path_web_applications%PHP\%%i-64bit
+            REM ECHO Removing %path_web_applications%PHP\%%i-64bit
+            REM RMDIR /Q /S %path_web_applications%PHP\%%i-64bit
         )
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -499,7 +530,7 @@ GOTO END
             )
         )
     )
-    for %%i in (5.17.5 5.17.6 5.17.7) do (
+    for %%i in (5.17.5 5.17.6 5.17.7 5.17.8) do (
         IF EXIST %path_developer_applications%WinSCP\%%i-64bit (
             ECHO Removing %path_developer_applications%WinSCP\%%i-64bit
             RMDIR /Q /S %path_developer_applications%WinSCP\%%i-64bit
@@ -587,21 +618,22 @@ GOTO END
     ECHO ===========================================================================================================
     ECHO Installation to perform, released on %this_script_version% released on date %this_script_release_date% (year-month-day)
     ECHO ===========================================================================================================
-    ECHO From below list choose desired installation:                       Network req.    Version
+    ECHO From below list choose desired installation:                         Network req.  Version
     ECHO -----------------------------------------------------------------------------------------------------------
-    ECHO id.    Double Commander for Windows - file manager                 Internet        %version_double_commander%
-    ECHO ig.    Git for Windows - versioning engine                         Internet        %version_git%
-    ECHO in.    Notepad++ - advanced text editor                            Internet        %version_notepad_plus_plus%
-    ECHO iz.    PeaZip for Windows - archiver                               Internet        %version_pea_zip%
-    ECHO ih.    PHP for Windows - script engine                             Internet        %version_php%
-    ECHO iy.    PuTTY for Windows - remote shell                            Internet        %version_putty%
-    ECHO ip36.  Python 3.6.x for Windows - script engine legacy             Internet        %version_python36x_major_minor_build%
-    ECHO ip37.  Python 3.7.x for Windows - script engine legacy             Internet        %version_python37x_major_minor_build%
-    ECHO ip38.  Python 3.8.x for Windows - script engine legacy             Internet        %version_python38x_major_minor_build%
-    ECHO ip39.  Python 3.9.x for Windows - script engine latest GA          Internet        %version_python39x_major_minor_build%
-    ECHO it.    TreeSize - files, folders and drives analyzer               Internet        %version_tree_size%
-    ECHO iv.    VLC - multimedia files player                               Internet        %version_vlc%
-    ECHO iw.    WinSCP - open source and multiple protocol file handler     Internet        %version_winscp%
+    ECHO id.    Double Commander for Windows    File manager                  Internet      %version_double_commander%
+    ECHO ig.    Git for Windows                 Versioning engine             Internet      %version_git%
+    ECHO in.    Notepad++                       Advanced text editor          Internet      %version_notepad_plus_plus%
+    ECHO iz.    PeaZip for Windows              Archiver                      Internet      %version_pea_zip%
+    ECHO ih74.  PHP 7.4.x for Windows           Script engine                 Internet      %version_php_74x%
+    ECHO ih80.  PHP 8.0.x for Windows           Script engine                 Internet      %version_php_80x%
+    ECHO iy.    PuTTY for Windows               Remote shell                  Internet      %version_putty%
+    ECHO ip36.  Python 3.6.x for Windows        Script engine legacy          Internet      %version_python36x_major_minor_build%
+    ECHO ip37.  Python 3.7.x for Windows        Script engine legacy          Internet      %version_python37x_major_minor_build%
+    ECHO ip38.  Python 3.8.x for Windows        Script engine legacy          Internet      %version_python38x_major_minor_build%
+    ECHO ip39.  Python 3.9.x for Windows        Script engine latest GA       Internet      %version_python39x_major_minor_build%
+    ECHO it.    TreeSize Free for Windows       Files/folders/drives anal.    Internet      %version_tree_size%
+    ECHO iv.    VLC                             Multimedia files player       Internet      %version_vlc%
+    ECHO iw.    WinSCP                          Multiple prot. file handler   Internet      %version_winscp%
     ECHO -----------------------------------------------------------------------------------------------------------
     ECHO ipve.  Python Virtual Environment initiation or update for Given Python project
     ECHO -----------------------------------------------------------------------------------------------------------
@@ -618,8 +650,10 @@ GOTO END
     IF "%CHOICE_INSTALL%"=="IG" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Git ) ELSE (
     IF "%CHOICE_INSTALL%"=="in" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus ) ELSE (
     IF "%CHOICE_INSTALL%"=="IN" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus ) ELSE (
-    IF "%CHOICE_INSTALL%"=="ih" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php ) ELSE (
-    IF "%CHOICE_INSTALL%"=="IH" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php ) ELSE (
+    IF "%CHOICE_INSTALL%"=="ih74" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php74x ) ELSE (
+    IF "%CHOICE_INSTALL%"=="IH74" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php74x ) ELSE (
+    IF "%CHOICE_INSTALL%"=="ih80" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php80x ) ELSE (
+    IF "%CHOICE_INSTALL%"=="IH80" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php80x ) ELSE (
     IF "%CHOICE_INSTALL%"=="iz" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZip ) ELSE (
     IF "%CHOICE_INSTALL%"=="IZ" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZip ) ELSE (
     IF "%CHOICE_INSTALL%"=="iy" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PuTTY ) ELSE (
@@ -661,6 +695,8 @@ GOTO END
         )
         )
         )
+    )
+    )
     )
     )
     )

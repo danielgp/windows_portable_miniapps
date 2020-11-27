@@ -6,11 +6,13 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.1
+    SET this_script_version=0.2.2
     SET this_script_release_date=2020-11-27
 GOTO END
 
 :EstablishApplications
+    SET apache_httpd__application_main_binary=apache.exe
+    SET apache_httpd__application_name=Apache HTTPd for Windows
     SET git__application_main_binary=git-cmd.exe
     SET git__application_name=Git for Windows
     SET notepad_plus_plus__application_main_binary=notepad++.exe
@@ -30,6 +32,7 @@ GOTO END
 GOTO END
 
 :EstablishVersions
+    SET version_apache_httpd=2.4.46
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.29.2
@@ -54,7 +57,14 @@ GOTO END
 GOTO END
 
 :EstablishDownloadingSourceAddress
-    SET url_double_commander=https://github.com/double-commander/doublecmd/releases/download/%version_double_commander%/DoubleCmd-%version_double_commander_kit%-Win32X64.7z
+    SET url_apache_httpd_archive=httpd-%version_apache_httpd%-win64-VS16.zip
+    SET url_apache_httpd_archive_includes_folder=Yes
+    SET url_apache_httpd_archive_included_folder_name=Apache24
+    SET url_apache_httpd=https://www.apachelounge.com/download/VS16/binaries/%url_apache_httpd_archive%
+    SET url_double_commander_archive=DoubleCmd-%version_double_commander_kit%-Win32X64.7z
+    SET url_double_commander_archive_includes_folder=Yes
+    SET url_double_commander_archive_included_folder_name=DoubleCommander
+    SET url_double_commander=https://github.com/double-commander/doublecmd/releases/download/%version_double_commander%/%url_double_commander_archive%
     SET version_git_enhanced=%version_git%
     IF "%version_git_windows_compilation%"==".windows.2" (
         SET version_git_enhanced=%version_git%.2
@@ -102,6 +112,8 @@ GOTO END
     SET path_downloads=C:\www\Downloads\
     SET path_web_applications=C:\www\App\
     SET path_developer_applications=C:\www\AppForDeveloper\
+    SET path_developer_applications__root__apache=Apache
+    SET path_developer_applications_apache_httpd=%path_web_applications%%path_developer_applications__root__apache%\%version_apache_httpd%-64bit
     SET path_developer_applications__root__double_commander=DoubleCommander
     SET path_developer_applications_double_commander=%path_developer_applications%%path_developer_applications__root__double_commander%\%version_double_commander%-64bit
     SET path_developer_applications__root__git=Git
@@ -271,6 +283,24 @@ REM https://virtualenv.pypa.io/en/latest/installation.html#via-zipapp
         )
     )
     REM %path_developer_applications_python%\python.exe -m virtualenv %applied_virtual_environment_folder%
+GOTO END
+
+:InitiateOrUpdateFrameworkInfrastructure__ApacheHTTPd
+    SET application_main_binary=%apache_httpd__application_main_binary%
+    SET application_name=%apache_httpd__application_name%
+    SET path_developer_application_specific=%path_developer_applications_apache_httpd%
+    SET url_application_archive=%url_apache_httpd_archive%
+    SET url_application_archive_includes_folder=%url_apache_httpd_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_apache_httpd_archive_included_folder_name%
+    SET url_application_full=%url_apache_httpd%
+    SET version_application=%version_apache_httpd%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    for %%i in (2.4.43) do (
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_httpd%
+        CALL :RemoveFolderWithOlderVersions
+    )
+    CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander
@@ -648,6 +678,7 @@ GOTO END
     ECHO ===========================================================================================================
     ECHO From below list choose desired installation:                         Network req.  Version
     ECHO -----------------------------------------------------------------------------------------------------------
+    ECHO ia.    Apache HTTPd for Windows        Web server                    Internet      %version_apache_httpd%
     ECHO id.    Double Commander for Windows    File manager                  Internet      %version_double_commander%
     ECHO ig.    Git for Windows                 Versioning engine             Internet      %version_git%
     ECHO in.    Notepad++                       Advanced text editor          Internet      %version_notepad_plus_plus%
@@ -672,6 +703,7 @@ GOTO END
         ECHO Choice provided [%CHOICE_INSTALL%] is not a valid one... :-(
     )
     SET /P CHOICE_INSTALL=Please express your choice now:
+    IF /I "%CHOICE_INSTALL%"=="ia" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheHTTPd ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="id" ( CALL :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ig" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Git ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="in" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus ) ELSE (
@@ -698,6 +730,7 @@ GOTO END
         )
         )
         )
+    )
     )
     )
     )

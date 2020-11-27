@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.4
+    SET this_script_version=0.2.5
     SET this_script_release_date=2020-11-27
 GOTO END
 
@@ -21,6 +21,8 @@ GOTO END
     SET apache_mod_log_rotate__application_name=Mod Log Rotate for Apache
     SET apache_mod_security__application_main_binary=mod_security2.so
     SET apache_mod_security__application_name=Mod Security for Apache
+    SET apache_tomcat__application_main_binary=bin\tomcat9.exe
+    SET apache_tomcat__application_name=Apache Tomcat for Windows
     SET double_commander__application_main_binary=doublecmd.exe
     SET double_commander__application_name=Double Commander for Windows
     SET git__application_main_binary=git-cmd.exe
@@ -47,6 +49,7 @@ GOTO END
     SET version_apache_mod_fcgid=2.3.10
     SET version_apache_mod_log_rotate=1.0.2
     SET version_apache_mod_security=2.9.3
+    SET version_apache_tomcat=9.0.40
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.29.2
@@ -87,6 +90,10 @@ GOTO END
     SET url_apache_mod_security_archive=mod_security-%version_apache_mod_security%-win64-VS16.zip
     SET url_apache_mod_security_archive_includes_folder=No
     SET url_apache_mod_security=https://www.apachelounge.com/download/VS16/modules/%url_apache_mod_security_archive%
+    SET url_apache_tomcat_archive=apache-tomcat-%version_apache_tomcat%-windows-x64.zip
+    SET url_apache_tomcat_archive_includes_folder=Yes
+    SET url_apache_tomcat_archive_included_folder_name=apache-tomcat-%version_apache_tomcat%
+    SET url_apache_tomcat=https://mirrors.hostingromania.ro/apache.org/tomcat/tomcat-9/v%version_apache_tomcat%/bin/%url_apache_tomcat_archive%
     SET url_double_commander_archive=DoubleCmd-%version_double_commander_kit%-Win32X64.7z
     SET url_double_commander_archive_includes_folder=No
     SET url_double_commander=https://github.com/double-commander/doublecmd/releases/download/%version_double_commander%/%url_double_commander_archive%
@@ -137,8 +144,8 @@ GOTO END
     SET path_downloads=C:\www\Downloads\
     SET path_web_applications=C:\www\App\
     SET path_developer_applications=C:\www\AppForDeveloper\
-    SET path_developer_applications__root__apache=Apache_HTTPd
-    SET path_developer_applications_apache_httpd=%path_web_applications%%path_developer_applications__root__apache%\%version_apache_httpd%-64bit
+    SET path_developer_applications__root__apache_httpd=Apache_HTTPd
+    SET path_developer_applications_apache_httpd=%path_web_applications%%path_developer_applications__root__apache_httpd%\%version_apache_httpd%-64bit
     SET path_developer_applications__root__apache_mod_evasive=Apache_Module_Evasive
     SET path_developer_applications_apache_mod_evasive=%path_web_applications%%path_developer_applications__root__apache_mod_evasive%\%version_apache_mod_evasive%-64bit
     SET path_developer_applications__root__apache_mod_fcgid=Apache_Module_FCGId
@@ -147,6 +154,8 @@ GOTO END
     SET path_developer_applications_apache_mod_log_rotate=%path_web_applications%%path_developer_applications__root__apache_mod_log_rotate%\%version_apache_mod_log_rotate%-64bit
     SET path_developer_applications__root__apache_mod_security=Apache_Module_Security
     SET path_developer_applications_apache_mod_security=%path_web_applications%%path_developer_applications__root__apache_mod_security%\%version_apache_mod_security%-64bit
+    SET path_developer_applications__root__apache_tomcat=Apache_Tomcat
+    SET path_developer_applications_apache_tomcat=%path_web_applications%%path_developer_applications__root__apache_tomcat%\%version_apache_tomcat%-64bit
     SET path_developer_applications__root__double_commander=DoubleCommander
     SET path_developer_applications_double_commander=%path_developer_applications%%path_developer_applications__root__double_commander%\%version_double_commander%-64bit
     SET path_developer_applications__root__git=Git
@@ -407,6 +416,24 @@ GOTO Menu__InstallationsToDo
     for %%i in (2.9.1 2.9.2) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_mod_security%
+        CALL :RemoveFolderWithOlderVersions
+    )
+    CALL :RemoveDownloadsFolderWithAnyContent
+GOTO Menu__InstallationsToDo
+
+:InitiateOrUpdateFrameworkInfrastructure__ApacheTomcat
+    SET application_main_binary=%apache_tomcat__application_main_binary%
+    SET application_name=%apache_tomcat__application_name%
+    SET path_developer_application_specific=%path_developer_applications_apache_tomcat%
+    SET url_application_archive=%url_apache_tomcat_archive%
+    SET url_application_archive_includes_folder=%url_apache_tomcat_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_apache_tomcat_archive_included_folder_name%
+    SET url_application_full=%url_apache_tomcat%
+    SET version_application=%version_apache_tomcat%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    for %%i in (9.0.38 9.0.39) do (
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_tomcat%
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -781,11 +808,12 @@ GOTO END
     ECHO ===========================================================================================================
     ECHO From below list choose desired installation:                         Network req.  Version
     ECHO -----------------------------------------------------------------------------------------------------------
-    ECHO ia.    Apache HTTPd for Windows        Web server                    Internet      %version_apache_httpd%
+    ECHO iah.   Apache HTTPd for Windows        Web server HTML               Internet      %version_apache_httpd%
     ECHO iame.  Mod Evasive for Apache HTTPd    Web DDoS protector            Internet      %version_apache_mod_evasive%
     ECHO iamf.  Mod FCGId for Apache HTTPd      Web FastCGI module            Internet      %version_apache_mod_fcgid%
     ECHO iamlr. Mod Log Rotate for Apache HTTPd Web Log Rotate module         Internet      %version_apache_mod_log_rotate%
     ECHO iams.  Mod Security for Apache HTTPd   Web Security module           Internet      %version_apache_mod_security%
+    ECHO iat.   Apache Tomcat for Windows       Web server Java               Internet      %version_apache_tomcat%
     ECHO id.    Double Commander for Windows    File manager                  Internet      %version_double_commander%
     ECHO ig.    Git for Windows                 Versioning engine             Internet      %version_git%
     ECHO in.    Notepad++                       Advanced text editor          Internet      %version_notepad_plus_plus%
@@ -810,11 +838,12 @@ GOTO END
         ECHO Choice provided [%CHOICE_INSTALL%] is not a valid one... :-(
     )
     SET /P CHOICE_INSTALL=Please express your choice now:
-    IF /I "%CHOICE_INSTALL%"=="ia" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheHTTPd ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="iah" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheHTTPd ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="iame" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheModEvasive ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="iamf" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheModFcgid ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="iamlr" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheModLogRotate ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="iams" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheModSecurity ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="iat" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheTomcat ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="id" ( CALL :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ig" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Git ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="in" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus ) ELSE (
@@ -841,6 +870,7 @@ GOTO END
         )
         )
         )
+    )
     )
     )
     )

@@ -6,13 +6,15 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.2
+    SET this_script_version=0.2.3
     SET this_script_release_date=2020-11-27
 GOTO END
 
 :EstablishApplications
     SET apache_httpd__application_main_binary=apache.exe
     SET apache_httpd__application_name=Apache HTTPd for Windows
+    SET double_commander__application_main_binary=doublecmd.exe
+    SET double_commander__application_name=Double Commander for Windows
     SET git__application_main_binary=git-cmd.exe
     SET git__application_name=Git for Windows
     SET notepad_plus_plus__application_main_binary=notepad++.exe
@@ -62,8 +64,7 @@ GOTO END
     SET url_apache_httpd_archive_included_folder_name=Apache24
     SET url_apache_httpd=https://www.apachelounge.com/download/VS16/binaries/%url_apache_httpd_archive%
     SET url_double_commander_archive=DoubleCmd-%version_double_commander_kit%-Win32X64.7z
-    SET url_double_commander_archive_includes_folder=Yes
-    SET url_double_commander_archive_included_folder_name=DoubleCommander
+    SET url_double_commander_archive_includes_folder=No
     SET url_double_commander=https://github.com/double-commander/doublecmd/releases/download/%version_double_commander%/%url_double_commander_archive%
     SET version_git_enhanced=%version_git%
     IF "%version_git_windows_compilation%"==".windows.2" (
@@ -213,8 +214,12 @@ GOTO END
                     )
                 )
             )
+            IF /I "%url_application_archive:~-3%"==".7z" (
+                CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZip
+                ECHO Will extract downloaded kit %path_downloads%%url_application_archive% to a folder from where it will reside for user to enjoy, using PowerShell
+                %path_developer_applications_peazip%\res\7z\7z.exe x %path_downloads%%url_application_archive% -o%path_developer_application_specific%
+            )
             IF /I "%url_application_archive:~-4%"==".zip" (
-                ECHO It is a ZIP
                 IF "%url_application_archive_includes_folder%"=="No" (
                     ECHO Will extract downloaded kit %path_downloads%%url_application_archive% to a folder from where it will reside for user to enjoy, using PowerShell
                     powershell.exe Expand-Archive -Path %path_downloads%%url_application_archive% -DestinationPath %path_developer_application_specific%
@@ -304,21 +309,19 @@ GOTO END
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander
-    CALL :CreateDownloadsFolder
-    IF NOT EXIST "%path_developer_applications_double_commander%\doublecmd.exe" (
-        CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZip
-        :: Donwload the archive but only if is not already done
-        IF NOT EXIST "%path_downloads%DoubleCmd-%version_double_commander_kit%-Win32X64.7z" (
-            ECHO Will download portable version of Double Commander for Windows, using PowerShell
-            powershell.exe -command "$cli=New-Object System.Net.WebClient;$cli.Headers['User-Agent']='%custom_user_agent%';$cli.DownloadFile('%url_double_commander%','%path_downloads%DoubleCmd-%version_double_commander_kit%-Win32X64.7z');" > out.log
-        )
-        IF EXIST "%path_downloads%DoubleCmd-%version_double_commander_kit%-Win32X64.7z" (
-            IF NOT EXIST "%path_developer_applications_double_commander%" (
-                MD %path_developer_applications_double_commander%
-            )
-            ECHO Will extract downloaded kit to a folder from where it will be used, using PowerShell
-            %path_developer_applications_peazip%\res\7z\7z.exe x %path_downloads%DoubleCmd-%version_double_commander_kit%-Win32X64.7z -o%path_developer_applications_double_commander%
-        )
+    SET application_main_binary=%double_commander__application_main_binary%
+    SET application_name=%double_commander__application_name%
+    SET path_developer_application_specific=%path_developer_applications_double_commander%
+    SET url_application_archive=%url_double_commander_archive%
+    SET url_application_archive_includes_folder=%url_double_commander_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_double_commander_archive_included_folder_name%
+    SET url_application_full=%url_double_commander%
+    SET version_application=%version_double_commander%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    for %%i in (1.0.9375) do (
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__git%
+        CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END

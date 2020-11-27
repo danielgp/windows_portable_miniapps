@@ -6,11 +6,13 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.0
+    SET this_script_version=0.2.1
     SET this_script_release_date=2020-11-27
 GOTO END
 
 :EstablishApplications
+    SET git__application_main_binary=git-cmd.exe
+    SET git__application_name=Git for Windows
     SET notepad_plus_plus__application_main_binary=notepad++.exe
     SET notepad_plus_plus__application_name=Notepad++ for Windows
     SET peazip__application_main_binary=pea.exe
@@ -57,8 +59,10 @@ GOTO END
     IF "%version_git_windows_compilation%"==".windows.2" (
         SET version_git_enhanced=%version_git%.2
     )
-    SET git_downloaded_kit=PortableGit-%version_git_enhanced%-64-bit.7z.exe
-    SET url_git=https://github.com/git-for-windows/git/releases/download/v%version_git%%version_git_windows_compilation%/%git_downloaded_kit%
+    SET url_git_archive=PortableGit-%version_git_enhanced%-64-bit.7z.exe
+    SET url_git_archive_includes_folder=Yes
+    SET url_git_archive_included_folder_name=PortableGit
+    SET url_git=https://github.com/git-for-windows/git/releases/download/v%version_git%%version_git_windows_compilation%/%url_git_archive%
     SET url_notepad_plus_plus_archive=npp.%version_notepad_plus_plus%.portable.x64.zip
     SET url_notepad_plus_plus_archive_includes_folder=No
     SET url_notepad_plus_plus=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v%version_notepad_plus_plus%/%url_notepad_plus_plus_archive%
@@ -185,14 +189,18 @@ GOTO END
             SET url_application_archive_format=undecided
             SET url_application_archive_extension_detected=%url_application_archive%
             ECHO Extension of the archive %url_application_archive% is %url_application_archive:~-4% so will be treated accordingly
-            IF /I "%url_application_archive_extension_detected%"==".7z" ( SET url_application_archive_format=7Z )
             IF NOT EXIST "%path_developer_application_specific%" (
                 ECHO As destination folder %path_developer_application_specific% does not exists, it will be created now
                 MD %path_developer_application_specific%
             )
-            REM IF %url_application_archive_format%="7Z" (
-                REM Work In Progress
-            REM )
+            IF /I "%url_application_archive:~-7%"==".7z.exe" (
+                IF EXIST %path_downloads%%url_application_archive% (
+                    IF NOT EXIST %path_downloads%%url_application_archive_included_folder_name% (
+                        ECHO Will extract downloaded kit %url_application_archive% to a intermediary destination folder, using PowerShell
+                        %path_downloads%%url_application_archive% -y
+                    )
+                )
+            )
             IF /I "%url_application_archive:~-4%"==".zip" (
                 ECHO It is a ZIP
                 IF "%url_application_archive_includes_folder%"=="No" (
@@ -201,15 +209,17 @@ GOTO END
                 )
                 IF "%url_application_archive_includes_folder%"=="Yes" (
                     IF EXIST "%path_downloads%%url_application_archive%" (
-                        ECHO Will extract downloaded kit to a intermediary destination folder, using PowerShell
+                        ECHO Will extract downloaded kit %url_application_archive% to a intermediary destination folder, using PowerShell
                         powershell.exe Expand-Archive -Path %path_downloads%%url_application_archive% -DestinationPath %path_downloads%
-                        IF NOT EXIST %path_developer_application_specific%\%application_main_binary% (
-                            ECHO Will move files from intermediary destination folder, %url_application_archive_included_folder_name% to final destination %path_developer_application_specific%
-                            XCOPY %path_downloads%%url_application_archive_included_folder_name% %path_developer_application_specific% /c /s /r /h /y
-                            ECHO Will delete all files from intermediary destination folder, %url_application_archive_included_folder_name%
-                            RMDIR /Q /S %path_downloads%%url_application_archive_included_folder_name%
-                        )
                     )
+                )
+            )
+            IF "%url_application_archive_includes_folder%"=="Yes" (
+                IF NOT EXIST %path_developer_application_specific%\%application_main_binary% (
+                    ECHO Will move files from intermediary destination folder, %url_application_archive_included_folder_name% to final destination %path_developer_application_specific%
+                    XCOPY %path_downloads%%url_application_archive_included_folder_name% %path_developer_application_specific% /c /s /r /h /y
+                    ECHO Will delete all files from intermediary destination folder, %url_application_archive_included_folder_name%
+                    RMDIR /Q /S %path_downloads%%url_application_archive_included_folder_name%
                 )
             )
         )
@@ -284,33 +294,15 @@ GOTO END
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__Git
-    CALL :CreateDownloadsFolder
-    IF NOT EXIST %path_developer_applications_git%\bin\git.exe (
-        IF NOT EXIST %path_downloads%%git_downloaded_kit% (
-            ECHO Will download portable version of Git application for Windows, using PowerShell
-            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_git%','%path_downloads%%git_downloaded_kit%')"
-        )
-        IF EXIST %path_downloads%%git_downloaded_kit% (
-            IF NOT EXIST %path_downloads%PortableGit (
-                ECHO Will extract downloaded kit of Git for Windows to a folder from where it will be used
-                %path_downloads%%git_downloaded_kit% -y
-            )
-        )
-        IF NOT EXIST %path_developer_applications_git% (
-            MD %path_developer_applications_git%
-            ECHO Will move files
-            XCOPY %path_downloads%PortableGit %path_developer_applications_git% /c /s /r /h /y
-        )
-    )
-    IF EXIST %path_developer_applications_git%\bin\git.exe (
-        IF EXIST %path_downloads%PortableGit (
-            RMDIR /Q /S %path_downloads%PortableGit
-        )
-        IF EXIST %path_downloads%%git_downloaded_kit% (
-            ECHO Will remove/delete portable version of Git application for Windows as no longer needed and occupies space for nothing
-            DEL %path_downloads%%git_downloaded_kit%
-        )
-    )
+    SET application_main_binary=%git__application_main_binary%
+    SET application_name=%git__application_name%
+    SET path_developer_application_specific=%path_developer_applications_git%
+    SET url_application_archive=%url_git_archive%
+    SET url_application_archive_includes_folder=%url_git_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_git_archive_included_folder_name%
+    SET url_application_full=%url_git%
+    SET version_application=%version_git%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     for %%i in (2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__git%

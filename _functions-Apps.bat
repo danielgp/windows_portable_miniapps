@@ -6,13 +6,21 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.3
+    SET this_script_version=0.2.4
     SET this_script_release_date=2020-11-27
 GOTO END
 
 :EstablishApplications
     SET apache_httpd__application_main_binary=apache.exe
     SET apache_httpd__application_name=Apache HTTPd for Windows
+    SET apache_mod_evasive__application_main_binary=mod_evasive.so
+    SET apache_mod_evasive__application_name=Mod Evasive for Apache
+    SET apache_mod_fcgid__application_main_binary=mod_fcgid.so
+    SET apache_mod_fcgid__application_name=Mod FCGId for Apache
+    SET apache_mod_log_rotate__application_main_binary=mod_log_rotate.so
+    SET apache_mod_log_rotate__application_name=Mod Log Rotate for Apache
+    SET apache_mod_security__application_main_binary=mod_security2.so
+    SET apache_mod_security__application_name=Mod Security for Apache
     SET double_commander__application_main_binary=doublecmd.exe
     SET double_commander__application_name=Double Commander for Windows
     SET git__application_main_binary=git-cmd.exe
@@ -35,6 +43,10 @@ GOTO END
 
 :EstablishVersions
     SET version_apache_httpd=2.4.46
+    SET version_apache_mod_evasive=2.2.0
+    SET version_apache_mod_fcgid=2.3.10
+    SET version_apache_mod_log_rotate=1.0.2
+    SET version_apache_mod_security=2.9.3
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.29.2
@@ -63,6 +75,18 @@ GOTO END
     SET url_apache_httpd_archive_includes_folder=Yes
     SET url_apache_httpd_archive_included_folder_name=Apache24
     SET url_apache_httpd=https://www.apachelounge.com/download/VS16/binaries/%url_apache_httpd_archive%
+    SET url_apache_mod_evasive_archive=mod_evasive-%version_apache_mod_evasive%-win64-VS16.zip
+    SET url_apache_mod_evasive_archive_includes_folder=No
+    SET url_apache_mod_evasive=https://www.apachelounge.com/download/VS16/modules/%url_apache_mod_evasive_archive%
+    SET url_apache_mod_fcgid_archive=mod_fcgid-%version_apache_mod_fcgid%-win64-VS16.zip
+    SET url_apache_mod_fcgid_archive_includes_folder=No
+    SET url_apache_mod_fcgid=https://www.apachelounge.com/download/VS16/modules/%url_apache_mod_evasive_archive%
+    SET url_apache_mod_log_rotate_archive=mod_log_rotate-%version_apache_mod_log_rotate%-win64-VS16.zip
+    SET url_apache_mod_log_rotate_archive_includes_folder=No
+    SET url_apache_mod_log_rotate=https://www.apachelounge.com/download/VS16/modules/%url_apache_mod_log_rotate_archive%
+    SET url_apache_mod_security_archive=mod_security-%version_apache_mod_security%-win64-VS16.zip
+    SET url_apache_mod_security_archive_includes_folder=No
+    SET url_apache_mod_security=https://www.apachelounge.com/download/VS16/modules/%url_apache_mod_security_archive%
     SET url_double_commander_archive=DoubleCmd-%version_double_commander_kit%-Win32X64.7z
     SET url_double_commander_archive_includes_folder=No
     SET url_double_commander=https://github.com/double-commander/doublecmd/releases/download/%version_double_commander%/%url_double_commander_archive%
@@ -113,8 +137,16 @@ GOTO END
     SET path_downloads=C:\www\Downloads\
     SET path_web_applications=C:\www\App\
     SET path_developer_applications=C:\www\AppForDeveloper\
-    SET path_developer_applications__root__apache=Apache
+    SET path_developer_applications__root__apache=Apache_HTTPd
     SET path_developer_applications_apache_httpd=%path_web_applications%%path_developer_applications__root__apache%\%version_apache_httpd%-64bit
+    SET path_developer_applications__root__apache_mod_evasive=Apache_Module_Evasive
+    SET path_developer_applications_apache_mod_evasive=%path_web_applications%%path_developer_applications__root__apache_mod_evasive%\%version_apache_mod_evasive%-64bit
+    SET path_developer_applications__root__apache_mod_fcgid=Apache_Module_FCGId
+    SET path_developer_applications_apache_mod_fcgid=%path_web_applications%%path_developer_applications__root__apache_mod_fcgid%\%version_apache_mod_fcgid%-64bit
+    SET path_developer_applications__root__apache_mod_log_rotate=Apache_Module_Log_Rotate
+    SET path_developer_applications_apache_mod_log_rotate=%path_web_applications%%path_developer_applications__root__apache_mod_log_rotate%\%version_apache_mod_log_rotate%-64bit
+    SET path_developer_applications__root__apache_mod_security=Apache_Module_Security
+    SET path_developer_applications_apache_mod_security=%path_web_applications%%path_developer_applications__root__apache_mod_security%\%version_apache_mod_security%-64bit
     SET path_developer_applications__root__double_commander=DoubleCommander
     SET path_developer_applications_double_commander=%path_developer_applications%%path_developer_applications__root__double_commander%\%version_double_commander%-64bit
     SET path_developer_applications__root__git=Git
@@ -300,13 +332,85 @@ GOTO END
     SET url_application_full=%url_apache_httpd%
     SET version_application=%version_apache_httpd%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    for %%i in (2.4.43) do (
+    for %%i in (2.2.43) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_httpd%
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
-GOTO END
+GOTO Menu__InstallationsToDo
+
+:InitiateOrUpdateFrameworkInfrastructure__ApacheModEvasive
+    SET application_main_binary=%apache_mod_evasive__application_main_binary%
+    SET application_name=%apache_mod_evasive__application_name%
+    SET path_developer_application_specific=%path_developer_applications_apache_mod_evasive%
+    SET url_application_archive=%url_apache_mod_evasive_archive%
+    SET url_application_archive_includes_folder=%url_apache_mod_evasive_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_apache_mod_evasive_archive_included_folder_name%
+    SET url_application_full=%url_apache_mod_evasive%
+    SET version_application=%version_apache_mod_evasive%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    for %%i in (2.1.0) do (
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_mod_evasive%
+        CALL :RemoveFolderWithOlderVersions
+    )
+    CALL :RemoveDownloadsFolderWithAnyContent
+GOTO Menu__InstallationsToDo
+
+:InitiateOrUpdateFrameworkInfrastructure__ApacheModFCGId
+    SET application_main_binary=%apache_mod_fcgid__application_main_binary%
+    SET application_name=%apache_mod_fcgid__application_name%
+    SET path_developer_application_specific=%path_developer_applications_apache_mod_fcgid%
+    SET url_application_archive=%url_apache_mod_fcgid_archive%
+    SET url_application_archive_includes_folder=%url_apache_mod_fcgid_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_apache_mod_fcgid_archive_included_folder_name%
+    SET url_application_full=%url_apache_mod_fcgid%
+    SET version_application=%version_apache_mod_fcgid%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    for %%i in (2.3.9) do (
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_mod_fcgid%
+        CALL :RemoveFolderWithOlderVersions
+    )
+    CALL :RemoveDownloadsFolderWithAnyContent
+GOTO Menu__InstallationsToDo
+
+:InitiateOrUpdateFrameworkInfrastructure__ApacheModLogRotate
+    SET application_main_binary=%apache_mod_log_rotate__application_main_binary%
+    SET application_name=%apache_mod_log_rotate__application_name%
+    SET path_developer_application_specific=%path_developer_applications_apache_mod_log_rotate%
+    SET url_application_archive=%url_apache_mod_log_rotate_archive%
+    SET url_application_archive_includes_folder=%url_apache_mod_log_rotate_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_apache_mod_log_rotate_archive_included_folder_name%
+    SET url_application_full=%url_apache_mod_log_rotate%
+    SET version_application=%version_apache_mod_log_rotate%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    for %%i in (1.0.0 1.0.1) do (
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_mod_log_rotate%
+        CALL :RemoveFolderWithOlderVersions
+    )
+    CALL :RemoveDownloadsFolderWithAnyContent
+GOTO Menu__InstallationsToDo
+
+:InitiateOrUpdateFrameworkInfrastructure__ApacheModSecurity
+    SET application_main_binary=%apache_mod_security__application_main_binary%
+    SET application_name=%apache_mod_security__application_name%
+    SET path_developer_application_specific=%path_developer_applications_apache_mod_security%
+    SET url_application_archive=%url_apache_mod_security_archive%
+    SET url_application_archive_includes_folder=%url_apache_mod_security_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_apache_mod_security_archive_included_folder_name%
+    SET url_application_full=%url_apache_mod_security%
+    SET version_application=%version_apache_mod_security%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    for %%i in (2.9.1 2.9.2) do (
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_mod_security%
+        CALL :RemoveFolderWithOlderVersions
+    )
+    CALL :RemoveDownloadsFolderWithAnyContent
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander
     SET application_main_binary=%double_commander__application_main_binary%
@@ -324,7 +428,7 @@ GOTO END
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__Git
     SET application_main_binary=%git__application_main_binary%
@@ -342,7 +446,7 @@ GOTO END
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus
     SET application_main_binary=%notepad_plus_plus__application_main_binary%
@@ -369,7 +473,7 @@ GOTO END
         )
     )
     CALL :RemoveDownloadsFolderWithAnyContent
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__PeaZip
     SET application_main_binary=%peazip__application_main_binary%
@@ -440,7 +544,7 @@ GOTO Menu__InstallationsToDo
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__Python36x
     SET path_developer_applications_python=%path_developer_applications_python36x%
@@ -448,7 +552,7 @@ GOTO END
     SET url_python=%url_python36x%
     SET python_compiled_modules_archive=python36.zip
     CALL :InitiateOrUpdateFrameworkInfrastructure__Python
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__Python37x
     SET path_developer_applications_python=%path_developer_applications_python37x%
@@ -456,7 +560,7 @@ GOTO END
     SET url_python=%url_python37x%
     SET python_compiled_modules_archive=python37.zip
     CALL :InitiateOrUpdateFrameworkInfrastructure__Python
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__Python38x
     SET path_developer_applications_python=%path_developer_applications_python38x%
@@ -464,7 +568,7 @@ GOTO END
     SET url_python=%url_python38x%
     SET python_compiled_modules_archive=python38.zip
     CALL :InitiateOrUpdateFrameworkInfrastructure__Python
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__Python39x
     SET path_developer_applications_python=%path_developer_applications_python39x%
@@ -472,7 +576,7 @@ GOTO END
     SET url_python=%url_python39x%
     SET python_compiled_modules_archive=python39.zip
     CALL :InitiateOrUpdateFrameworkInfrastructure__Python
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdate__Python36xVirtualEnvironment
     SET version_python_major_minor_build=%version_python36x_major_minor_build%
@@ -546,7 +650,7 @@ GOTO END
         )
     )
     CALL :RemoveDownloadsFolderWithAnyContent
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__TreeSize
     SET application_main_binary=%treesize__application_main_binary%
@@ -581,7 +685,7 @@ GOTO END
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__WinSCP
     SET application_main_binary=%winscp__application_main_binary%
@@ -598,7 +702,7 @@ GOTO END
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :Menu__PythonVirtualEnvironmentInitiationOrUpdate
     ECHO ===========================================================================================================
@@ -662,12 +766,8 @@ GOTO END
         ECHO Choice provided [%CHOICE_PYTHON_PROJECT%] is not a valid one... :-(
     )
     IF EXIST "%CHOICE_PYTHON_PROJECT%\setup.py" ( CALL :Menu__PythonVirtualEnvironmentInitiationOrUpdate ) ELSE (
-        IF "%CHOICE_PYTHON_PROJECT%"=="y" ( CALL :Menu__InstallationsToDo ) ELSE (
-        IF "%CHOICE_PYTHON_PROJECT%"=="Y" ( CALL :Menu__InstallationsToDo ) ELSE (
-            IF "%CHOICE_PYTHON_PROJECT%"=="z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
-                IF "%CHOICE_PYTHON_PROJECT%"=="Z" ( CALL :DecisionToQuitTakeFinalMessage )
-            )
-        )
+        IF /I "%CHOICE_PYTHON_PROJECT%"=="y" ( CALL :Menu__InstallationsToDo ) ELSE (
+            IF /I "%CHOICE_PYTHON_PROJECT%"=="z" ( CALL :DecisionToQuitTakeFinalMessage )
         )
     )
 GOTO END
@@ -682,6 +782,10 @@ GOTO END
     ECHO From below list choose desired installation:                         Network req.  Version
     ECHO -----------------------------------------------------------------------------------------------------------
     ECHO ia.    Apache HTTPd for Windows        Web server                    Internet      %version_apache_httpd%
+    ECHO iame.  Mod Evasive for Apache HTTPd    Web DDoS protector            Internet      %version_apache_mod_evasive%
+    ECHO iamf.  Mod FCGId for Apache HTTPd      Web FastCGI module            Internet      %version_apache_mod_fcgid%
+    ECHO iamlr. Mod Log Rotate for Apache HTTPd Web Log Rotate module         Internet      %version_apache_mod_log_rotate%
+    ECHO iams.  Mod Security for Apache HTTPd   Web Security module           Internet      %version_apache_mod_security%
     ECHO id.    Double Commander for Windows    File manager                  Internet      %version_double_commander%
     ECHO ig.    Git for Windows                 Versioning engine             Internet      %version_git%
     ECHO in.    Notepad++                       Advanced text editor          Internet      %version_notepad_plus_plus%
@@ -707,6 +811,10 @@ GOTO END
     )
     SET /P CHOICE_INSTALL=Please express your choice now:
     IF /I "%CHOICE_INSTALL%"=="ia" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheHTTPd ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="iame" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheModEvasive ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="iamf" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheModFcgid ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="iamlr" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheModLogRotate ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="iams" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheModSecurity ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="id" ( CALL :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ig" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Git ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="in" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus ) ELSE (
@@ -733,6 +841,10 @@ GOTO END
         )
         )
         )
+    )
+    )
+    )
+    )
     )
     )
     )

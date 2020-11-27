@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.5
+    SET this_script_version=0.2.6
     SET this_script_release_date=2020-11-27
 GOTO END
 
@@ -27,6 +27,8 @@ GOTO END
     SET double_commander__application_name=Double Commander for Windows
     SET git__application_main_binary=git-cmd.exe
     SET git__application_name=Git for Windows
+    SET jdk__application_main_binary=bin\java.exe
+    SET jdk__application_name=Java Development Kit for Windows
     SET notepad_plus_plus__application_main_binary=notepad++.exe
     SET notepad_plus_plus__application_name=Notepad++ for Windows
     SET peazip__application_main_binary=pea.exe
@@ -54,6 +56,7 @@ GOTO END
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.29.2
     SET version_git_windows_compilation=.windows.2
+    SET version_jdk=15.0.1
     SET version_notepad_plus_plus=7.9.1
     SET version_pea_zip=7.5.0
     SET version_php_74x=7.4.13
@@ -105,6 +108,10 @@ GOTO END
     SET url_git_archive_includes_folder=Yes
     SET url_git_archive_included_folder_name=PortableGit
     SET url_git=https://github.com/git-for-windows/git/releases/download/v%version_git%%version_git_windows_compilation%/%url_git_archive%
+    SET url_jdk_archive=openjdk-%version_jdk%_windows-x64_bin.zip
+    SET url_jdk_archive_includes_folder=Yes
+    SET url_jdk_archive_included_folder_name=jdk-%version_jdk%
+    SET url_jdk=https://download.java.net/java/GA/jdk%version_jdk%/51f4f36ad4ef43e39d0dfdbaf6549e32/9/GPL/%url_jdk_archive%
     SET url_notepad_plus_plus_archive=npp.%version_notepad_plus_plus%.portable.x64.zip
     SET url_notepad_plus_plus_archive_includes_folder=No
     SET url_notepad_plus_plus=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v%version_notepad_plus_plus%/%url_notepad_plus_plus_archive%
@@ -160,6 +167,8 @@ GOTO END
     SET path_developer_applications_double_commander=%path_developer_applications%%path_developer_applications__root__double_commander%\%version_double_commander%-64bit
     SET path_developer_applications__root__git=Git
     SET path_developer_applications_git=%path_developer_applications%%path_developer_applications__root__git%\%version_git_enhanced%-64bit
+    SET path_developer_applications__root__jdk=Java_Development_Kit
+    SET path_developer_applications_jdk=%path_web_applications%%path_developer_applications__root__jdk%\%version_jdk%-64bit
     SET path_developer_applications__root__notepad_plus_plus=Notepad++
     SET path_developer_applications_notepad_plus_plus=%path_developer_applications%%path_developer_applications__root__notepad_plus_plus%\%version_notepad_plus_plus%-64bit
     SET path_developer_applications__root__peazip=PeaZip
@@ -470,6 +479,24 @@ GOTO Menu__InstallationsToDo
     for %%i in (2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__git%
+        CALL :RemoveFolderWithOlderVersions
+    )
+    CALL :RemoveDownloadsFolderWithAnyContent
+GOTO Menu__InstallationsToDo
+
+:InitiateOrUpdateFrameworkInfrastructure__JDK
+    SET application_main_binary=%jdk__application_main_binary%
+    SET application_name=%jdk__application_name%
+    SET path_developer_application_specific=%path_developer_applications_jdk%
+    SET url_application_archive=%url_jdk_archive%
+    SET url_application_archive_includes_folder=%url_jdk_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_jdk_archive_included_folder_name%
+    SET url_application_full=%url_jdk%
+    SET version_application=%version_jdk%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    for %%i in (15.0.0) do (
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__jdk%
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -816,6 +843,7 @@ GOTO END
     ECHO iat.   Apache Tomcat for Windows       Web server Java               Internet      %version_apache_tomcat%
     ECHO id.    Double Commander for Windows    File manager                  Internet      %version_double_commander%
     ECHO ig.    Git for Windows                 Versioning engine             Internet      %version_git%
+    ECHO ij.    Java Development Kit for Win.   Multi-platform engine         Internet      %version_jdk%
     ECHO in.    Notepad++                       Advanced text editor          Internet      %version_notepad_plus_plus%
     ECHO iz.    PeaZip for Windows              Archiver                      Internet      %version_pea_zip%
     ECHO ih74.  PHP 7.4.x for Windows           Script engine                 Internet      %version_php_74x%
@@ -846,6 +874,7 @@ GOTO END
     IF /I "%CHOICE_INSTALL%"=="iat" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheTomcat ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="id" ( CALL :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ig" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Git ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="ij" ( CALL :InitiateOrUpdateFrameworkInfrastructure__JDK ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="in" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ih74" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php74x ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ih80" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php80x ) ELSE (
@@ -870,6 +899,7 @@ GOTO END
         )
         )
         )
+    )
     )
     )
     )

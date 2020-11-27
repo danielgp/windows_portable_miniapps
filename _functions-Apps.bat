@@ -4,10 +4,30 @@ GOTO END
 REM ----------------------------------------------------------------------------
 REM Versioning
 REM ----------------------------------------------------------------------------
+
+:EstablishThisScriptVersionDetails
+    SET this_script_version=0.2.0
+    SET this_script_release_date=2020-11-27
+GOTO END
+
+:EstablishApplications
+    SET notepad_plus_plus__application_main_binary=notepad++.exe
+    SET notepad_plus_plus__application_name=Notepad++ for Windows
+    SET peazip__application_main_binary=pea.exe
+    SET peazip__application_name=PeaZip for Windows
+    SET php__application_main_binary=php.exe
+    SET php__application_name=PHP for Windows
+    SET putty__application_main_binary=putty.exe
+    SET putty__application_name=PuTTY for Windows
+    SET treesize__application_main_binary=treesize.exe
+    SET treesize__application_name=TreeSizeFree for Windows
+    SET vlc__application_main_binary=vlc.exe
+    SET vlc__application_name=VLC for Windows
+    SET winscp__application_main_binary=winscp.exe
+    SET winscp__application_name=WinSCP for Windows
+GOTO END
+
 :EstablishVersions
-    SET this_script_version=0.1.6
-    SET this_script_release_date=2020-11-25
-REM ----------------------------------------------------------------------------
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.29.2
@@ -25,7 +45,7 @@ REM ----------------------------------------------------------------------------
     SET version_python38x_major_minor_build=3.8.6
     SET version_python39x_major_minor=3.9
     SET version_python39x_major_minor_build=3.9.0
-    SET version_tree_size=4.4.2
+    SET version_treesize=4.4.2
     SET version_vlc=3.0.11
     SET version_winscp=5.17.9
     SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0
@@ -39,13 +59,22 @@ GOTO END
     )
     SET git_downloaded_kit=PortableGit-%version_git_enhanced%-64-bit.7z.exe
     SET url_git=https://github.com/git-for-windows/git/releases/download/v%version_git%%version_git_windows_compilation%/%git_downloaded_kit%
-    SET url_notepad_plus_plus=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v%version_notepad_plus_plus%/npp.%version_notepad_plus_plus%.portable.x64.zip
-    SET url_peazip=https://github.com/giorgiotani/PeaZip/releases/download/%version_pea_zip%/peazip_portable-%version_pea_zip%.WIN64.zip
+    SET url_notepad_plus_plus_archive=npp.%version_notepad_plus_plus%.portable.x64.zip
+    SET url_notepad_plus_plus_archive_includes_folder=No
+    SET url_notepad_plus_plus=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v%version_notepad_plus_plus%/%url_notepad_plus_plus_archive%
+    SET url_peazip_archive=peazip_portable-%version_pea_zip%.WIN64.zip
+    SET url_peazip_archive_includes_folder=Yes
+    SET url_peazip_archive_included_folder_name=peazip_portable-%version_pea_zip%.WIN64
+    SET url_peazip=https://github.com/giorgiotani/PeaZip/releases/download/%version_pea_zip%/%url_peazip_archive%
     SET url_php_archive_74x=php-%version_php_74x%-nts-Win32-vc15-x64.zip
+    SET url_php_archive_74x_includes_folder=No
     SET url_php_74x=https://windows.php.net/downloads/releases/%url_php_archive_74x%
     SET url_php_archive_80x=php-%version_php_80x%-nts-Win32-vs16-x64.zip
+    SET url_php_archive_80x_includes_folder=No
     SET url_php_80x=https://windows.php.net/downloads/releases/%url_php_archive_80x%
-    SET url_putty=https://the.earth.li/~sgtatham/putty/latest/w64/putty.zip
+    SET url_putty_archive=putty.zip
+    SET url_putty_archive_includes_folder=No
+    SET url_putty=https://the.earth.li/~sgtatham/putty/latest/w64/%url_putty_archive%
     SET url_python_pip=https://bootstrap.pypa.io/get-pip.py
     SET url_python37x=https://www.python.org/ftp/python/%version_python37x_major_minor_build%/python-%version_python37x_major_minor_build%-embed-amd64.zip
     SET url_python37x_virtualenv=https://bootstrap.pypa.io/virtualenv/%version_python37x_major_minor%/virtualenv.pyz
@@ -53,31 +82,48 @@ GOTO END
     SET url_python38x_virtualenv=https://bootstrap.pypa.io/virtualenv/%version_python38x_major_minor%/virtualenv.pyz
     SET url_python39x=https://www.python.org/ftp/python/%version_python39x_major_minor_build%/python-%version_python39x_major_minor_build%-embed-amd64.zip
     SET url_python39x_virtualenv=https://bootstrap.pypa.io/virtualenv/virtualenv.pyz
-    SET url_tree_size=https://downloads.jam-software.de/treesize_free/TreeSizeFree-Portable.zip
-    SET url_vlc=https://download.videolan.org/pub/videolan/vlc/%version_vlc%/win64/vlc-%version_vlc%-win64.zip
-    SET url_winscp=https://pilotfiber.dl.sourceforge.net/project/winscp/WinSCP/%version_winscp%/WinSCP-%version_winscp%-Portable.zip
+    SET url_treesize_archive=TreeSizeFree-Portable.zip
+    SET url_treesize_archive_includes_folder=No
+    SET url_treesize=https://downloads.jam-software.de/treesize_free/%url_treesize_archive%
+    SET url_vlc_archive=vlc-%version_vlc%-win64.zip
+    SET url_vlc_archive_includes_folder=Yes
+    SET url_vlc_archive_included_folder_name=vlc-%version_vlc%
+    SET url_vlc=https://download.videolan.org/pub/videolan/vlc/%version_vlc%/win64/%url_vlc_archive%
+    SET url_winscp_archive=WinSCP-%version_winscp%-Portable.zip
+    SET url_winscp_archive_includes_folder=No
+    SET url_winscp=https://pilotfiber.dl.sourceforge.net/project/winscp/WinSCP/%version_winscp%/%url_winscp_archive%
 GOTO END
 
 :EstablishInstallingFolders
     SET path_downloads=C:\www\Downloads\
     SET path_web_applications=C:\www\App\
     SET path_developer_applications=C:\www\AppForDeveloper\
-    SET path_developer_applications_double_commander=%path_developer_applications%DoubleCommander\%version_double_commander%-64bit
-    SET path_developer_applications_git=%path_developer_applications%Git\%version_git_enhanced%-64bit
-    SET path_developer_applications_notepad_plus_plus=%path_developer_applications%Notepad++\%version_notepad_plus_plus%-64bit
-    SET path_developer_applications_peazip=%path_developer_applications%PeaZip\%version_pea_zip%-64bit
-    SET path_developer_applications_php_74x=%path_web_applications%PHP\%version_php_74x%-64bit
-    SET path_developer_applications_php_80x=%path_web_applications%PHP\%version_php_80x%-64bit
-    SET path_developer_applications_putty=%path_developer_applications%PuTTY\%version_putty%-64bit
-    SET path_developer_applications_python37x=%path_developer_applications%Python\%version_python37x_major_minor_build%-64bit
-    SET path_developer_applications_python37x_modules=%path_developer_applications%Python\%version_python37x_major_minor_build%-modules
-    SET path_developer_applications_python38x=%path_developer_applications%Python\%version_python38x_major_minor_build%-64bit
-    SET path_developer_applications_python38x_modules=%path_developer_applications%Python\%version_python38x_major_minor_build%-modules
-    SET path_developer_applications_python39x=%path_developer_applications%Python\%version_python39x_major_minor_build%-64bit
-    SET path_developer_applications_python39x_modules=%path_developer_applications%Python\%version_python39x_major_minor_build%-modules
-    SET path_developer_applications_tree_size=%path_developer_applications%TreeSize\%version_tree_size%-32bit
-    SET path_developer_applications_vlc=%path_developer_applications%VLC\%version_vlc%-64bit
-    SET path_developer_applications_winscp=%path_developer_applications%WinSCP\%version_winscp%-64bit
+    SET path_developer_applications__root__double_commander=DoubleCommander
+    SET path_developer_applications_double_commander=%path_developer_applications%%path_developer_applications__root__double_commander%\%version_double_commander%-64bit
+    SET path_developer_applications__root__git=Git
+    SET path_developer_applications_git=%path_developer_applications%%path_developer_applications__root__git%\%version_git_enhanced%-64bit
+    SET path_developer_applications__root__notepad_plus_plus=Notepad++
+    SET path_developer_applications_notepad_plus_plus=%path_developer_applications%%path_developer_applications__root__notepad_plus_plus%\%version_notepad_plus_plus%-64bit
+    SET path_developer_applications__root__peazip=PeaZip
+    SET path_developer_applications_peazip=%path_developer_applications%%path_developer_applications__root__peazip%\%version_pea_zip%-64bit
+    SET path_developer_applications__root__php=PHP
+    SET path_developer_applications_php_74x=%path_web_applications%%path_developer_applications__root__php%\%version_php_74x%-64bit
+    SET path_developer_applications_php_80x=%path_web_applications%%path_developer_applications__root__php%\%version_php_80x%-64bit
+    SET path_developer_applications__root__putty=PuTTY
+    SET path_developer_applications_putty=%path_developer_applications%%path_developer_applications__root__putty%\%version_putty%-64bit
+    SET path_developer_applications__root__python=Python
+    SET path_developer_applications_python37x=%path_developer_applications%%path_developer_applications__root__python%\%version_python37x_major_minor_build%-64bit
+    SET path_developer_applications_python37x_modules=%path_developer_applications%%path_developer_applications__root__python%\%version_python37x_major_minor_build%-modules
+    SET path_developer_applications_python38x=%path_developer_applications%%path_developer_applications__root__python%\%version_python38x_major_minor_build%-64bit
+    SET path_developer_applications_python38x_modules=%path_developer_applications%%path_developer_applications__root__python%\%version_python38x_major_minor_build%-modules
+    SET path_developer_applications_python39x=%path_developer_applications%%path_developer_applications__root__python%\%version_python39x_major_minor_build%-64bit
+    SET path_developer_applications_python39x_modules=%path_developer_applications%%path_developer_applications__root__python%\%version_python39x_major_minor_build%-modules
+    SET path_developer_applications__root__treesize=TreeSize
+    SET path_developer_applications_treesize=%path_developer_applications%%path_developer_applications__root__treesize%\%version_treesize%-32bit
+    SET path_developer_applications__root__vlc=VLC
+    SET path_developer_applications_vlc=%path_developer_applications%%path_developer_applications__root__vlc%\%version_vlc%-64bit
+    SET path_developer_applications__root__winscp=WinSCP
+    SET path_developer_applications_winscp=%path_developer_applications%%path_developer_applications__root__winscp%\%version_winscp%-64bit
 GOTO END
 
 REM ----------------------------------------------------------------------------
@@ -105,6 +151,8 @@ GOTO END
 GOTO END
 
 :InitiateGlobalVariablesForInstallation
+    CALL :EstablishThisScriptVersionDetails
+    CALL :EstablishApplications
     CALL :EstablishVersions
     CALL :EstablishDownloadingSourceAddress
     CALL :EstablishInstallingFolders
@@ -117,9 +165,54 @@ GOTO END
     SET CHOICE_INSTALL=0
 GOTO END
 
-:RemoveFolderWithOlderVersion
-    IF EXIST %path_older_version% (
-        RMDIR /Q /S %path_older_version%
+:RemoveFolderWithOlderVersions
+    IF EXIST %generic_application_folder%\%exact_version_folder% (
+        ECHO Removing %generic_application_folder%\%exact_version_folder%
+        RMDIR /Q /S %generic_application_folder%\%exact_version_folder%
+    )
+GOTO END
+
+:InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    CALL :CreateDownloadsFolder
+    :: Check if main binary of application is already in place
+    IF NOT EXIST "%path_developer_application_specific%\%application_main_binary%" (
+        :: Donwload the archive but only if is not already in place
+        IF NOT EXIST %path_downloads%%url_application_archive% (
+            ECHO Will download portable version of %application_name%, version %version_application%, using PowerShell, as this action implies a active download this may take a while, more or less depending on your bandwith and Internet workload at this time, set back and be patient
+            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_application_full%','%path_downloads%%url_application_archive%')"
+        )
+        IF EXIST "%path_downloads%%url_application_archive%" (
+            SET url_application_archive_format=undecided
+            SET url_application_archive_extension_detected=%url_application_archive%
+            ECHO Extension of the archive %url_application_archive% is %url_application_archive:~-4% so will be treated accordingly
+            IF /I "%url_application_archive_extension_detected%"==".7z" ( SET url_application_archive_format=7Z )
+            IF NOT EXIST "%path_developer_application_specific%" (
+                ECHO As destination folder %path_developer_application_specific% does not exists, it will be created now
+                MD %path_developer_application_specific%
+            )
+            REM IF %url_application_archive_format%="7Z" (
+                REM Work In Progress
+            REM )
+            IF /I "%url_application_archive:~-4%"==".zip" (
+                ECHO It is a ZIP
+                IF "%url_application_archive_includes_folder%"=="No" (
+                    ECHO Will extract downloaded kit %path_downloads%%url_application_archive% to a folder from where it will reside for user to enjoy, using PowerShell
+                    powershell.exe Expand-Archive -Path %path_downloads%%url_application_archive% -DestinationPath %path_developer_application_specific%
+                )
+                IF "%url_application_archive_includes_folder%"=="Yes" (
+                    IF EXIST "%path_downloads%%url_application_archive%" (
+                        ECHO Will extract downloaded kit to a intermediary destination folder, using PowerShell
+                        powershell.exe Expand-Archive -Path %path_downloads%%url_application_archive% -DestinationPath %path_downloads%
+                        IF NOT EXIST %path_developer_application_specific%\%application_main_binary% (
+                            ECHO Will move files from intermediary destination folder, %url_application_archive_included_folder_name% to final destination %path_developer_application_specific%
+                            XCOPY %path_downloads%%url_application_archive_included_folder_name% %path_developer_application_specific% /c /s /r /h /y
+                            ECHO Will delete all files from intermediary destination folder, %url_application_archive_included_folder_name%
+                            RMDIR /Q /S %path_downloads%%url_application_archive_included_folder_name%
+                        )
+                    )
+                )
+            )
+        )
     )
 GOTO END
 
@@ -219,136 +312,107 @@ GOTO END
         )
     )
     for %%i in (2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2) do (
-        IF EXIST "%path_developer_applications%Git\%%i-64bit" (
-            ECHO Removing %path_developer_applications%Git\%%i-64bit
-            RMDIR /Q /S %path_developer_applications%Git\%%i-64bit
-        )
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__git%
+        CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus
-    CALL :CreateDownloadsFolder
-    IF NOT EXIST %path_developer_applications_notepad_plus_plus%\notepad++.exe (
-        :: Donwload the archive but only if is not already done
-        IF NOT EXIST %path_downloads%npp.%version_notepad_plus_plus%.bin.x64.zip (
-            ECHO Will download portable version of Notepad++ for Windows, using PowerShell
-            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_notepad_plus_plus%','%path_downloads%notepad.zip')"
-        )
-        IF EXIST %path_downloads%notepad.zip (
-            ECHO Will extract downloaded kit to a folder from where it will be used, using PowerShell
-            powershell.exe Expand-Archive -Path %path_downloads%notepad.zip -DestinationPath %path_developer_applications_notepad_plus_plus%
-        )
-    )
+    SET application_main_binary=%notepad_plus_plus__application_main_binary%
+    SET application_name=%notepad_plus_plus__application_name%
+    SET path_developer_application_specific=%path_developer_applications_notepad_plus_plus%
+    SET url_application_archive=%url_notepad_plus_plus_archive%
+    SET url_application_archive_includes_folder=%url_notepad_plus_plus_archive_includes_folder%
+    SET url_application_full=%url_notepad_plus_plus%
+    SET version_application=%version_notepad_plus_plus%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9) do (
         IF EXIST "%path_developer_applications%Notepad++\%%i-64bit" (
-            IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\session.xml" (
-                COPY /Y %path_developer_applications%Notepad++\%%i-64bit\session.xml %path_developer_applications_notepad_plus_plus%
-            )
-            IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\config.xml" (
-                COPY /Y %path_developer_applications%Notepad++\%%i-64bit\config.xml %path_developer_applications_notepad_plus_plus%
+            for %%j in (session.xml config.xml) do (
+                IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\%%j" (
+                    COPY /Y %path_developer_applications%Notepad++\%%i-64bit\%%j %path_developer_applications_notepad_plus_plus%
+                )
             )
             IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\backup\" (
                 XCOPY "%path_developer_applications%Notepad++\%%i-64bit\backup\" %path_developer_applications_notepad_plus_plus%\backup\ /c /s /r /h /y
             )
-            ECHO Removing %path_developer_applications%Notepad++\%%i-64bit
-            RMDIR /Q /S %path_developer_applications%Notepad++\%%i-64bit
+            SET exact_version_folder=%%i-64bit
+            SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__notepad_plus_plus%
+            CALL :RemoveFolderWithOlderVersions
         )
     )
     CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__PeaZip
-    CALL :CreateDownloadsFolder
-    IF NOT EXIST %path_developer_applications_peazip%\peazip.exe (
-        :: Donwload the archive but only if is not already done
-        IF NOT EXIST %path_downloads%peazip_portable-%version_pea_zip%.WIN64.zip (
-            ECHO Will download portable version of Peazip for Windows, using PowerShell
-            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_peazip%','%path_downloads%peazip_portable-%version_pea_zip%.WIN64.zip')"
-        )
-        IF EXIST %path_downloads%peazip_portable-%version_pea_zip%.WIN64.zip (
-            ECHO Will extract downloaded kit to a folder from where it will be used, using PowerShell
-            powershell.exe Expand-Archive -Path %path_downloads%peazip_portable-%version_pea_zip%.WIN64.zip -DestinationPath %path_downloads%
-        )
-        IF NOT EXIST %path_developer_applications_peazip%peazip.exe (
-            MD %path_developer_applications_peazip%
-            ECHO Will move files
-            XCOPY %path_downloads%peazip_portable-%version_pea_zip%.WIN64 %path_developer_applications_peazip% /c /s /r /h /y
-            RMDIR /Q /S %path_downloads%peazip_portable-%version_pea_zip%.WIN64
-        )
-    )
+    SET application_main_binary=%peazip__application_main_binary%
+    SET application_name=%peazip__application_name%
+    SET path_developer_application_specific=%path_developer_applications_peazip%
+    SET url_application_archive=%url_peazip_archive%
+    SET url_application_archive_includes_folder=%url_peazip_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_peazip_archive_included_folder_name%
+    SET url_application_full=%url_peazip%
+    SET version_application=%version_peazip%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2) do (
-        IF EXIST "%path_developer_applications%PeaZip\%%i-64bit" (
-            ECHO Removing %path_developer_applications%PeaZip\%%i-64bit
-            RMDIR /Q /S %path_developer_applications%PeaZip\%%i-64bit
-        )
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__peazip%
+        CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
-GOTO END
-
-:InitiateOrUpdateFrameworkInfrastructure__PhpGeneric
-    CALL :CreateDownloadsFolder
-    IF NOT EXIST %path_developer_applications_php%\php.exe (
-        :: Donwload the archive but only if is not already done
-        IF NOT EXIST %path_downloads%%url_php_archive% (
-            ECHO Will download portable version of PHP %version_php% for Windows, using PowerShell
-            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_php%','%path_downloads%%url_php_archive%')"
-        )
-        IF EXIST %path_downloads%%url_php_archive% (
-            ECHO Will extract downloaded kit %path_downloads%%url_php_archive% to a folder from where it will be used, using PowerShell
-            powershell.exe Expand-Archive -Path %path_downloads%%url_php_archive% -DestinationPath %path_developer_applications_php%
-        )
-    )
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__Php74x
-    SET version_php=%version_php_74x%
-    SET url_php_archive=%url_php_archive_74x%
-    SET url_php=%url_php_74x%
-    SET path_developer_applications_php=%path_developer_applications_php_74x%
-    ECHO ... %path_developer_applications_php% ...
-    CALL :InitiateOrUpdateFrameworkInfrastructure__PhpGeneric
+    SET application_main_binary=%php__application_main_binary%
+    SET application_name=%php__application_name%
+    SET path_developer_application_specific=%path_developer_applications_php_74x%
+    SET url_application_archive=%url_php_archive_74x%
+    SET url_application_archive_includes_folder=%url_php_archive_74x_includes_folder%
+    SET url_application_full=%url_php_74x%
+    SET version_application=%version_php_74x%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     IF EXIST %path_developer_applications_php%\php.exe (
         for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12) do (
-            IF EXIST %path_web_applications%PHP\%%i-64bit (
-                ECHO Removing %path_web_applications%PHP\%%i-64bit
-                RMDIR /Q /S %path_web_applications%PHP\%%i-64bit
-            )
+            SET exact_version_folder=%%i-64bit
+            SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__php%
+            CALL :RemoveFolderWithOlderVersions
         )
     )
     CALL :RemoveDownloadsFolderWithAnyContent
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__Php80x
-    SET version_php=%version_php_80x%
-    SET path_developer_applications_php=%path_developer_applications_php_80x%
-    SET url_php_archive=%url_php_archive_80x%
-    SET url_php=%url_php_80x%
-    CALL :InitiateOrUpdateFrameworkInfrastructure__PhpGeneric
-    for %%i in (8.0.0) do (
-        IF EXIST %path_web_applications%PHP\%%i-64bit (
-            REM ECHO Removing %path_web_applications%PHP\%%i-64bit
-            REM RMDIR /Q /S %path_web_applications%PHP\%%i-64bit
-        )
+    SET application_main_binary=%php__application_main_binary%
+    SET application_name=%php__application_name%
+    SET path_developer_application_specific=%path_developer_applications_php_80x%
+    SET url_application_archive=%url_php_archive_80x%
+    SET url_application_archive_includes_folder=%url_php_archive_80x_includes_folder%
+    SET url_application_full=%url_php_80x%
+    SET version_application=%version_php_80x%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    for %%i in (8.0.999) do (
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__php%
+        CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__PuTTY
-    CALL :CreateDownloadsFolder
-    IF NOT EXIST %path_developer_applications_putty%\PUTTY.EXE (
-        :: Donwload the archive but only if is not already done
-        IF NOT EXIST %path_downloads%putty.zip (
-            ECHO Will download portable version of PuTTY, using PowerShell
-            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_putty%','%path_downloads%putty.zip')"
-        )
-        IF EXIST %path_downloads%putty.zip (
-            IF NOT EXIST %path_developer_applications_putty% (
-                MD %path_developer_applications_putty%
-                ECHO Will extract downloaded kit to a folder from where it will be used, using PowerShell
-                powershell.exe Expand-Archive -Path %path_downloads%putty.zip -DestinationPath %path_developer_applications_putty%
-            )
-        )
+    SET application_main_binary=%putty__application_main_binary%
+    SET application_name=%putty__application_name%
+    SET path_developer_application_specific=%path_developer_applications_putty%
+    SET url_application_archive=%url_putty_archive%
+    SET url_application_archive_includes_folder=%url_putty_archive_includes_folder%
+    SET url_application_full=%url_putty%
+    SET version_application=%version_putty%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    for %%i in (0.72 0.73) do (
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__putty%
+        CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
@@ -460,81 +524,53 @@ GOTO END
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__TreeSize
-    CALL :CreateDownloadsFolder
-    IF NOT EXIST %path_developer_applications_tree_size%\TreeSizeFree.exe (
-        :: Donwload the archive but only if is not already done
-        IF NOT EXIST %path_downloads%TreeSizeFree-Portable.zip (
-            ECHO Will download portable version of TreeSize, using PowerShell
-            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_tree_size%','%path_downloads%TreeSizeFree-Portable.zip')"
-        )
-        IF EXIST %path_downloads%TreeSizeFree-Portable.zip (
-            IF NOT EXIST %path_developer_applications_tree_size% (
-                MD %path_developer_applications_tree_size%
-                ECHO Will extract downloaded kit to a folder from where it will be used, using PowerShell
-                powershell.exe Expand-Archive -Path %path_downloads%TreeSizeFree-Portable.zip -DestinationPath %path_developer_applications_tree_size%
-            )
-        )
-    )
+    SET application_main_binary=%treesize__application_main_binary%
+    SET application_name=%treesize__application_name%
+    SET path_developer_application_specific=%path_developer_applications_treesize%
+    SET url_application_archive=%url_treesize_archive%
+    SET url_application_archive_includes_folder=%url_treesize_archive_includes_folder%
+    SET url_application_full=%url_treesize%
+    SET version_application=%version_treesize%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     for %%i in (4.4.0 4.4.1) do (
-        IF EXIST %path_developer_applications%TreeSize\%%i-32bit (
-            ECHO Removing %path_developer_applications%TreeSize\%%i-32bit
-            RMDIR /Q /S %path_developer_applications%TreeSize\%%i-32bit
-        )
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__treesize%
+        CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__VLC
-    CALL :CreateDownloadsFolder
-    IF NOT EXIST %path_developer_applications_vlc%\vlc.exe (
-        :: Donwload the archive but only if is not already done
-        IF NOT EXIST %path_downloads%vlc-64bit-portable.zip (
-            ECHO Will download portable version of VLC, using PowerShell
-            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_vlc%','%path_downloads%vlc-64bit-portable.zip')"
-        )
-        IF EXIST %path_downloads%vlc-64bit-portable.zip (
-            IF NOT EXIST %path_downloads%vlc-%version_vlc% (
-                ECHO Will extract downloaded kit to a folder from where it will be used, using PowerShell
-                powershell.exe Expand-Archive -Path %path_downloads%vlc-64bit-portable.zip -DestinationPath %path_downloads%
-            )
-            IF NOT EXIST %path_developer_applications_vlc%\vlc.exe (
-                MD %path_developer_applications_vlc%
-                ECHO Will move files
-                XCOPY %path_downloads%vlc-%version_vlc% %path_developer_applications_vlc% /c /s /r /h /y
-                RMDIR /Q /S %path_downloads%vlc-%version_vlc%
-            )
-        )
-    )
+    SET application_main_binary=%vlc__application_main_binary%
+    SET application_name=%vlc__application_name%
+    SET path_developer_application_specific=%path_developer_applications_vlc%
+    SET url_application_archive=%url_vlc_archive%
+    SET url_application_archive_includes_folder=%url_vlc_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_vlc_archive_included_folder_name%
+    SET url_application_full=%url_vlc%
+    SET version_application=%version_vlc%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     for %%i in (3.0.8 3.0.9 3.0.10) do (
-        IF EXIST %path_developer_applications%VLC\%%i-64bit (
-            ECHO Removing %path_developer_applications%VLC\%%i-64bit
-            RMDIR /Q /S %path_developer_applications%VLC\%%i-64bit
-        )
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__vlc%
+        CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__WinSCP
-    CALL :CreateDownloadsFolder
-    IF NOT EXIST %path_developer_applications_winscp%\WinSCP.exe (
-        :: Donwload the archive but only if is not already done
-        IF NOT EXIST %path_downloads%winscp-portable.zip (
-            ECHO Will download portable version of WinSCP, using PowerShell
-            powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_winscp%','%path_downloads%winscp-portable.zip')"
-        )
-        IF EXIST %path_downloads%winscp-portable.zip (
-            IF NOT EXIST %path_developer_applications_winscp% (
-                MD %path_developer_applications_winscp%
-                ECHO Will extract downloaded kit to a folder from where it will be used, using PowerShell
-                powershell.exe Expand-Archive -Path %path_downloads%winscp-portable.zip -DestinationPath %path_developer_applications_winscp%
-            )
-        )
-    )
+    SET application_main_binary=%winscp__application_main_binary%
+    SET application_name=%winscp__application_name%
+    SET path_developer_application_specific=%path_developer_applications_winscp%
+    SET url_application_archive=%url_winscp_archive%
+    SET url_application_archive_includes_folder=%url_winscp_archive_includes_folder%
+    SET url_application_full=%url_winscp%
+    SET version_application=%version_winscp%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     for %%i in (5.17.5 5.17.6 5.17.7 5.17.8) do (
-        IF EXIST %path_developer_applications%WinSCP\%%i-64bit (
-            ECHO Removing %path_developer_applications%WinSCP\%%i-64bit
-            RMDIR /Q /S %path_developer_applications%WinSCP\%%i-64bit
-        )
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__winscp%
+        CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
 GOTO END
@@ -631,7 +667,7 @@ GOTO END
     ECHO ip37.  Python 3.7.x for Windows        Script engine legacy          Internet      %version_python37x_major_minor_build%
     ECHO ip38.  Python 3.8.x for Windows        Script engine legacy          Internet      %version_python38x_major_minor_build%
     ECHO ip39.  Python 3.9.x for Windows        Script engine latest GA       Internet      %version_python39x_major_minor_build%
-    ECHO it.    TreeSize Free for Windows       Files/folders/drives anal.    Internet      %version_tree_size%
+    ECHO it.    TreeSize Free for Windows       Files/folders/drives anal.    Internet      %version_treesize%
     ECHO iv.    VLC                             Multimedia files player       Internet      %version_vlc%
     ECHO iw.    WinSCP                          Multiple prot. file handler   Internet      %version_winscp%
     ECHO -----------------------------------------------------------------------------------------------------------
@@ -644,44 +680,24 @@ GOTO END
         ECHO Choice provided [%CHOICE_INSTALL%] is not a valid one... :-(
     )
     SET /P CHOICE_INSTALL=Please express your choice now:
-    IF "%CHOICE_INSTALL%"=="id" ( CALL :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander ) ELSE (
-    IF "%CHOICE_INSTALL%"=="ID" ( CALL :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander ) ELSE (
-    IF "%CHOICE_INSTALL%"=="ig" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Git ) ELSE (
-    IF "%CHOICE_INSTALL%"=="IG" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Git ) ELSE (
-    IF "%CHOICE_INSTALL%"=="in" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus ) ELSE (
-    IF "%CHOICE_INSTALL%"=="IN" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus ) ELSE (
-    IF "%CHOICE_INSTALL%"=="ih74" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php74x ) ELSE (
-    IF "%CHOICE_INSTALL%"=="IH74" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php74x ) ELSE (
-    IF "%CHOICE_INSTALL%"=="ih80" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php80x ) ELSE (
-    IF "%CHOICE_INSTALL%"=="IH80" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php80x ) ELSE (
-    IF "%CHOICE_INSTALL%"=="iz" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZip ) ELSE (
-    IF "%CHOICE_INSTALL%"=="IZ" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZip ) ELSE (
-    IF "%CHOICE_INSTALL%"=="iy" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PuTTY ) ELSE (
-    IF "%CHOICE_INSTALL%"=="IY" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PuTTY ) ELSE (
-        IF "%CHOICE_INSTALL%"=="ip36" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python36x ) ELSE (
-        IF "%CHOICE_INSTALL%"=="IP36" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python36x ) ELSE (
-        IF "%CHOICE_INSTALL%"=="ip37" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python37x ) ELSE (
-        IF "%CHOICE_INSTALL%"=="IP37" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python37x ) ELSE (
-        IF "%CHOICE_INSTALL%"=="ip38" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python38x ) ELSE (
-        IF "%CHOICE_INSTALL%"=="IP38" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python38x ) ELSE (
-        IF "%CHOICE_INSTALL%"=="ip39" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python39x ) ELSE (
-        IF "%CHOICE_INSTALL%"=="IP39" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python39x ) ELSE (
-        IF "%CHOICE_INSTALL%"=="ipve" ( CALL :Menu__PythonProject ) ELSE (
-        IF "%CHOICE_INSTALL%"=="IPVE" ( CALL :Menu__PythonProject ) ELSE (
-            IF "%CHOICE_INSTALL%"=="it" ( CALL :InitiateOrUpdateFrameworkInfrastructure__TreeSize ) ELSE (
-            IF "%CHOICE_INSTALL%"=="IT" ( CALL :InitiateOrUpdateFrameworkInfrastructure__TreeSize ) ELSE (
-            IF "%CHOICE_INSTALL%"=="iv" ( CALL :InitiateOrUpdateFrameworkInfrastructure__VLC ) ELSE (
-            IF "%CHOICE_INSTALL%"=="IV" ( CALL :InitiateOrUpdateFrameworkInfrastructure__VLC ) ELSE (
-            IF "%CHOICE_INSTALL%"=="iw" ( CALL :InitiateOrUpdateFrameworkInfrastructure__WinSCP ) ELSE (
-            IF "%CHOICE_INSTALL%"=="IW" ( CALL :InitiateOrUpdateFrameworkInfrastructure__WinSCP ) ELSE (
-                IF "%CHOICE_INSTALL%"=="z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
-                IF "%CHOICE_INSTALL%"=="Z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="id" ( CALL :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="ig" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Git ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="in" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="ih74" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php74x ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="ih80" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php80x ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="iz" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZip ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="iy" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PuTTY ) ELSE (
+        IF /I "%CHOICE_INSTALL%"=="ip36" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python36x ) ELSE (
+        IF /I "%CHOICE_INSTALL%"=="ip37" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python37x ) ELSE (
+        IF /I "%CHOICE_INSTALL%"=="ip38" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python38x ) ELSE (
+        IF /I "%CHOICE_INSTALL%"=="ip39" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python39x ) ELSE (
+        IF /I "%CHOICE_INSTALL%"=="ipve" ( CALL :Menu__PythonProject ) ELSE (
+            IF /I "%CHOICE_INSTALL%"=="it" ( CALL :InitiateOrUpdateFrameworkInfrastructure__TreeSize ) ELSE (
+            IF /I "%CHOICE_INSTALL%"=="iv" ( CALL :InitiateOrUpdateFrameworkInfrastructure__VLC ) ELSE (
+            IF /I "%CHOICE_INSTALL%"=="iw" ( CALL :InitiateOrUpdateFrameworkInfrastructure__WinSCP ) ELSE (
+                IF /I "%CHOICE_INSTALL%"=="z" ( CALL :DecisionToQuitTakeFinalMessage ) ELSE (
                     CALL :ConsideredInstallChoice_Invalid
                 )
-                )
-            )
-            )
-            )
             )
             )
             )
@@ -690,18 +706,6 @@ GOTO END
         )
         )
         )
-        )
-        )
-        )
-        )
-        )
-    )
-    )
-    )
-    )
-    )
-    )
-    )
     )
     )
     )

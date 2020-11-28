@@ -150,6 +150,9 @@ GOTO END
 :EstablishInstallingFolders
     SET path_downloads=C:\www\Downloads\
     SET path_web_applications=C:\www\App\
+    SET path_web_applications_configuration=C:\www\Config\
+    SET path_web_applications_logs=C:\www\other\logs\
+    SET path_web_applications_temporary=C:\www\other\temp\
     SET path_developer_applications=C:\www\AppForDeveloper\
     SET path_developer_applications__root__apache_httpd=Apache_HTTPd
     SET path_developer_applications_apache_httpd=%path_web_applications%%path_developer_applications__root__apache_httpd%\%version_apache_httpd%-64bit
@@ -556,6 +559,12 @@ GOTO END
     SET url_application_full=%url_php_74x%
     SET version_application=%version_php_74x%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    ECHO Creating PHP configuration folder
+    MD %path_web_applications_configuration%\%path_developer_applications__root__php%\%version_php_74x%-64bit
+    ECHO Creating PHP logs folder
+    MD %path_web_applications_logs%\%path_developer_applications__root__php%\%version_php_74x%-64bit
+    ECHO Creating PHP temporary folder
+    MD %path_web_applications_configuration%\%path_developer_applications__root__php%\%version_php_74x%-64bit
     IF EXIST %path_developer_applications_php%\php.exe (
         for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12) do (
             SET exact_version_folder=%%i-64bit
@@ -575,6 +584,12 @@ GOTO Menu__InstallationsToDo
     SET url_application_full=%url_php_80x%
     SET version_application=%version_php_80x%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    ECHO Creating PHP configuration folder
+    MD %path_web_applications_configuration%\%path_developer_applications__root__php%\%version_php_80x%-64bit
+    ECHO Creating PHP logs folder
+    MD %path_web_applications_logs%\%path_developer_applications__root__php%\%version_php_80x%-64bit
+    ECHO Creating PHP temporary folder
+    MD %path_web_applications_configuration%\%path_developer_applications__root__php%\%version_php_80x%-64bit
     for %%i in (8.0.999) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__php%

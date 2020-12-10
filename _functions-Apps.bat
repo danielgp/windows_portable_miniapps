@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.6
-    SET this_script_release_date=2020-11-27
+    SET this_script_version=0.2.7
+    SET this_script_release_date=2020-12-01
 GOTO END
 
 :EstablishApplications
@@ -29,6 +29,10 @@ GOTO END
     SET git__application_name=Git for Windows
     SET jdk__application_main_binary=bin\java.exe
     SET jdk__application_name=Java Development Kit for Windows
+    SET mysql_server_community__application_main_binary=bin\mysql.exe
+    SET mysql_server_community__application_name=MySQL Server Community
+    SET mysql_router__application_main_binary=mysql-router.exe
+    SET mysql_router__application_name=MySQL Router
     SET notepad_plus_plus__application_main_binary=notepad++.exe
     SET notepad_plus_plus__application_name=Notepad++ for Windows
     SET peazip__application_main_binary=pea.exe
@@ -57,6 +61,8 @@ GOTO END
     SET version_git=2.29.2
     SET version_git_windows_compilation=.windows.2
     SET version_jdk=15.0.1
+    SET version_mysql_router=8.0.22
+    SET version_mysql_server_community=8.0.22
     SET version_notepad_plus_plus=7.9.1
     SET version_pea_zip=7.5.0
     SET version_php_74x=7.4.13
@@ -112,6 +118,14 @@ GOTO END
     SET url_jdk_archive_includes_folder=Yes
     SET url_jdk_archive_included_folder_name=jdk-%version_jdk%
     SET url_jdk=https://download.java.net/java/GA/jdk%version_jdk%/51f4f36ad4ef43e39d0dfdbaf6549e32/9/GPL/%url_jdk_archive%
+    SET url_mysql_router_archive=mysql-router-%version_mysql_router%-winx64.zip
+    SET url_mysql_router_archive_includes_folder=Yes
+    SET url_mysql_router_archive_includes_folder_name=mysql-router-%version_mysql_router%-winx64
+    SET url_mysql_router=https://dev.mysql.com/get/Downloads/MySQL-Router/%url_mysql_router_archive%
+    SET url_mysql_server_community_archive=mysql-%version_mysql_server_community%-winx64.zip
+    SET url_mysql_server_community_archive_includes_folder=Yes
+    SET url_mysql_server_community_archive_includes_folder_name=mysql-%version_mysql_server_community%-winx64
+    SET url_mysql_server_community=https://dev.mysql.com/get/Downloads/MySQL-8.0/%url_mysql_server_community_archive%
     SET url_notepad_plus_plus_archive=npp.%version_notepad_plus_plus%.portable.x64.zip
     SET url_notepad_plus_plus_archive_includes_folder=No
     SET url_notepad_plus_plus=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v%version_notepad_plus_plus%/%url_notepad_plus_plus_archive%
@@ -172,6 +186,9 @@ GOTO END
     SET path_developer_applications_git=%path_developer_applications%%path_developer_applications__root__git%\%version_git_enhanced%-64bit
     SET path_developer_applications__root__jdk=Java_Development_Kit
     SET path_developer_applications_jdk=%path_web_applications%%path_developer_applications__root__jdk%\%version_jdk%-64bit
+    SET path_developer_applications__root__mysql_server_community=MySQL
+    SET path_developer_applications_mysql_router=%path_web_applications%%path_developer_applications__root__mysql_server_community%\Router-%version_mysql_server_community%-64bit
+    SET path_developer_applications_mysql_server_community=%path_web_applications%%path_developer_applications__root__mysql_server_community%\Server-%version_mysql_server_community%-64bit
     SET path_developer_applications__root__notepad_plus_plus=Notepad++
     SET path_developer_applications_notepad_plus_plus=%path_developer_applications%%path_developer_applications__root__notepad_plus_plus%\%version_notepad_plus_plus%-64bit
     SET path_developer_applications__root__peazip=PeaZip
@@ -286,8 +303,8 @@ GOTO END
             )
             IF "%url_application_archive_includes_folder%"=="Yes" (
                 IF NOT EXIST %path_developer_application_specific%\%application_main_binary% (
-                    ECHO Will move files from intermediary destination folder, %url_application_archive_included_folder_name% to final destination %path_developer_application_specific%
-                    XCOPY %path_downloads%%url_application_archive_included_folder_name% %path_developer_application_specific% /c /s /r /h /y
+                    ECHO Will move files from intermediary destination folder %path_downloads%%url_application_archive_included_folder_name% to final destination %path_developer_application_specific%
+                    XCOPY %path_downloads%%url_application_archive_included_folder_name% %path_developer_application_specific% /Q /C /S /J /R /H /Y
                     ECHO Will delete all files from intermediary destination folder, %url_application_archive_included_folder_name%
                     RMDIR /Q /S %path_downloads%%url_application_archive_included_folder_name%
                 )
@@ -310,6 +327,17 @@ REM ----------------------------------------------------------------------------
         SET PY_LIBS=%path_developer_applications_python%\Lib;%path_developer_applications_python%\Lib\site-packages
         SET PATH="%path_developer_applications_python%;%PY_PIP%;%PY_LIBS%;%PATH%"
     :: )
+GOTO END
+
+:CreateWebApplicationsOperationalFolders
+    IF NOT EXIST %path_web_applications_configuration% (
+        ECHO Creating configuration folder
+        MD %path_web_applications_configuration%
+    )
+    IF NOT EXIST %path_web_applications_logs% (
+        ECHO Creating logs folder
+        MD %path_web_applications_logs%
+    )
 GOTO END
 
 :AdditionalTask_InitiatePythonVirtualEnvironment
@@ -505,6 +533,60 @@ GOTO Menu__InstallationsToDo
     CALL :RemoveDownloadsFolderWithAnyContent
 GOTO Menu__InstallationsToDo
 
+:InitiateOrUpdateFrameworkInfrastructure__MySqlRouter
+    SET application_main_binary=%mysql_router__application_main_binary%
+    SET application_name=%mysql_router__application_name%
+    SET path_developer_application_specific=%path_developer_applications_mysql_router%
+    SET url_application_archive=%url_mysql_router_archive%
+    SET url_application_archive_includes_folder=%url_mysql_router_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_mysql_router_archive_includes_folder_name%
+    SET url_application_full=%url_mysql_router%
+    SET version_application=%version_mysql_router%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    CALL :CreateWebApplicationsOperationalFolders
+    IF NOT EXIST %path_web_applications_logs%\%path_developer_applications__root__mysql_router%\Router-%version_mysql_router%-64bit (
+        ECHO Creating %mysql_router__application_name% logs folder
+        MD %path_web_applications_logs%\%path_developer_applications__root__mysql_router%\Router-%version_mysql_router%-64bit
+    )
+    IF NOT EXIST %path_web_applications_temporary%\%path_developer_applications__root__mysql_router%\Router-%version_mysql_router%-64bit (
+        ECHO Creating %mysql_router__application_name% temporary folder
+        MD %path_web_applications_temporary%\%path_developer_applications__root__mysql_router%\Router-%version_mysql_router%-64bit
+    )
+    for %%i in (8.0.20 8.0.21) do (
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__mysql_server_community%
+        CALL :RemoveFolderWithOlderVersions
+    )
+    CALL :RemoveDownloadsFolderWithAnyContent
+GOTO Menu__InstallationsToDo
+
+:InitiateOrUpdateFrameworkInfrastructure__MySqlServerCommunity
+    SET application_main_binary=%mysql_server_community__application_main_binary%
+    SET application_name=%mysql_server_community__application_name%
+    SET path_developer_application_specific=%path_developer_applications_mysql_server_community%
+    SET url_application_archive=%url_mysql_server_community_archive%
+    SET url_application_archive_includes_folder=%url_mysql_server_community_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_mysql_server_community_archive_includes_folder_name%
+    SET url_application_full=%url_mysql_server_community%
+    SET version_application=%version_mysql_server_community%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    CALL :CreateWebApplicationsOperationalFolders
+    IF NOT EXIST %path_web_applications_logs%\%path_developer_applications__root__mysql_server_community%\Server-%version_mysql_server_community%-64bit (
+        ECHO Creating %mysql_server_community__application_name% logs folder
+        MD %path_web_applications_logs%\%path_developer_applications__root__mysql_server_community%\Server-%version_mysql_server_community%-64bit
+    )
+    IF NOT EXIST %path_web_applications_temporary%\%path_developer_applications__root__mysql_server_community%\Server-%version_mysql_server_community%-64bit (
+        ECHO Creating %mysql_server_community__application_name% temporary folder
+        MD %path_web_applications_temporary%\%path_developer_applications__root__mysql_server_community%\Server-%version_mysql_server_community%-64bit
+    )
+    for %%i in (8.0.20 8.0.21) do (
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__mysql_server_community%
+        CALL :RemoveFolderWithOlderVersions
+    )
+    CALL :RemoveDownloadsFolderWithAnyContent
+GOTO Menu__InstallationsToDo
+
 :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus
     SET application_main_binary=%notepad_plus_plus__application_main_binary%
     SET application_name=%notepad_plus_plus__application_name%
@@ -515,14 +597,14 @@ GOTO Menu__InstallationsToDo
     SET version_application=%version_notepad_plus_plus%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9) do (
-        IF EXIST "%path_developer_applications%Notepad++\%%i-64bit" (
+        IF EXIST "%path_developer_applications%%path_developer_applications__root__notepad_plus_plus%\%%i-64bit" (
             for %%j in (session.xml config.xml) do (
-                IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\%%j" (
-                    COPY /Y %path_developer_applications%Notepad++\%%i-64bit\%%j %path_developer_applications_notepad_plus_plus%
+                IF EXIST "%path_developer_applications%%path_developer_applications__root__notepad_plus_plus%\%%i-64bit\%%j" (
+                    COPY /Y %path_developer_applications%%path_developer_applications__root__notepad_plus_plus%\%%i-64bit\%%j %path_developer_applications_notepad_plus_plus%
                 )
             )
-            IF EXIST "%path_developer_applications%Notepad++\%%i-64bit\backup\" (
-                XCOPY "%path_developer_applications%Notepad++\%%i-64bit\backup\" %path_developer_applications_notepad_plus_plus%\backup\ /c /s /r /h /y
+            IF EXIST "%path_developer_applications%%path_developer_applications__root__notepad_plus_plus%\%%i-64bit\backup\" (
+                XCOPY "%path_developer_applications%%path_developer_applications__root__notepad_plus_plus%\%%i-64bit\backup\" %path_developer_applications_notepad_plus_plus%\backup\ /c /s /r /h /y
             )
             SET exact_version_folder=%%i-64bit
             SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__notepad_plus_plus%
@@ -559,24 +641,15 @@ GOTO END
     SET url_application_full=%url_php_74x%
     SET version_application=%version_php_74x%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    IF NOT EXIST %path_web_applications_configuration%\%path_developer_applications__root__php%\%version_php_74x%-64bit (
-        ECHO Creating PHP configuration folder
-        MD %path_web_applications_configuration%\%path_developer_applications__root__php%\%version_php_74x%-64bit
-    )
-    IF NOT EXIST %path_web_applications_logs%\%path_developer_applications__root__php%\%version_php_74x%-64bit (
-        ECHO Creating PHP logs folder
-        MD %path_web_applications_logs%\%path_developer_applications__root__php%\%version_php_74x%-64bit
-    )
+    CALL :CreateWebApplicationsOperationalFolders
     IF NOT EXIST %path_web_applications_temporary%\%path_developer_applications__root__php%\%version_php_74x%-64bit (
-        ECHO Creating PHP temporary folder
+        ECHO Creating %php__application_name% temporary folder
         MD %path_web_applications_temporary%\%path_developer_applications__root__php%\%version_php_74x%-64bit
     )
-    IF EXIST %path_developer_applications_php%\php.exe (
-        for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12) do (
-            SET exact_version_folder=%%i-64bit
-            SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__php%
-            CALL :RemoveFolderWithOlderVersions
-        )
+    for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12) do (
+        SET exact_version_folder=%%i-64bit
+        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__php%
+        CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
 GOTO Menu__InstallationsToDo
@@ -590,16 +663,9 @@ GOTO Menu__InstallationsToDo
     SET url_application_full=%url_php_80x%
     SET version_application=%version_php_80x%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    IF NOT EXIST %path_web_applications_configuration%\%path_developer_applications__root__php%\%version_php_80x%-64bit (
-        ECHO Creating PHP configuration folder
-        MD %path_web_applications_configuration%\%path_developer_applications__root__php%\%version_php_80x%-64bit
-    )
-    IF NOT EXIST %path_web_applications_logs%\%path_developer_applications__root__php%\%version_php_80x%-64bit (
-        ECHO Creating PHP logs folder
-        MD %path_web_applications_logs%\%path_developer_applications__root__php%\%version_php_80x%-64bit
-    )
+    CALL :CreateWebApplicationsOperationalFolders
     IF NOT EXIST %path_web_applications_temporary%\%path_developer_applications__root__php%\%version_php_80x%-64bit (
-        ECHO Creating PHP temporary folder
+        ECHO Creating %php__application_name% temporary folder
         MD %path_web_applications_temporary%\%path_developer_applications__root__php%\%version_php_80x%-64bit
     )
     for %%i in (8.0.999) do (
@@ -871,6 +937,8 @@ GOTO END
     ECHO id.    Double Commander for Windows    File manager                  Internet      %version_double_commander%
     ECHO ig.    Git for Windows                 Versioning engine             Internet      %version_git%
     ECHO ij.    Java Development Kit for Win.   Multi-platform engine         Internet      %version_jdk%
+    ECHO imr.   MySQL Router                    Database Proxy Server         Internet      %version_mysql_router%
+    ECHO imsc.  MySQL Server Community          Database Server               Internet      %version_mysql_server_community%
     ECHO in.    Notepad++                       Advanced text editor          Internet      %version_notepad_plus_plus%
     ECHO iz.    PeaZip for Windows              Archiver                      Internet      %version_pea_zip%
     ECHO ih74.  PHP 7.4.x for Windows           Script engine                 Internet      %version_php_74x%
@@ -902,6 +970,8 @@ GOTO END
     IF /I "%CHOICE_INSTALL%"=="id" ( CALL :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ig" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Git ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ij" ( CALL :InitiateOrUpdateFrameworkInfrastructure__JDK ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="imr" ( CALL :InitiateOrUpdateFrameworkInfrastructure__MySqlRouter ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="imsc" ( CALL :InitiateOrUpdateFrameworkInfrastructure__MySqlServerCommunity ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="in" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ih74" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php74x ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ih80" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php80x ) ELSE (
@@ -926,6 +996,8 @@ GOTO END
         )
         )
         )
+    )
+    )
     )
     )
     )

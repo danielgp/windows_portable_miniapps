@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.7
-    SET this_script_release_date=2020-12-01
+    SET this_script_version=0.2.8
+    SET this_script_release_date=2020-12-16
 GOTO END
 
 :EstablishApplications
@@ -64,7 +64,7 @@ GOTO END
     SET version_mysql_router=8.0.22
     SET version_mysql_server_community=8.0.22
     SET version_notepad_plus_plus=7.9.1
-    SET version_pea_zip=7.5.0
+    SET version_pea_zip=7.6.0
     SET version_php_74x=7.4.13
     SET version_php_80x=8.0.0
     SET version_putty=0.74

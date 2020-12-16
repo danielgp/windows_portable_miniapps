@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.8
+    SET this_script_version=0.2.9
     SET this_script_release_date=2020-12-16
 GOTO END
 
@@ -624,7 +624,7 @@ GOTO Menu__InstallationsToDo
     SET url_application_full=%url_peazip%
     SET version_application=%version_peazip%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2) do (
+    for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__peazip%
         CALL :RemoveFolderWithOlderVersions

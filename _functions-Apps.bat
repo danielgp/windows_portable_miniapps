@@ -55,11 +55,11 @@ GOTO END
     SET version_apache_mod_fcgid=2.3.10
     SET version_apache_mod_log_rotate=1.0.2
     SET version_apache_mod_security=2.9.3
-    SET version_apache_tomcat=9.0.40
+    SET version_apache_tomcat=9.0.41
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.29.2
-    SET version_git_windows_compilation=.windows.2
+    SET version_git_windows_compilation=.windows.3
     SET version_jdk=15.0.1
     SET version_mysql_router=8.0.22
     SET version_mysql_server_community=8.0.22
@@ -109,6 +109,9 @@ GOTO END
     SET version_git_enhanced=%version_git%
     IF "%version_git_windows_compilation%"==".windows.2" (
         SET version_git_enhanced=%version_git%.2
+    )
+    IF "%version_git_windows_compilation%"==".windows.3" (
+        SET version_git_enhanced=%version_git%.3
     )
     SET url_git_archive=PortableGit-%version_git_enhanced%-64-bit.7z.exe
     SET url_git_archive_includes_folder=Yes
@@ -471,7 +474,7 @@ GOTO Menu__InstallationsToDo
     SET url_application_full=%url_apache_tomcat%
     SET version_application=%version_apache_tomcat%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    for %%i in (9.0.38 9.0.39) do (
+    for %%i in (9.0.38 9.0.39 9.0.40) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_tomcat%
         CALL :RemoveFolderWithOlderVersions

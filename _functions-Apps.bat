@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.10
-    SET this_script_release_date=2020-12-27
+    SET this_script_version=0.2.11
+    SET this_script_release_date=2021-01-03
 GOTO END
 
 :EstablishApplications
@@ -63,7 +63,7 @@ GOTO END
     SET version_jdk=15.0.1
     SET version_mysql_router=8.0.22
     SET version_mysql_server_community=8.0.22
-    SET version_notepad_plus_plus=7.9.1
+    SET version_notepad_plus_plus=7.9.2
     SET version_pea_zip=7.6.0
     SET version_php_74x=7.4.13
     SET version_php_80x=8.0.0
@@ -599,7 +599,7 @@ GOTO Menu__InstallationsToDo
     SET url_application_full=%url_notepad_plus_plus%
     SET version_application=%version_notepad_plus_plus%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9) do (
+    for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1) do (
         IF EXIST "%path_developer_applications%%path_developer_applications__root__notepad_plus_plus%\%%i-64bit" (
             for %%j in (session.xml config.xml) do (
                 IF EXIST "%path_developer_applications%%path_developer_applications__root__notepad_plus_plus%\%%i-64bit\%%j" (

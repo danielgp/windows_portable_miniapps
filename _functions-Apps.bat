@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.12
-    SET this_script_release_date=2021-01-04
+    SET this_script_version=0.2.13
+    SET this_script_release_date=2021-01-06
 GOTO END
 
 :EstablishApplications
@@ -58,7 +58,7 @@ GOTO END
     SET version_apache_tomcat=9.0.41
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
-    SET version_git=2.23.0
+    SET version_git=2.30.0
     SET version_git_windows_compilation=.windows.1
     SET version_jdk=15.0.1
     SET version_mysql_router=8.0.22

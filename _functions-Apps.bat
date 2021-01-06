@@ -10,6 +10,39 @@ REM ----------------------------------------------------------------------------
     SET this_script_release_date=2021-01-06
 GOTO END
 
+:EstablishVersions
+    SET version_apache_httpd=2.4.46
+    SET version_apache_mod_evasive=2.2.0
+    SET version_apache_mod_fcgid=2.3.10
+    SET version_apache_mod_log_rotate=1.0.2
+    SET version_apache_mod_security=2.9.3
+    SET version_apache_tomcat=9.0.41
+    SET version_double_commander=1.0.9483
+    SET version_double_commander_kit=%version_double_commander:0.=0a-%
+    SET version_git=2.30.0
+    SET version_git_windows_compilation=.windows.1
+    SET version_jdk=15.0.1
+    SET version_mysql_router=8.0.22
+    SET version_mysql_server_community=8.0.22
+    SET version_notepad_plus_plus=7.9.2
+    SET version_pea_zip=7.6.0
+    SET version_php_74x=7.4.13
+    SET version_php_80x=8.0.0
+    SET version_putty=0.74
+    SET version_python36x_major_minor=3.6
+    SET version_python36x_major_minor_build=3.6.8
+    SET version_python37x_major_minor=3.7
+    SET version_python37x_major_minor_build=3.7.9
+    SET version_python38x_major_minor=3.8
+    SET version_python38x_major_minor_build=3.8.6
+    SET version_python39x_major_minor=3.9
+    SET version_python39x_major_minor_build=3.9.0
+    SET version_treesize=4.4.2
+    SET version_vlc=3.0.11
+    SET version_winscp=5.17.9
+    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0
+GOTO END
+
 :EstablishApplications
     SET apache_httpd__application_main_binary=apache.exe
     SET apache_httpd__application_name=Apache HTTPd for Windows
@@ -47,39 +80,6 @@ GOTO END
     SET vlc__application_name=VLC for Windows
     SET winscp__application_main_binary=winscp.exe
     SET winscp__application_name=WinSCP for Windows
-GOTO END
-
-:EstablishVersions
-    SET version_apache_httpd=2.4.46
-    SET version_apache_mod_evasive=2.2.0
-    SET version_apache_mod_fcgid=2.3.10
-    SET version_apache_mod_log_rotate=1.0.2
-    SET version_apache_mod_security=2.9.3
-    SET version_apache_tomcat=9.0.41
-    SET version_double_commander=1.0.9483
-    SET version_double_commander_kit=%version_double_commander:0.=0a-%
-    SET version_git=2.30.0
-    SET version_git_windows_compilation=.windows.1
-    SET version_jdk=15.0.1
-    SET version_mysql_router=8.0.22
-    SET version_mysql_server_community=8.0.22
-    SET version_notepad_plus_plus=7.9.2
-    SET version_pea_zip=7.6.0
-    SET version_php_74x=7.4.13
-    SET version_php_80x=8.0.0
-    SET version_putty=0.74
-    SET version_python36x_major_minor=3.6
-    SET version_python36x_major_minor_build=3.6.8
-    SET version_python37x_major_minor=3.7
-    SET version_python37x_major_minor_build=3.7.9
-    SET version_python38x_major_minor=3.8
-    SET version_python38x_major_minor_build=3.8.6
-    SET version_python39x_major_minor=3.9
-    SET version_python39x_major_minor_build=3.9.0
-    SET version_treesize=4.4.2
-    SET version_vlc=3.0.11
-    SET version_winscp=5.17.9
-    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0
 GOTO END
 
 :EstablishDownloadingSourceAddress

@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.13
+    SET this_script_version=0.2.14
     SET this_script_release_date=2021-01-06
 GOTO END
 
@@ -26,8 +26,8 @@ GOTO END
     SET version_mysql_server_community=8.0.22
     SET version_notepad_plus_plus=7.9.2
     SET version_pea_zip=7.6.0
-    SET version_php_74x=7.4.13
-    SET version_php_80x=8.0.0
+    SET version_php_74x=7.4.14
+    SET version_php_80x=8.0.1
     SET version_putty=0.74
     SET version_python36x_major_minor=3.6
     SET version_python36x_major_minor_build=3.6.8
@@ -649,7 +649,7 @@ GOTO END
         ECHO Creating %php__application_name% temporary folder
         MD %path_web_applications_temporary%\%path_developer_applications__root__php%\%version_php_74x%-64bit
     )
-    for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12) do (
+    for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__php%
         CALL :RemoveFolderWithOlderVersions
@@ -671,7 +671,7 @@ GOTO Menu__InstallationsToDo
         ECHO Creating %php__application_name% temporary folder
         MD %path_web_applications_temporary%\%path_developer_applications__root__php%\%version_php_80x%-64bit
     )
-    for %%i in (8.0.999) do (
+    for %%i in (8.0.0) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__php%
         CALL :RemoveFolderWithOlderVersions

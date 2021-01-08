@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.14
-    SET this_script_release_date=2021-01-06
+    SET this_script_version=0.2.15
+    SET this_script_release_date=2021-01-07
 GOTO END
 
 :EstablishVersions
@@ -25,7 +25,7 @@ GOTO END
     SET version_mysql_router=8.0.22
     SET version_mysql_server_community=8.0.22
     SET version_notepad_plus_plus=7.9.2
-    SET version_pea_zip=7.6.0
+    SET version_pea_zip=7.7.0
     SET version_php_74x=7.4.14
     SET version_php_80x=8.0.1
     SET version_putty=0.74
@@ -627,7 +627,7 @@ GOTO Menu__InstallationsToDo
     SET url_application_full=%url_peazip%
     SET version_application=%version_peazip%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0) do (
+    for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__peazip%
         CALL :RemoveFolderWithOlderVersions

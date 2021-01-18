@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.16
-    SET this_script_release_date=2021-01-17
+    SET this_script_version=0.2.18
+    SET this_script_release_date=2021-01-18
 GOTO END
 
 :EstablishVersions
@@ -20,7 +20,7 @@ GOTO END
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.30.0
-    SET version_git_windows_compilation=.windows.1
+    SET version_git_windows_compilation=.windows.2
     SET version_jdk=15.0.1
     SET version_mysql_router=8.0.22
     SET version_mysql_server_community=8.0.22
@@ -38,7 +38,7 @@ GOTO END
     SET version_python39x_major_minor=3.9
     SET version_python39x_major_minor_build=3.9.1
     SET version_treesize=4.4.2
-    SET version_vlc=3.0.11
+    SET version_vlc=3.0.12
     SET version_winscp=5.17.9
     SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0
 GOTO END
@@ -841,7 +841,7 @@ GOTO END
     SET url_application_full=%url_vlc%
     SET version_application=%version_vlc%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    for %%i in (3.0.8 3.0.9 3.0.10) do (
+    for %%i in (3.0.8 3.0.9 3.0.10 3.0.11) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__vlc%
         CALL :RemoveFolderWithOlderVersions

@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.2.18
-    SET this_script_release_date=2021-01-18
+    SET this_script_version=0.3.0
+    SET this_script_release_date=2021-01-19
 GOTO END
 
 :EstablishVersions

@@ -22,8 +22,8 @@ GOTO END
     SET version_git=2.30.0
     SET version_git_windows_compilation=.windows.2
     SET version_jdk=15.0.1
-    SET version_mysql_router=8.0.22
-    SET version_mysql_server_community=8.0.22
+    SET version_mysql_router=8.0.23
+    SET version_mysql_server_community=8.0.23
     SET version_notepad_plus_plus=7.9.2
     SET version_pea_zip=7.7.0
     SET version_php_74x=7.4.14
@@ -260,6 +260,10 @@ GOTO END
         ECHO Removing %generic_application_folder%\%exact_version_folder%
         RMDIR /Q /S %generic_application_folder%\%exact_version_folder%
     )
+    IF EXIST %path_downloads%\%url_application_archive% (
+        ECHO Removing %path_downloads%\%url_application_archive%
+        DEL %path_downloads%\%url_application_archive%
+    )
 GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
@@ -387,6 +391,7 @@ GOTO END
     for %%i in (2.2.43) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_httpd%
+        SET url_application_archive=httpd-%%i-win64-VS16.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -405,6 +410,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (2.1.0) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_mod_evasive%
+        SET url_application_archive=mod_evasive-%%i-win64-VS16.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -423,6 +429,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (2.3.9) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_mod_fcgid%
+        SET url_application_archive=mod_fcgid-%%i-win64-VS16.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -441,6 +448,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (1.0.0 1.0.1) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_mod_log_rotate%
+        SET url_application_archive=mod_log_rotate-%%i-win64-VS16.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -459,6 +467,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (2.9.1 2.9.2) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_mod_security%
+        SET url_application_archive=mod_security-%%i-win64-VS16.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -477,6 +486,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (9.0.38 9.0.39 9.0.40) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_tomcat%
+        SET url_application_archive=apache-tomcat-%%i-windows-x64.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -495,6 +505,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (1.0.9375) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__git%
+        SET url_application_archive=DoubleCmd-%%i-Win32X64.7z
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -510,9 +521,10 @@ GOTO Menu__InstallationsToDo
     SET url_application_full=%url_git%
     SET version_application=%version_git%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    for %%i in (2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3) do (
+    for %%i in (2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__git%
+        SET url_application_archive=PortableGit-%%i-64-bit.7z.exe
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -531,6 +543,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (15.0.0) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__jdk%
+        SET url_application_archive=openjdk-%%i_windows-x64_bin.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -558,6 +571,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (8.0.20 8.0.21) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__mysql_server_community%
+        SET url_application_archive=mysql-router-%%i-winx64.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -585,6 +599,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (8.0.20 8.0.21) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__mysql_server_community%
+        SET url_application_archive=mysql-%%i-winx64.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -611,6 +626,7 @@ GOTO Menu__InstallationsToDo
             )
             SET exact_version_folder=%%i-64bit
             SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__notepad_plus_plus%
+            SET url_application_archive=npp.%%i.portable.x64.zip
             CALL :RemoveFolderWithOlderVersions
         )
     )
@@ -630,6 +646,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__peazip%
+        SET url_application_archive=peazip_portable-%%i.WIN64.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -652,6 +669,7 @@ GOTO END
     for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__php%
+        SET url_application_archive=php-%%i-nts-Win32-vc15-x64.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -674,6 +692,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (8.0.0) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__php%
+        SET url_application_archive=php-%%i-nts-Win32-vs16-x64.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -691,6 +710,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (0.72 0.73) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__putty%
+        REM SET url_application_archive=putty.zip as name is fixed, removal of old versions is not neccsesary
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -826,6 +846,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (4.4.0 4.4.1) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__treesize%
+        REM SET url_application_archive=TreeSizeFree-Portable.zip as name is fixed, removal of old versions is not neccsesary
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -844,6 +865,7 @@ GOTO END
     for %%i in (3.0.8 3.0.9 3.0.10 3.0.11) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__vlc%
+        SET url_application_archive=vlc-%%i-win64.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent
@@ -861,6 +883,7 @@ GOTO Menu__InstallationsToDo
     for %%i in (5.17.5 5.17.6 5.17.7 5.17.8) do (
         SET exact_version_folder=%%i-64bit
         SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__winscp%
+        SET url_application_archive=WinSCP-%%i-Portable.zip
         CALL :RemoveFolderWithOlderVersions
     )
     CALL :RemoveDownloadsFolderWithAnyContent

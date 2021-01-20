@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=0.3.0
+    SET this_script_version=0.3.1
     SET this_script_release_date=2021-01-19
 GOTO END
 
@@ -21,7 +21,8 @@ GOTO END
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.30.0
     SET version_git_windows_compilation=.windows.2
-    SET version_jdk=15.0.1
+    SET version_jdk=15.0.2
+    SET version_jdk_subfolder=0d1cfde4252546c6931946de8db48ee2/7
     SET version_mysql_router=8.0.23
     SET version_mysql_server_community=8.0.23
     SET version_notepad_plus_plus=7.9.2
@@ -40,7 +41,7 @@ GOTO END
     SET version_treesize=4.4.2
     SET version_vlc=3.0.12
     SET version_winscp=5.17.9
-    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0
+    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0
 GOTO END
 
 :EstablishApplications
@@ -120,7 +121,7 @@ GOTO END
     SET url_jdk_archive=openjdk-%version_jdk%_windows-x64_bin.zip
     SET url_jdk_archive_includes_folder=Yes
     SET url_jdk_archive_included_folder_name=jdk-%version_jdk%
-    SET url_jdk=https://download.java.net/java/GA/jdk%version_jdk%/51f4f36ad4ef43e39d0dfdbaf6549e32/9/GPL/%url_jdk_archive%
+    SET url_jdk=https://download.java.net/java/GA/jdk%version_jdk%/%version_jdk_subfolder%/GPL/%url_jdk_archive%
     SET url_mysql_router_archive=mysql-router-%version_mysql_router%-winx64.zip
     SET url_mysql_router_archive_includes_folder=Yes
     SET url_mysql_router_archive_includes_folder_name=mysql-router-%version_mysql_router%-winx64
@@ -268,6 +269,7 @@ GOTO END
 
 :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     CALL :CreateDownloadsFolder
+    ECHO Checking for %path_developer_application_specific%\%application_main_binary% existance
     :: Check if main binary of application is already in place
     IF NOT EXIST "%path_developer_application_specific%\%application_main_binary%" (
         :: Donwload the archive but only if is not already in place
@@ -390,7 +392,7 @@ GOTO END
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     for %%i in (2.2.43) do (
         SET exact_version_folder=%%i-64bit
-        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_httpd%
+        SET generic_application_folder=%path_web_applications%%path_developer_applications__root__apache_httpd%
         SET url_application_archive=httpd-%%i-win64-VS16.zip
         CALL :RemoveFolderWithOlderVersions
     )
@@ -409,7 +411,7 @@ GOTO Menu__InstallationsToDo
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     for %%i in (2.1.0) do (
         SET exact_version_folder=%%i-64bit
-        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_mod_evasive%
+        SET generic_application_folder=%path_web_applications%%path_developer_applications__root__apache_mod_evasive%
         SET url_application_archive=mod_evasive-%%i-win64-VS16.zip
         CALL :RemoveFolderWithOlderVersions
     )
@@ -428,7 +430,7 @@ GOTO Menu__InstallationsToDo
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     for %%i in (2.3.9) do (
         SET exact_version_folder=%%i-64bit
-        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_mod_fcgid%
+        SET generic_application_folder=%path_web_applications%%path_developer_applications__root__apache_mod_fcgid%
         SET url_application_archive=mod_fcgid-%%i-win64-VS16.zip
         CALL :RemoveFolderWithOlderVersions
     )
@@ -447,7 +449,7 @@ GOTO Menu__InstallationsToDo
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     for %%i in (1.0.0 1.0.1) do (
         SET exact_version_folder=%%i-64bit
-        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_mod_log_rotate%
+        SET generic_application_folder=%path_web_applications%%path_developer_applications__root__apache_mod_log_rotate%
         SET url_application_archive=mod_log_rotate-%%i-win64-VS16.zip
         CALL :RemoveFolderWithOlderVersions
     )
@@ -466,7 +468,7 @@ GOTO Menu__InstallationsToDo
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     for %%i in (2.9.1 2.9.2) do (
         SET exact_version_folder=%%i-64bit
-        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_mod_security%
+        SET generic_application_folder=%path_web_applications%%path_developer_applications__root__apache_mod_security%
         SET url_application_archive=mod_security-%%i-win64-VS16.zip
         CALL :RemoveFolderWithOlderVersions
     )
@@ -485,7 +487,7 @@ GOTO Menu__InstallationsToDo
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     for %%i in (9.0.38 9.0.39 9.0.40) do (
         SET exact_version_folder=%%i-64bit
-        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__apache_tomcat%
+        SET generic_application_folder=%path_web_applications%%path_developer_applications__root__apache_tomcat%
         SET url_application_archive=apache-tomcat-%%i-windows-x64.zip
         CALL :RemoveFolderWithOlderVersions
     )
@@ -540,9 +542,9 @@ GOTO Menu__InstallationsToDo
     SET url_application_full=%url_jdk%
     SET version_application=%version_jdk%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    for %%i in (15.0.0) do (
+    for %%i in (15.0.0 15.0.1) do (
         SET exact_version_folder=%%i-64bit
-        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__jdk%
+        SET generic_application_folder=%path_web_applications%%path_developer_applications__root__jdk%
         SET url_application_archive=openjdk-%%i_windows-x64_bin.zip
         CALL :RemoveFolderWithOlderVersions
     )
@@ -570,7 +572,7 @@ GOTO Menu__InstallationsToDo
     )
     for %%i in (8.0.20 8.0.21) do (
         SET exact_version_folder=%%i-64bit
-        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__mysql_server_community%
+        SET generic_application_folder=%path_web_applications%%path_developer_applications__root__mysql_server_community%
         SET url_application_archive=mysql-router-%%i-winx64.zip
         CALL :RemoveFolderWithOlderVersions
     )
@@ -598,7 +600,7 @@ GOTO Menu__InstallationsToDo
     )
     for %%i in (8.0.20 8.0.21) do (
         SET exact_version_folder=%%i-64bit
-        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__mysql_server_community%
+        SET generic_application_folder=%path_web_applications%%path_developer_applications__root__mysql_server_community%
         SET url_application_archive=mysql-%%i-winx64.zip
         CALL :RemoveFolderWithOlderVersions
     )
@@ -668,7 +670,7 @@ GOTO END
     )
     for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13) do (
         SET exact_version_folder=%%i-64bit
-        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__php%
+        SET generic_application_folder=%path_web_applications%%path_developer_applications__root__php%
         SET url_application_archive=php-%%i-nts-Win32-vc15-x64.zip
         CALL :RemoveFolderWithOlderVersions
     )
@@ -691,7 +693,7 @@ GOTO Menu__InstallationsToDo
     )
     for %%i in (8.0.0) do (
         SET exact_version_folder=%%i-64bit
-        SET generic_application_folder=%path_developer_applications%%path_developer_applications__root__php%
+        SET generic_application_folder=%path_web_applications%%path_developer_applications__root__php%
         SET url_application_archive=php-%%i-nts-Win32-vs16-x64.zip
         CALL :RemoveFolderWithOlderVersions
     )

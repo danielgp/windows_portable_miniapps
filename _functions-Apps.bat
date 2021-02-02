@@ -727,7 +727,7 @@ GOTO END
     IF /I "%application_action_to_do%"=="MySqlServerCommunity" (
         SET detected_version_mysql_server_community=_
         SET exact_version=%version_mysql_server_community%
-        SET exact_version_folder=%version_mysql_server_community%-64bit
+        SET exact_version_folder=Server-%version_mysql_server_community%-64bit
         SET generic_application_folder=%path_developer_applications__root__mysql%
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic

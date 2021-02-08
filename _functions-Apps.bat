@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.0.0
-    SET this_script_release_date=2021-01-31
+    SET this_script_version=1.0.1
+    SET this_script_release_date=2021-02-01
 GOTO END
 
 :EstablishVersions
@@ -16,7 +16,8 @@ GOTO END
     SET version_apache_mod_fcgid=2.3.10
     SET version_apache_mod_log_rotate=1.0.2
     SET version_apache_mod_security=2.9.3
-    SET version_apache_tomcat=9.0.41
+    SET version_apache_tomcat9x=9.0.43
+    SET version_apache_tomcat10x=10.0.2
     SET version_double_commander=1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.30.0
@@ -25,6 +26,8 @@ GOTO END
     SET version_jdk_subfolder=0d1cfde4252546c6931946de8db48ee2/7
     SET version_mysql_router=8.0.23
     SET version_mysql_server_community=8.0.23
+    SET version_nodejs_current=15.7.0
+    SET version_nodejs_lts=14.15.4
     SET version_notepad_plus_plus=7.9.2
     SET version_peazip=7.7.0
     SET version_php74x=7.4.14
@@ -55,8 +58,10 @@ GOTO END
     SET apache_mod_log_rotate__application_name=Mod Log Rotate for Apache
     SET apache_mod_security__application_main_binary=mod_security2.so
     SET apache_mod_security__application_name=Mod Security for Apache
-    SET apache_tomcat__application_main_binary=bin\tomcat9.exe
-    SET apache_tomcat__application_name=Apache Tomcat for Windows
+    SET apache_tomcat9x__application_main_binary=bin\tomcat9.exe
+    SET apache_tomcat9x__application_name=Apache Tomcat 9.x for Windows
+    SET apache_tomcat10x__application_main_binary=bin\tomcat10.exe
+    SET apache_tomcat10x__application_name=Apache Tomcat 10.x for Windows
     SET double_commander__application_main_binary=doublecmd.exe
     SET double_commander__application_name=Double Commander for Windows
     SET git__application_main_binary=git-cmd.exe
@@ -67,6 +72,9 @@ GOTO END
     SET mysql_server_community__application_name=MySQL Server Community
     SET mysql_router__application_main_binary=mysql-router.exe
     SET mysql_router__application_name=MySQL Router
+    SET nodejs__application_main_binary=node.exe
+    SET nodejs_current__application_name=NodeJS for Windows Current
+    SET nodejs_lts__application_name=NodeJS for Windows LTS (Long Time Support)
     SET notepad_plus_plus__application_main_binary=notepad++.exe
     SET notepad_plus_plus__application_name=Notepad++ for Windows
     SET peazip__application_main_binary=pea.exe
@@ -100,10 +108,14 @@ GOTO END
     SET url_apache_mod_security_archive=mod_security-%version_apache_mod_security%-win64-VS16.zip
     SET url_apache_mod_security_archive_includes_folder=No
     SET url_apache_mod_security=https://www.apachelounge.com/download/VS16/modules/%url_apache_mod_security_archive%
-    SET url_apache_tomcat_archive=apache-tomcat-%version_apache_tomcat%-windows-x64.zip
-    SET url_apache_tomcat_archive_includes_folder=Yes
-    SET url_apache_tomcat_archive_included_folder_name=apache-tomcat-%version_apache_tomcat%
-    SET url_apache_tomcat=https://mirrors.hostingromania.ro/apache.org/tomcat/tomcat-9/v%version_apache_tomcat%/bin/%url_apache_tomcat_archive%
+    SET url_apache_tomcat9x_archive=apache-tomcat-%version_apache_tomcat9x%-windows-x64.zip
+    SET url_apache_tomcat9x_archive_includes_folder=Yes
+    SET url_apache_tomcat9x_archive_included_folder_name=apache-tomcat-%version_apache_tomcat9x%
+    SET url_apache_tomcat9x=https://mirrors.hostingromania.ro/apache.org/tomcat/tomcat-9/v%version_apache_tomcat9x%/bin/%url_apache_tomcat9x_archive%
+    SET url_apache_tomcat10x_archive=apache-tomcat-%version_apache_tomcat10x%-windows-x64.zip
+    SET url_apache_tomcat10x_archive_includes_folder=Yes
+    SET url_apache_tomcat10x_archive_included_folder_name=apache-tomcat-%version_apache_tomcat10x%
+    SET url_apache_tomcat10x=https://mirrors.hostingromania.ro/apache.org/tomcat/tomcat-10/v%version_apache_tomcat10x%/bin/%url_apache_tomcat10x_archive%
     SET url_double_commander_archive=DoubleCmd-%version_double_commander_kit%-Win32X64.7z
     SET url_double_commander_archive_includes_folder=No
     SET url_double_commander=https://github.com/double-commander/doublecmd/releases/download/%version_double_commander%/%url_double_commander_archive%
@@ -130,6 +142,14 @@ GOTO END
     SET url_mysql_server_community_archive_includes_folder=Yes
     SET url_mysql_server_community_archive_includes_folder_name=mysql-%version_mysql_server_community%-winx64
     SET url_mysql_server_community=https://dev.mysql.com/get/Downloads/MySQL-8.0/%url_mysql_server_community_archive%
+    SET url_nodejs_current_archive=node-v%version_nodejs_current%-win-x64.zip
+    SET url_nodejs_current_archive_includes_folder=Yes
+    SET url_nodejs_current_archive_includes_folder_name=node-v%version_nodejs_current%-win-x64
+    SET url_nodejs_current=https://nodejs.org/dist/v%version_nodejs_current%/%url_nodejs_current_archive%
+    SET url_nodejs_lts_archive=node-v%version_nodejs_lts%-win-x64.zip
+    SET url_nodejs_lts_archive_includes_folder=Yes
+    SET url_nodejs_lts_archive_includes_folder_name=node-v%version_nodejs_lts%-win-x64
+    SET url_nodejs_lts=https://nodejs.org/dist/v%version_nodejs_lts%/%url_nodejs_lts_archive%
     SET url_notepad_plus_plus_archive=npp.%version_notepad_plus_plus%.portable.x64.zip
     SET url_notepad_plus_plus_archive_includes_folder=No
     SET url_notepad_plus_plus=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v%version_notepad_plus_plus%/%url_notepad_plus_plus_archive%
@@ -192,8 +212,10 @@ GOTO END
     SET path_developer_applications_apache_mod_log_rotate=%path_developer_applications__root__apache_mod_log_rotate%\%version_apache_mod_log_rotate%-64bit
     SET path_developer_applications__root__apache_mod_security=%path_web_applications%Apache_Module_Security
     SET path_developer_applications_apache_mod_security=%path_developer_applications__root__apache_mod_security%\%version_apache_mod_security%-64bit
-    SET path_developer_applications__root__apache_tomcat=%path_web_applications%Apache_Tomcat
-    SET path_developer_applications_apache_tomcat=%path_developer_applications__root__apache_tomcat%\%version_apache_tomcat%-64bit
+    SET path_developer_applications__root__apache_tomcat9x=%path_web_applications%Apache_Tomcat
+    SET path_developer_applications_apache_tomcat9x=%path_developer_applications__root__apache_tomcat9x%\%version_apache_tomcat9x%-64bit
+    SET path_developer_applications__root__apache_tomcat10x=%path_web_applications%Apache_Tomcat
+    SET path_developer_applications_apache_tomcat10x=%path_developer_applications__root__apache_tomcat10x%\%version_apache_tomcat10x%-64bit
     SET path_developer_applications__root__double_commander=%path_developer_applications%DoubleCommander
     SET path_developer_applications_double_commander=%path_developer_applications__root__double_commander%\%version_double_commander%-64bit
     SET path_developer_applications__root__git=%path_developer_applications%Git
@@ -204,6 +226,9 @@ GOTO END
     SET path_developer_applications__root__mysql=%path_web_applications%%path_developer_applications__rootS__mysql%
     SET path_developer_applications_mysql_router=%path_developer_applications__root__mysql%\Router-%version_mysql_server_community%-64bit
     SET path_developer_applications_mysql_server_community=%path_developer_applications__root__mysql%\Server-%version_mysql_server_community%-64bit
+    SET path_developer_applications__root__nodejs=%path_developer_applications%NodeJS
+    SET path_developer_applications_nodejs_current=%path_developer_applications__root__nodejs%\%version_nodejs_current%-64bit
+    SET path_developer_applications_nodejs_lts=%path_developer_applications__root__nodejs%\%version_nodejs_lts%-64bit
     SET path_developer_applications__root__notepad_plus_plus=%path_developer_applications%Notepad++
     SET path_developer_applications_notepad_plus_plus=%path_developer_applications__root__notepad_plus_plus%\%version_notepad_plus_plus%-64bit
     SET path_developer_applications__root__peazip=%path_developer_applications%PeaZip
@@ -283,12 +308,16 @@ GOTO END
     CALL :CreateDownloadsFolder
     ECHO Checking for %path_developer_application_specific%\%application_main_binary% existance
     :: Check if main binary of application is already in place
-    IF NOT EXIST "%path_developer_application_specific%\%application_main_binary%" (
+    IF EXIST %path_developer_application_specific%\%application_main_binary% (
+        ECHO %path_developer_application_specific%\%application_main_binary% is already in place there is nothing more I can do here
+    ) ELSE (
+        ECHO Checking if kit %path_downloads%%url_application_archive% is not already downloaded
         :: Donwload the archive but only if is not already in place
         IF NOT EXIST %path_downloads%%url_application_archive% (
             ECHO Will download portable version of %application_name%, version %version_application%, using PowerShell, as this action implies a active download this may take a while, more or less depending on your bandwith and Internet workload at this time, set back and be patient
             powershell.exe -command "$cli = New-Object System.Net.WebClient;$cli.Headers['User-Agent'] = '%custom_user_agent%';$cli.DownloadFile('%url_application_full%','%path_downloads%%url_application_archive%')"
         )
+        ECHO Checking if kit %path_downloads%%url_application_archive% is downloaded
         IF EXIST "%path_downloads%%url_application_archive%" (
             SET url_application_archive_format=undecided
             SET url_application_archive_extension_detected=%url_application_archive%
@@ -314,8 +343,7 @@ GOTO END
                 IF "%url_application_archive_includes_folder%"=="No" (
                     ECHO Will extract downloaded kit %path_downloads%%url_application_archive% to a folder from where it will reside for user to enjoy, using PowerShell
                     powershell.exe Expand-Archive -Path %path_downloads%%url_application_archive% -DestinationPath %path_developer_application_specific%
-                )
-                IF "%url_application_archive_includes_folder%"=="Yes" (
+                ) ELSE (
                     IF EXIST "%path_downloads%%url_application_archive%" (
                         ECHO Will extract downloaded kit %url_application_archive% to a intermediary destination folder, using PowerShell
                         powershell.exe Expand-Archive -Path %path_downloads%%url_application_archive% -DestinationPath %path_downloads%
@@ -426,10 +454,16 @@ GOTO END
                 SET detected_version_apache_mod_security_newer=***
             )
         )
-        IF /I "%application_action_to_do%"=="ApacheTomcat" (
-            SET detected_version_apache_tomcat=%exact_version%
-            IF "%version_apache_tomcat%" NEQ "%exact_version%" (
-                SET detected_version_apache_tomcat_newer=***
+        IF /I "%application_action_to_do%"=="ApacheTomcat9x" (
+            SET detected_version_apache_tomcat9x=%exact_version%
+            IF "%version_apache_tomcat9x%" NEQ "%exact_version%" (
+                SET detected_version_apache_tomcat9x_newer=***
+            )
+        )
+        IF /I "%application_action_to_do%"=="ApacheTomcat10x" (
+            SET detected_version_apache_tomcat10x=%exact_version%
+            IF "%version_apache_tomcat10x%" NEQ "%exact_version%" (
+                SET detected_version_apache_tomcat10x_newer=***
             )
         )
         IF /I "%application_action_to_do%"=="DoubleCommander" (
@@ -448,6 +482,18 @@ GOTO END
             SET detected_version_jdk=%exact_version%
             IF "%version_jdk%" NEQ "%exact_version%" (
                 SET detected_version_jdk_newer=***
+            )
+        )
+        IF /I "%application_action_to_do%"=="NodeJS_Current" (
+            SET detected_version_nodejs_current=%exact_version%
+            IF "%version_nodejs_current%" NEQ "%exact_version%" (
+                SET detected_version_nodejs_current_newer=***
+            )
+        )
+        IF /I "%application_action_to_do%"=="NodeJS_LongTimeSupport" (
+            SET detected_version_nodejs_lts=%exact_version%
+            IF "%version_nodejs_lts%" NEQ "%exact_version%" (
+                SET detected_version_nodejs_lts_newer=***
             )
         )
         IF /I "%application_action_to_do%"=="NotepadPlusPlus" (
@@ -622,15 +668,30 @@ GOTO END
             CALL :MultipleActionsToDo_AllSequences
         )
     )
-    IF /I "%application_action_to_do%"=="ApacheTomcat" (
-        SET detected_version_apache_tomcat_newer=_
-        SET exact_version=%version_apache_tomcat%
-        SET exact_version_folder=%version_apache_tomcat%-64bit
-        SET generic_application_folder=%path_developer_applications__root__apache_tomcat%
+    IF /I "%application_action_to_do%"=="ApacheTomcat9x" (
+        SET detected_version_apache_tomcat9x_newer=_
+        SET exact_version=%version_apache_tomcat9x%
+        SET exact_version_folder=%version_apache_tomcat9x%-64bit
+        SET generic_application_folder=%path_developer_applications__root__apache_tomcat9x%
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (9.0.38 9.0.39 9.0.40) do (
+        for %%i in (9.0.38 9.0.39 9.0.40 9.0.41) do (
+            SET exact_version=%%i
+            SET exact_version_folder=%%i-64bit
+            SET url_application_archive=apache-tomcat-%%i-windows-x64.zip
+            CALL :MultipleActionsToDo_AllSequences
+        )
+    )
+    IF /I "%application_action_to_do%"=="ApacheTomcat10x" (
+        SET detected_version_apache_tomcat10x_newer=_
+        SET exact_version=%version_apache_tomcat10x%
+        SET exact_version_folder=%version_apache_tomcat10x%-64bit
+        SET generic_application_folder=%path_developer_applications__root__apache_tomcat10x%
+        IF /I "%action_to_do%"=="detect_versions" (
+            CALL :DetectVersions__Generic
+        )
+        for %%i in (10.0.0 10.0.1) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=apache-tomcat-%%i-windows-x64.zip
@@ -680,6 +741,40 @@ GOTO END
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=openjdk-%%i_windows-x64_bin.zip
             CALL :MultipleActionsToDo_AllSequences
+        )
+    )
+    IF /I "%application_action_to_do%"=="NodeJS_Current" (
+        SET detected_version_nodejs_current_newer=_
+        SET exact_version=%version_nodejs_current%
+        SET exact_version_folder=%version_nodejs_current%-64bit
+        SET generic_application_folder=%path_developer_applications__root__nodejs%
+        IF /I "%action_to_do%"=="detect_versions" (
+            CALL :DetectVersions__Generic
+        )
+        for %%i in (15.6.0) do (
+            IF EXIST "%path_developer_applications__root__nodejs%\%%i-64bit" (
+                SET exact_version=%%i
+                SET exact_version_folder=%%i-64bit
+                SET url_application_archive=node-%%i-win-x64.zip
+                CALL :MultipleActionsToDo_AllSequences
+            )
+        )
+    )
+    IF /I "%application_action_to_do%"=="NodeJS_LongTimeSupport" (
+        SET detected_version_nodejs_lts_newer=_
+        SET exact_version=%version_nodejs_lts%
+        SET exact_version_folder=%version_nodejs_lts%-64bit
+        SET generic_application_folder=%path_developer_applications__root__nodejs%
+        IF /I "%action_to_do%"=="detect_versions" (
+            CALL :DetectVersions__Generic
+        )
+        for %%i in (14.15.3) do (
+            IF EXIST "%path_developer_applications__root__nodejs%\%%i-64bit" (
+                SET exact_version=%%i
+                SET exact_version_folder=%%i-64bit
+                SET url_application_archive=node-%%i-win-x64.zip
+                CALL :MultipleActionsToDo_AllSequences
+            )
         )
     )
     IF /I "%application_action_to_do%"=="NotePadPlusPlus" (
@@ -923,7 +1018,9 @@ GOTO END
     CALL :MultipleActionsToDo
     SET application_action_to_do=ApacheModSecurity
     CALL :MultipleActionsToDo
-    SET application_action_to_do=ApacheTomcat
+    SET application_action_to_do=ApacheTomcat9x
+    CALL :MultipleActionsToDo
+    SET application_action_to_do=ApacheTomcat10x
     CALL :MultipleActionsToDo
     SET application_action_to_do=DoubleCommander
     CALL :MultipleActionsToDo
@@ -931,11 +1028,15 @@ GOTO END
     CALL :MultipleActionsToDo
     SET application_action_to_do=JDK
     CALL :MultipleActionsToDo
-    SET application_action_to_do=NotepadPlusPlus
-    CALL :MultipleActionsToDo
     SET application_action_to_do=MySqlRouter
     CALL :MultipleActionsToDo
     SET application_action_to_do=MySqlServerCommunity
+    CALL :MultipleActionsToDo
+    SET application_action_to_do=NodeJS_Current
+    CALL :MultipleActionsToDo
+    SET application_action_to_do=NodeJS_LongTimeSupport
+    CALL :MultipleActionsToDo
+    SET application_action_to_do=NotepadPlusPlus
     CALL :MultipleActionsToDo
     SET application_action_to_do=PeaZip
     CALL :MultipleActionsToDo
@@ -1032,22 +1133,37 @@ GOTO Menu__InstallationsToDo
     SET url_application_full=%url_apache_mod_security%
     SET version_application=%version_apache_mod_security%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    SET application_action_to_do=ApacheModLogRotate
+    SET application_action_to_do=ApacheModSecurity
     SET action_to_do=remove_old_versions
     CALL :MultipleActionsToDo
 GOTO Menu__InstallationsToDo
 
-:InitiateOrUpdateFrameworkInfrastructure__ApacheTomcat
-    SET application_main_binary=%apache_tomcat__application_main_binary%
-    SET application_name=%apache_tomcat__application_name%
-    SET path_developer_application_specific=%path_developer_applications_apache_tomcat%
-    SET url_application_archive=%url_apache_tomcat_archive%
-    SET url_application_archive_includes_folder=%url_apache_tomcat_archive_includes_folder%
-    SET url_application_archive_included_folder_name=%url_apache_tomcat_archive_included_folder_name%
-    SET url_application_full=%url_apache_tomcat%
-    SET version_application=%version_apache_tomcat%
+:InitiateOrUpdateFrameworkInfrastructure__ApacheTomcat9x
+    SET application_main_binary=%apache_tomcat9x__application_main_binary%
+    SET application_name=%apache_tomcat9x__application_name%
+    SET path_developer_application_specific=%path_developer_applications_apache_tomcat9x%
+    SET url_application_archive=%url_apache_tomcat9x_archive%
+    SET url_application_archive_includes_folder=%url_apache_tomcat9x_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_apache_tomcat9x_archive_included_folder_name%
+    SET url_application_full=%url_apache_tomcat9x%
+    SET version_application=%version_apache_tomcat9x%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    SET application_action_to_do=ApacheModLogRotate
+    SET application_action_to_do=ApacheTomcat9x
+    SET action_to_do=remove_old_versions
+    CALL :MultipleActionsToDo
+GOTO Menu__InstallationsToDo
+
+:InitiateOrUpdateFrameworkInfrastructure__ApacheTomcat10x
+    SET application_main_binary=%apache_tomcat10x__application_main_binary%
+    SET application_name=%apache_tomcat10x__application_name%
+    SET path_developer_application_specific=%path_developer_applications_apache_tomcat10x%
+    SET url_application_archive=%url_apache_tomcat10x_archive%
+    SET url_application_archive_includes_folder=%url_apache_tomcat10x_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_apache_tomcat10x_archive_included_folder_name%
+    SET url_application_full=%url_apache_tomcat10x%
+    SET version_application=%version_apache_tomcat10x%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    SET application_action_to_do=ApacheTomcat10x
     SET action_to_do=remove_old_versions
     CALL :MultipleActionsToDo
 GOTO Menu__InstallationsToDo
@@ -1141,6 +1257,36 @@ GOTO Menu__InstallationsToDo
         MD %path_web_applications_temporary%\%path_developer_applications__rootS__mysql%\Server-%version_mysql_server_community%-64bit
     )
     SET application_action_to_do=MySqlServerCommunity
+    SET action_to_do=remove_old_versions
+    CALL :MultipleActionsToDo
+GOTO Menu__InstallationsToDo
+
+:InitiateOrUpdateFrameworkInfrastructure__NodeJS_Current
+    SET application_main_binary=%nodejs__application_main_binary%
+    SET application_name=%nodejs_current__application_name%
+    SET path_developer_application_specific=%path_developer_applications_nodejs_current%
+    SET url_application_archive=%url_nodejs_current_archive%
+    SET url_application_archive_includes_folder=%url_nodejs_current_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_nodejs_current_archive_includes_folder_name%
+    SET url_application_full=%url_nodejs_current%
+    SET version_application=%version_nodejs_current%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    SET application_action_to_do=NodeJS_Current
+    SET action_to_do=remove_old_versions
+    CALL :MultipleActionsToDo
+GOTO Menu__InstallationsToDo
+
+:InitiateOrUpdateFrameworkInfrastructure__NodeJS_LongTimeSupport
+    SET application_main_binary=%nodejs__application_main_binary%
+    SET application_name=%nodejs_lts__application_name%
+    SET path_developer_application_specific=%path_developer_applications_nodejs_lts%
+    SET url_application_archive=%url_nodejs_lts_archive%
+    SET url_application_archive_includes_folder=%url_nodejs_lts_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_nodejs_lts_archive_includes_folder_name%
+    SET url_application_full=%url_nodejs_lts%
+    SET version_application=%version_nodejs_lts%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    SET application_action_to_do=NodeJS_LongTimeSupport
     SET action_to_do=remove_old_versions
     CALL :MultipleActionsToDo
 GOTO Menu__InstallationsToDo
@@ -1474,13 +1620,16 @@ GOTO END
     ECHO iamf...Mod FCGId for Apache HTTPd......Web FastCGI module....................%version_apache_mod_fcgid%......%detected_version_apache_mod_fcgid%....%detected_version_apache_mod_fcgid_newer%
     ECHO iamlr..Mod Log Rotate for Apache HTTPd.Web Log Rotate module.................%version_apache_mod_log_rotate%.......%detected_version_apache_mod_log_rotate%.....%detected_version_apache_mod_log_rotate_newer%
     ECHO iams...Mod Security for Apache HTTPd...Web Security module...................%version_apache_mod_security%.......%detected_version_apache_mod_security%.....%detected_version_apache_mod_security_newer%
-    ECHO iat....Apache Tomcat for Windows.......Web server Java.......................%version_apache_tomcat%......%detected_version_apache_tomcat%....%detected_version_apache_tomcat_newer%
+    ECHO iat09..Apache Tomcat  9.x for Windows..Web server Java.......................%version_apache_tomcat9x%......%detected_version_apache_tomcat9x%....%detected_version_apache_tomcat9x_newer%
+    ECHO iat10..Apache Tomcat 10.x for Windows..Web server Java.......................%version_apache_tomcat10x%......%detected_version_apache_tomcat10x%....%detected_version_apache_tomcat10x_newer%
     ECHO id.....Double Commander for Windows....File manager..........................%version_double_commander%....%detected_version_double_commander%..%detected_version_double_commander_newer%
     ECHO ig.....Git for Windows.................Versioning engine.....................%version_git_enhanced%....%detected_version_git%..%detected_version_git_newer%
     ECHO ij.....Java Development Kit for Win....Multi-platform engine.................%version_jdk%......%detected_version_jdk%....%detected_version_jdk_newer%
     ECHO imr....MySQL Router....................Database Proxy Server.................%version_mysql_router%......%detected_version_mysql_router%....%detected_version_mysql_router_newer%
     ECHO imsc...MySQL Server Community..........Database Server.......................%version_mysql_server_community%......%detected_version_mysql_server_community%....%detected_version_mysql_server_community_newer%
     ECHO in.....Notepad++.......................Advanced text editor..................%version_notepad_plus_plus%.......%detected_version_notepad_plus_plus%.....%detected_version_notepad_plus_plus_newer%
+    ECHO injc...NodeJS Current..................Script engine Current.................%version_nodejs_current%......%detected_version_nodejs_current%.....%detected_version_nodejs_current_newer%
+    ECHO injl...NodeJS LTS (Long Time Support)..Script engine LTS.....................%version_nodejs_lts%.......%detected_version_nodejs_lts%.....%detected_version_nodejs_lts_newer%
     ECHO iz.....PeaZip for Windows..............Archiver..............................%version_peazip%.......%detected_version_peazip%.....%detected_version_peazip_newer%
     ECHO ih74...PHP 7.4.x for Windows...........Script engine.........................%version_php74x%......%detected_version_php74x%....%detected_version_php74x_newer%
     ECHO ih80...PHP 8.0.x for Windows...........Script engine.........................%version_php80x%.......%detected_version_php80x%.....%detected_version_php80x_newer%
@@ -1507,13 +1656,16 @@ GOTO END
     IF /I "%CHOICE_INSTALL%"=="iamf" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheModFcgid ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="iamlr" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheModLogRotate ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="iams" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheModSecurity ) ELSE (
-    IF /I "%CHOICE_INSTALL%"=="iat" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheTomcat ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="iat09" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheTomcat9x ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="iat10" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheTomcat10x ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="id" ( CALL :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ig" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Git ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ij" ( CALL :InitiateOrUpdateFrameworkInfrastructure__JDK ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="imr" ( CALL :InitiateOrUpdateFrameworkInfrastructure__MySqlRouter ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="imsc" ( CALL :InitiateOrUpdateFrameworkInfrastructure__MySqlServerCommunity ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="in" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="injc" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NodeJS_Current ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="injl" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NodeJS_LongTimeSupport ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ih74" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php74x ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ih80" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php80x ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="iz" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZip ) ELSE (
@@ -1537,6 +1689,9 @@ GOTO END
         )
         )
         )
+    )
+    )
+    )
     )
     )
     )

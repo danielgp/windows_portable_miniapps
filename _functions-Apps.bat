@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.0.1
-    SET this_script_release_date=2021-02-01
+    SET this_script_version=1.0.2
+    SET this_script_release_date=2021-02-10
 GOTO END
 
 :EstablishVersions
@@ -30,8 +30,8 @@ GOTO END
     SET version_nodejs_lts=14.15.4
     SET version_notepad_plus_plus=7.9.2
     SET version_peazip=7.7.0
-    SET version_php74x=7.4.14
-    SET version_php80x=8.0.1
+    SET version_php74x=7.4.15
+    SET version_php80x=8.0.2
     SET version_putty=0.74
     SET version_python36x_major_minor=3.6
     SET version_python36x_major_minor_build=3.6.8
@@ -842,7 +842,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13) do (
+        for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=php-%%i-nts-Win32-vc15-x64.zip
@@ -857,7 +857,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (8.0.0) do (
+        for %%i in (8.0.0 8.0.1) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=php-%%i-nts-Win32-vs16-x64.zip

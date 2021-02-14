@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.0.3
-    SET this_script_release_date=2021-02-11
+    SET this_script_version=1.0.4
+    SET this_script_release_date=2021-02-14
 GOTO END
 
 :EstablishVersions
@@ -29,7 +29,7 @@ GOTO END
     SET version_nodejs_current=15.7.0
     SET version_nodejs_lts=14.15.4
     SET version_notepad_plus_plus=7.9.2
-    SET version_peazip=7.7.0
+    SET version_peazip=7.7.1
     SET version_php74x=7.4.15
     SET version_php80x=8.0.2
     SET version_putty=0.74
@@ -872,7 +872,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0) do (
+        for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=peazip_portable-%%i.WIN64.zip

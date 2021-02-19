@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.0.5
-    SET this_script_release_date=2021-02-19
+    SET this_script_version=1.0.6
+    SET this_script_release_date=2021-02-20
 GOTO END
 
 :EstablishVersions
@@ -26,8 +26,7 @@ GOTO END
     SET version_jdk_subfolder=0d1cfde4252546c6931946de8db48ee2/7
     SET version_mysql_router=8.0.23
     SET version_mysql_server_community=8.0.23
-    SET version_nodejs_current=15.7.0
-    SET version_nodejs_lts=14.15.4
+    SET version_nodejs_current=15.9.0
     SET version_notepad_plus_plus=7.9.3
     SET version_peazip=7.7.1
     SET version_php74x=7.4.15
@@ -74,7 +73,6 @@ GOTO END
     SET mysql_router__application_name=MySQL Router
     SET nodejs__application_main_binary=node.exe
     SET nodejs_current__application_name=NodeJS for Windows Current
-    SET nodejs_lts__application_name=NodeJS for Windows LTS (Long Time Support)
     SET notepad_plus_plus__application_main_binary=notepad++.exe
     SET notepad_plus_plus__application_name=Notepad++ for Windows
     SET peazip__application_main_binary=pea.exe
@@ -146,10 +144,6 @@ GOTO END
     SET url_nodejs_current_archive_includes_folder=Yes
     SET url_nodejs_current_archive_includes_folder_name=node-v%version_nodejs_current%-win-x64
     SET url_nodejs_current=https://nodejs.org/dist/v%version_nodejs_current%/%url_nodejs_current_archive%
-    SET url_nodejs_lts_archive=node-v%version_nodejs_lts%-win-x64.zip
-    SET url_nodejs_lts_archive_includes_folder=Yes
-    SET url_nodejs_lts_archive_includes_folder_name=node-v%version_nodejs_lts%-win-x64
-    SET url_nodejs_lts=https://nodejs.org/dist/v%version_nodejs_lts%/%url_nodejs_lts_archive%
     SET url_notepad_plus_plus_archive=npp.%version_notepad_plus_plus%.portable.x64.zip
     SET url_notepad_plus_plus_archive_includes_folder=No
     SET url_notepad_plus_plus=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v%version_notepad_plus_plus%/%url_notepad_plus_plus_archive%
@@ -228,7 +222,6 @@ GOTO END
     SET path_developer_applications_mysql_server_community=%path_developer_applications__root__mysql%\Server-%version_mysql_server_community%-64bit
     SET path_developer_applications__root__nodejs=%path_developer_applications%NodeJS
     SET path_developer_applications_nodejs_current=%path_developer_applications__root__nodejs%\%version_nodejs_current%-64bit
-    SET path_developer_applications_nodejs_lts=%path_developer_applications__root__nodejs%\%version_nodejs_lts%-64bit
     SET path_developer_applications__root__notepad_plus_plus=%path_developer_applications%Notepad++
     SET path_developer_applications_notepad_plus_plus=%path_developer_applications__root__notepad_plus_plus%\%version_notepad_plus_plus%-64bit
     SET path_developer_applications__root__peazip=%path_developer_applications%PeaZip
@@ -490,12 +483,6 @@ GOTO END
                 SET detected_version_nodejs_current_newer=***
             )
         )
-        IF /I "%application_action_to_do%"=="NodeJS_LongTimeSupport" (
-            SET detected_version_nodejs_lts=%exact_version%
-            IF "%version_nodejs_lts%" NEQ "%exact_version%" (
-                SET detected_version_nodejs_lts_newer=***
-            )
-        )
         IF /I "%application_action_to_do%"=="NotepadPlusPlus" (
             SET detected_version_notepad_plus_plus=%exact_version%
             IF "%version_notepad_plus_plus%" NEQ "%exact_version%" (
@@ -751,24 +738,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (15.6.0) do (
-            IF EXIST "%path_developer_applications__root__nodejs%\%%i-64bit" (
-                SET exact_version=%%i
-                SET exact_version_folder=%%i-64bit
-                SET url_application_archive=node-%%i-win-x64.zip
-                CALL :MultipleActionsToDo_AllSequences
-            )
-        )
-    )
-    IF /I "%application_action_to_do%"=="NodeJS_LongTimeSupport" (
-        SET detected_version_nodejs_lts_newer=_
-        SET exact_version=%version_nodejs_lts%
-        SET exact_version_folder=%version_nodejs_lts%-64bit
-        SET generic_application_folder=%path_developer_applications__root__nodejs%
-        IF /I "%action_to_do%"=="detect_versions" (
-            CALL :DetectVersions__Generic
-        )
-        for %%i in (14.15.3) do (
+        for %%i in (15.6.0 15.7.0 15.8.0) do (
             IF EXIST "%path_developer_applications__root__nodejs%\%%i-64bit" (
                 SET exact_version=%%i
                 SET exact_version_folder=%%i-64bit
@@ -1178,7 +1148,7 @@ GOTO Menu__InstallationsToDo
     SET url_application_full=%url_double_commander%
     SET version_application=%version_double_commander%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    SET application_action_to_do=ApacheModLogRotate
+    SET application_action_to_do=DoubleCommander
     SET action_to_do=remove_old_versions
     CALL :MultipleActionsToDo
 GOTO Menu__InstallationsToDo
@@ -1272,21 +1242,6 @@ GOTO Menu__InstallationsToDo
     SET version_application=%version_nodejs_current%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     SET application_action_to_do=NodeJS_Current
-    SET action_to_do=remove_old_versions
-    CALL :MultipleActionsToDo
-GOTO Menu__InstallationsToDo
-
-:InitiateOrUpdateFrameworkInfrastructure__NodeJS_LongTimeSupport
-    SET application_main_binary=%nodejs__application_main_binary%
-    SET application_name=%nodejs_lts__application_name%
-    SET path_developer_application_specific=%path_developer_applications_nodejs_lts%
-    SET url_application_archive=%url_nodejs_lts_archive%
-    SET url_application_archive_includes_folder=%url_nodejs_lts_archive_includes_folder%
-    SET url_application_archive_included_folder_name=%url_nodejs_lts_archive_includes_folder_name%
-    SET url_application_full=%url_nodejs_lts%
-    SET version_application=%version_nodejs_lts%
-    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    SET application_action_to_do=NodeJS_LongTimeSupport
     SET action_to_do=remove_old_versions
     CALL :MultipleActionsToDo
 GOTO Menu__InstallationsToDo
@@ -1629,7 +1584,6 @@ GOTO END
     ECHO imsc...MySQL Server Community..........Database Server.......................%version_mysql_server_community%......%detected_version_mysql_server_community%....%detected_version_mysql_server_community_newer%
     ECHO in.....Notepad++.......................Advanced text editor..................%version_notepad_plus_plus%.......%detected_version_notepad_plus_plus%.....%detected_version_notepad_plus_plus_newer%
     ECHO injc...NodeJS Current..................Script engine Current.................%version_nodejs_current%......%detected_version_nodejs_current%.....%detected_version_nodejs_current_newer%
-    ECHO injl...NodeJS LTS (Long Time Support)..Script engine LTS.....................%version_nodejs_lts%.......%detected_version_nodejs_lts%.....%detected_version_nodejs_lts_newer%
     ECHO iz.....PeaZip for Windows..............Archiver..............................%version_peazip%.......%detected_version_peazip%.....%detected_version_peazip_newer%
     ECHO ih74...PHP 7.4.x for Windows...........Script engine.........................%version_php74x%......%detected_version_php74x%....%detected_version_php74x_newer%
     ECHO ih80...PHP 8.0.x for Windows...........Script engine.........................%version_php80x%.......%detected_version_php80x%.....%detected_version_php80x_newer%

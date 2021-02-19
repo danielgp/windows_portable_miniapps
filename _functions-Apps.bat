@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.0.4
-    SET this_script_release_date=2021-02-14
+    SET this_script_version=1.0.5
+    SET this_script_release_date=2021-02-19
 GOTO END
 
 :EstablishVersions
@@ -18,7 +18,7 @@ GOTO END
     SET version_apache_mod_security=2.9.3
     SET version_apache_tomcat9x=9.0.43
     SET version_apache_tomcat10x=10.0.2
-    SET version_double_commander=1.0.9483
+    SET version_double_commander=1.0.9651
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.30.1
     SET version_git_windows_compilation=.windows.1
@@ -28,7 +28,7 @@ GOTO END
     SET version_mysql_server_community=8.0.23
     SET version_nodejs_current=15.7.0
     SET version_nodejs_lts=14.15.4
-    SET version_notepad_plus_plus=7.9.2
+    SET version_notepad_plus_plus=7.9.3
     SET version_peazip=7.7.1
     SET version_php74x=7.4.15
     SET version_php80x=8.0.2
@@ -706,7 +706,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (1.0.9375) do (
+        for %%i in (1.0.9375 1.0.9483) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=DoubleCmd-%%i-Win32X64.7z
@@ -785,7 +785,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1) do (
+        for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2) do (
             IF EXIST "%path_developer_applications__root__notepad_plus_plus%\%%i-64bit" (
                 for %%j in (session.xml config.xml) do (
                     REM ECHO Detecting %path_developer_applications__root__notepad_plus_plus%\%%i-64bit\%%j

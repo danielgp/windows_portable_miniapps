@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.0.7
+    SET this_script_version=1.0.8
     SET this_script_release_date=2021-02-25
 GOTO END
 
@@ -26,7 +26,7 @@ GOTO END
     SET version_jdk_subfolder=0d1cfde4252546c6931946de8db48ee2/7
     SET version_mysql_router=8.0.23
     SET version_mysql_server_community=8.0.23
-    SET version_nodejs_current=15.9.0
+    SET version_nodejs_current=15.10.0
     SET version_notepad_plus_plus=7.9.3
     SET version_peazip=7.7.1
     SET version_php74x=7.4.15
@@ -738,7 +738,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (15.6.0 15.7.0 15.8.0) do (
+        for %%i in (15.6.0 15.7.0 15.8.0 15.9.0) do (
             IF EXIST "%path_developer_applications__root__nodejs%\%%i-64bit" (
                 SET exact_version=%%i
                 SET exact_version_folder=%%i-64bit

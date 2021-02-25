@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.0.6
-    SET this_script_release_date=2021-02-20
+    SET this_script_version=1.0.7
+    SET this_script_release_date=2021-02-25
 GOTO END
 
 :EstablishVersions
@@ -37,9 +37,9 @@ GOTO END
     SET version_python37x_major_minor=3.7
     SET version_python37x_major_minor_build=3.7.9
     SET version_python38x_major_minor=3.8
-    SET version_python38x_major_minor_build=3.8.7
+    SET version_python38x_major_minor_build=3.8.8
     SET version_python39x_major_minor=3.9
-    SET version_python39x_major_minor_build=3.9.1
+    SET version_python39x_major_minor_build=3.9.2
     SET version_treesize=4.4.2
     SET version_vlc=3.0.12
     SET version_winscp=5.17.10
@@ -904,7 +904,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (3.8.0 3.8.1 3.8.2 3.8.3 3.8.4 3.8.5 3.8.6) do (
+        for %%i in (3.8.0 3.8.1 3.8.2 3.8.3 3.8.4 3.8.5 3.8.6 3.8.7) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=python-%%i-embed-amd64.zip
@@ -919,7 +919,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (3.9.0) do (
+        for %%i in (3.9.0 3.9.1) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=python-%%i-embed-amd64.zip

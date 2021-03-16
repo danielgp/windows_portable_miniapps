@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.0.13
-    SET this_script_release_date=2021-03-16
+    SET this_script_version=1.0.14
+    SET this_script_release_date=2021-03-17
 GOTO END
 
 :EstablishVersions
@@ -16,8 +16,8 @@ GOTO END
     SET version_apache_mod_fcgid=2.3.10
     SET version_apache_mod_log_rotate=1.0.2
     SET version_apache_mod_security=2.9.3
-    SET version_apache_tomcat9x=9.0.43
-    SET version_apache_tomcat10x=10.0.2
+    SET version_apache_tomcat9x=9.0.44
+    SET version_apache_tomcat10x=10.0.4
     SET version_double_commander=1.0.9651
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.31.0
@@ -663,7 +663,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (9.0.38 9.0.39 9.0.40 9.0.41) do (
+        for %%i in (9.0.38 9.0.39 9.0.40 9.0.41 9.0.43) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=apache-tomcat-%%i-windows-x64.zip
@@ -678,7 +678,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (10.0.0 10.0.1) do (
+        for %%i in (10.0.0 10.0.2) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=apache-tomcat-%%i-windows-x64.zip

@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.0.12
+    SET this_script_version=1.0.13
     SET this_script_release_date=2021-03-16
 GOTO END
 
@@ -22,8 +22,8 @@ GOTO END
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.31.0
     SET version_git_windows_compilation=.windows.1
-    SET version_jdk=15.0.2
-    SET version_jdk_subfolder=0d1cfde4252546c6931946de8db48ee2/7
+    SET version_jdk=16
+    SET version_jdk_subfolder=7863447f0ab643c585b9bdebf67c69db/36
     SET version_mysql_router=8.0.23
     SET version_mysql_server_community=8.0.23
     SET version_notepad_plus_plus=7.9.4
@@ -723,7 +723,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (15.0.0 15.0.1) do (
+        for %%i in (15.0.0 15.0.1 15.0.2) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=openjdk-%%i_windows-x64_bin.zip

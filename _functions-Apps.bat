@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.0.11
+    SET this_script_version=1.0.12
     SET this_script_release_date=2021-03-16
 GOTO END
 
@@ -26,7 +26,7 @@ GOTO END
     SET version_jdk_subfolder=0d1cfde4252546c6931946de8db48ee2/7
     SET version_mysql_router=8.0.23
     SET version_mysql_server_community=8.0.23
-    SET version_notepad_plus_plus=7.9.3
+    SET version_notepad_plus_plus=7.9.4
     SET version_nodejs_current=15.11.0
     SET version_peazip=7.7.1
     SET version_php74x=7.4.16
@@ -755,7 +755,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2) do (
+        for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3) do (
             IF EXIST "%path_developer_applications__root__notepad_plus_plus%\%%i-64bit" (
                 for %%j in (session.xml config.xml) do (
                     REM ECHO Detecting %path_developer_applications__root__notepad_plus_plus%\%%i-64bit\%%j

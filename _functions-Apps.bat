@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.0.10
-    SET this_script_release_date=2021-03-09
+    SET this_script_version=1.0.11
+    SET this_script_release_date=2021-03-16
 GOTO END
 
 :EstablishVersions
@@ -20,14 +20,14 @@ GOTO END
     SET version_apache_tomcat10x=10.0.2
     SET version_double_commander=1.0.9651
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
-    SET version_git=2.30.1
+    SET version_git=2.31.0
     SET version_git_windows_compilation=.windows.1
     SET version_jdk=15.0.2
     SET version_jdk_subfolder=0d1cfde4252546c6931946de8db48ee2/7
     SET version_mysql_router=8.0.23
     SET version_mysql_server_community=8.0.23
-    SET version_nodejs_current=15.11.0
     SET version_notepad_plus_plus=7.9.3
+    SET version_nodejs_current=15.11.0
     SET version_peazip=7.7.1
     SET version_php74x=7.4.16
     SET version_php80x=8.0.3
@@ -708,7 +708,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2) do (
+        for %%i in (2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=PortableGit-%%i-64-bit.7z.exe

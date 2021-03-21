@@ -730,6 +730,36 @@ GOTO END
             CALL :MultipleActionsToDo_AllSequences
         )
     )
+    IF /I "%application_action_to_do%"=="MySqlRouter" (
+        SET detected_version_mysql_router_newer=_
+        SET exact_version=%version_mysql_router%
+        SET exact_version_folder=Router-%version_mysql_router%-64bit
+        SET generic_application_folder=%path_developer_applications__root__mysql%
+        IF /I "%action_to_do%"=="detect_versions" (
+            CALL :DetectVersions__Generic
+        )
+        for %%i in (%version_mysql_router_older%) do (
+            SET exact_version=%%i
+            SET exact_version_folder=Router-%%i-64bit
+            SET url_application_archive=mysql-router-%%i-winx64.zip
+            CALL :MultipleActionsToDo_AllSequences
+        )
+    )
+    IF /I "%application_action_to_do%"=="MySqlServerCommunity" (
+        SET detected_version_mysql_server_community=_
+        SET exact_version=%version_mysql_server_community%
+        SET exact_version_folder=Server-%version_mysql_server_community%-64bit
+        SET generic_application_folder=%path_developer_applications__root__mysql%
+        IF /I "%action_to_do%"=="detect_versions" (
+            CALL :DetectVersions__Generic
+        )
+        for %%i in (%version_mysql_server_community_older%) do (
+            SET exact_version=%%i
+            SET exact_version_folder=Server-%%i-64bit
+            SET url_application_archive=mysql-%%i-winx64.zip
+            CALL :MultipleActionsToDo_AllSequences
+        )
+    )
     IF /I "%application_action_to_do%"=="NodeJS_Current" (
         SET detected_version_nodejs_current_newer=_
         SET exact_version=%version_nodejs_current%
@@ -772,36 +802,6 @@ GOTO END
                 SET url_application_archive=npp.%%i.portable.x64.zip
                 CALL :MultipleActionsToDo_AllSequences
             )
-        )
-    )
-    IF /I "%application_action_to_do%"=="MySqlRouter" (
-        SET detected_version_mysql_router_newer=_
-        SET exact_version=%version_mysql_router%
-        SET exact_version_folder=Router-%version_mysql_router%-64bit
-        SET generic_application_folder=%path_developer_applications__root__mysql%
-        IF /I "%action_to_do%"=="detect_versions" (
-            CALL :DetectVersions__Generic
-        )
-        for %%i in (8.0.20 8.0.21 8.0.22) do (
-            SET exact_version=%%i
-            SET exact_version_folder=Router-%%i-64bit
-            SET url_application_archive=mysql-router-%%i-winx64.zip
-            CALL :MultipleActionsToDo_AllSequences
-        )
-    )
-    IF /I "%application_action_to_do%"=="MySqlServerCommunity" (
-        SET detected_version_mysql_server_community=_
-        SET exact_version=%version_mysql_server_community%
-        SET exact_version_folder=Server-%version_mysql_server_community%-64bit
-        SET generic_application_folder=%path_developer_applications__root__mysql%
-        IF /I "%action_to_do%"=="detect_versions" (
-            CALL :DetectVersions__Generic
-        )
-        for %%i in (8.0.20 8.0.21 8.0.22) do (
-            SET exact_version=%%i
-            SET exact_version_folder=Server-%%i-64bit
-            SET url_application_archive=mysql-%%i-winx64.zip
-            CALL :MultipleActionsToDo_AllSequences
         )
     )
     IF /I "%application_action_to_do%"=="PHP74x" (

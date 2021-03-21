@@ -6,19 +6,27 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.0.15
-    SET this_script_release_date=2021-03-21
+    SET this_script_version=1.1.0
+    SET this_script_release_date=2021-03-22
 GOTO END
 
 :EstablishVersions
     SET version_apache_httpd=2.4.46
+        SET version_apache_httpd_older=2.2.43
     SET version_apache_mod_evasive=2.2.0
+        SET version_apache_mod_evasive_older=2.1.0
     SET version_apache_mod_fcgid=2.3.10
+        SET version_apache_mod_fcgid_older=2.3.9
     SET version_apache_mod_log_rotate=1.0.2
+        SET version_apache_mod_log_rotate_older=1.0.0 1.0.1
     SET version_apache_mod_security=2.9.3
+        SET version_apache_mod_security_older=2.9.1 2.9.2
     SET version_apache_tomcat9x=9.0.44
+        SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43
     SET version_apache_tomcat10x=10.0.4
+        SET version_apache_tomcat10x_older=10.0.0 10.0.2
     SET version_double_commander=1.0.9651
+        SET version_double_commander_older=1.0.9375 1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.31.0
     SET version_git_windows_compilation=.windows.1
@@ -29,27 +37,44 @@ GOTO END
     IF "%version_git_windows_compilation%"==".windows.3" (
         SET version_git_enhanced=%version_git%.3
     )
+        SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1
     SET version_jdk=16
     SET version_jdk_subfolder=7863447f0ab643c585b9bdebf67c69db/36
+        SET version_jdk_older=15.0.0 15.0.1 15.0.2
     SET version_mysql_router=8.0.23
+        SET version_mysql_router_older=8.0.20 8.0.21 8.0.22
     SET version_mysql_server_community=8.0.23
+        SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22
     SET version_notepad_plus_plus=7.9.4
+        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3
     SET version_nodejs_current=15.11.0
+        SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0
     SET version_peazip=7.8.0
+        SET version_peazip_older=7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0 7.7.1
     SET version_php74x=7.4.16
+        SET version_php74x_older=7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15
     SET version_php80x=8.0.3
+        SET version_php80x_older=8.0.0 8.0.1 8.0.2
     SET version_putty=0.74
+        SET version_putty_older=0.72 0.73
     SET version_python36x_major_minor=3.6
     SET version_python36x_major_minor_build=3.6.8
+        SET version_python36x_major_minor_build_older=3.6.0 3.6.1 3.6.2 3.6.3 3.6.4 3.6.5 3.6.6 3.6.7
     SET version_python37x_major_minor=3.7
     SET version_python37x_major_minor_build=3.7.9
+        SET version_python37x_major_minor_build_older=3.7.0 3.7.1 3.7.2 3.7.3 3.7.4 3.7.5 3.7.6 3.7.7 3.7.8
     SET version_python38x_major_minor=3.8
     SET version_python38x_major_minor_build=3.8.8
+        SET version_python38x_major_minor_build_older=3.8.0 3.8.1 3.8.2 3.8.3 3.8.4 3.8.5 3.8.6 3.8.7
     SET version_python39x_major_minor=3.9
     SET version_python39x_major_minor_build=3.9.2
+        SET version_python39x_major_minor_build_older=3.9.0 3.9.1
     SET version_treesize=4.4.2
+        SET version_treesize_older=4.4.0 4.4.1
     SET version_vlc=3.0.12
+        SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11
     SET version_winscp=5.17.10
+        SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9
     SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:85.0) Gecko/20100101 Firefox/85.0
 GOTO END
 
@@ -588,7 +613,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (2.2.43) do (
+        for %%i in (%version_apache_httpd_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=httpd-%%i-win64-VS16.zip
@@ -603,7 +628,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (2.1.0) do (
+        for %%i in (%version_apache_mod_evasive_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=mod_evasive-%%i-win64-VS16.zip
@@ -618,7 +643,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (2.3.9) do (
+        for %%i in (%version_apache_mod_fcgid_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=mod_fcgid-%%i-win64-VS16.zip
@@ -633,7 +658,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (1.0.0 1.0.1) do (
+        for %%i in (%version_apache_mod_log_rotate_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=mod_log_rotate-%%i-win64-VS16.zip
@@ -648,7 +673,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (2.9.1 2.9.2) do (
+        for %%i in (%version_apache_mod_security_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=mod_security-%%i-win64-VS16.zip
@@ -663,7 +688,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (9.0.38 9.0.39 9.0.40 9.0.41 9.0.43) do (
+        for %%i in (%version_apache_tomcat9x_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=apache-tomcat-%%i-windows-x64.zip
@@ -678,7 +703,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (10.0.0 10.0.2) do (
+        for %%i in (%version_apache_tomcat10x_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=apache-tomcat-%%i-windows-x64.zip
@@ -693,7 +718,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (1.0.9375 1.0.9483) do (
+        for %%i in (%version_double_commander_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=DoubleCmd-%%i-Win32X64.7z
@@ -708,7 +733,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1) do (
+        for %%i in (%version_git_enhanced_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=PortableGit-%%i-64-bit.7z.exe
@@ -723,7 +748,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (15.0.0 15.0.1 15.0.2) do (
+        for %%i in (%version_jdk_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=openjdk-%%i_windows-x64_bin.zip
@@ -768,7 +793,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (15.6.0 15.7.0 15.8.0 15.9.0 15.10.0) do (
+        for %%i in (%version_nodejs_current_older%) do (
             IF EXIST "%path_developer_applications__root__nodejs%\%%i-64bit" (
                 SET exact_version=%%i
                 SET exact_version_folder=%%i-64bit
@@ -785,7 +810,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3) do (
+        for %%i in (%version_notepad_plus_plus_older%) do (
             IF EXIST "%path_developer_applications__root__notepad_plus_plus%\%%i-64bit" (
                 for %%j in (session.xml config.xml) do (
                     REM ECHO Detecting %path_developer_applications__root__notepad_plus_plus%\%%i-64bit\%%j
@@ -812,7 +837,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15) do (
+        for %%i in (%version_php74x_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=php-%%i-nts-Win32-vc15-x64.zip
@@ -827,7 +852,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (8.0.0 8.0.1 8.0.2) do (
+        for %%i in (%version_php80x_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=php-%%i-nts-Win32-vs16-x64.zip
@@ -842,7 +867,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0) do (
+        for %%i in (%version_peazip_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=peazip_portable-%%i.WIN64.zip
@@ -857,7 +882,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (0.72 0.73) do (
+        for %%i in (%version_putty_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET generic_application_folder=%path_developer_applications__root__putty%
@@ -874,7 +899,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (3.6.0 3.6.1 3.6.2 3.6.3 3.6.4 3.6.5 3.6.6 3.6.7) do (
+        for %%i in (%version_python36x_major_minor_build_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=python-%%i-embed-amd64.zip
@@ -889,7 +914,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (3.7.0 3.7.1 3.7.2 3.7.3 3.7.4 3.7.5 3.7.6 3.7.7 3.7.8) do (
+        for %%i in (%version_python37x_major_minor_build_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=python-%%i-embed-amd64.zip
@@ -904,7 +929,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (3.8.0 3.8.1 3.8.2 3.8.3 3.8.4 3.8.5 3.8.6 3.8.7) do (
+        for %%i in (%version_python38x_major_minor_build_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=python-%%i-embed-amd64.zip
@@ -919,7 +944,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (3.9.0 3.9.1) do (
+        for %%i in (%version_python39x_major_minor_build_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=python-%%i-embed-amd64.zip
@@ -934,7 +959,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (4.4.0 4.4.1) do (
+        for %%i in (%version_treesize_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-32bit
             REM as name is fixed, removal of old versions is not neccsesary
@@ -950,7 +975,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (3.0.8 3.0.9 3.0.10 3.0.11) do (
+        for %%i in (%version_vlc_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=vlc-%%i-win64.zip
@@ -965,7 +990,7 @@ GOTO END
         IF /I "%action_to_do%"=="detect_versions" (
             CALL :DetectVersions__Generic
         )
-        for %%i in (5.17.5 5.17.6 5.17.7 5.17.8 5.17.9) do (
+        for %%i in (%version_winscp_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=WinSCP-%%i-Portable.zip

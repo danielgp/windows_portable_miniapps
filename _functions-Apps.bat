@@ -22,6 +22,13 @@ GOTO END
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.31.0
     SET version_git_windows_compilation=.windows.1
+    SET version_git_enhanced=%version_git%
+    IF "%version_git_windows_compilation%"==".windows.2" (
+        SET version_git_enhanced=%version_git%.2
+    )
+    IF "%version_git_windows_compilation%"==".windows.3" (
+        SET version_git_enhanced=%version_git%.3
+    )
     SET version_jdk=16
     SET version_jdk_subfolder=7863447f0ab643c585b9bdebf67c69db/36
     SET version_mysql_router=8.0.23
@@ -117,13 +124,6 @@ GOTO END
     SET url_double_commander_archive=DoubleCmd-%version_double_commander_kit%-Win32X64.7z
     SET url_double_commander_archive_includes_folder=No
     SET url_double_commander=https://github.com/double-commander/doublecmd/releases/download/%version_double_commander%/%url_double_commander_archive%
-    SET version_git_enhanced=%version_git%
-    IF "%version_git_windows_compilation%"==".windows.2" (
-        SET version_git_enhanced=%version_git%.2
-    )
-    IF "%version_git_windows_compilation%"==".windows.3" (
-        SET version_git_enhanced=%version_git%.3
-    )
     SET url_git_archive=PortableGit-%version_git_enhanced%-64-bit.7z.exe
     SET url_git_archive_includes_folder=Yes
     SET url_git_archive_included_folder_name=PortableGit

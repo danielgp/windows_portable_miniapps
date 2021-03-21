@@ -1322,13 +1322,9 @@ GOTO Menu__InstallationsToDo
     SET url_application_full=%url_putty%
     SET version_application=%version_putty%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    for %%i in (0.72 0.73) do (
-        SET exact_version_folder=%%i-64bit
-        SET generic_application_folder=%path_developer_applications__root__putty%
-        REM as name is fixed, removal of old versions is not neccsesary
-        SET url_application_archive=putty9999.zip
-        CALL :RemoveFolderWithOlderVersions
-    )
+    SET application_action_to_do=PuTTY
+    SET action_to_do=remove_old_versions
+    CALL :MultipleActionsToDo
     CALL :RemoveDownloadsFolderWithAnyContent
 GOTO Menu__InstallationsToDo
 

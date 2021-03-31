@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.1.1
-    SET this_script_release_date=2021-03-24
+    SET this_script_version=1.1.2
+    SET this_script_release_date=2021-03-28
 GOTO END
 
 :EstablishVersions
@@ -28,7 +28,7 @@ GOTO END
     SET version_double_commander=1.0.9651
         SET version_double_commander_older=1.0.9375 1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
-    SET version_git=2.31.0
+    SET version_git=2.31.1
     SET version_git_windows_compilation=.windows.1
     SET version_git_enhanced=%version_git%
     IF "%version_git_windows_compilation%"==".windows.2" (
@@ -37,7 +37,7 @@ GOTO END
     IF "%version_git_windows_compilation%"==".windows.3" (
         SET version_git_enhanced=%version_git%.3
     )
-        SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1
+        SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0
     SET version_jdk=16
     SET version_jdk_subfolder=7863447f0ab643c585b9bdebf67c69db/36
         SET version_jdk_older=15.0.0 15.0.1 15.0.2

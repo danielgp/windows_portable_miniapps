@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.1.2
-    SET this_script_release_date=2021-03-28
+    SET this_script_version=1.1.3
+    SET this_script_release_date=2021-04-09
 GOTO END
 
 :EstablishVersions
@@ -21,10 +21,10 @@ GOTO END
         SET version_apache_mod_log_rotate_older=1.0.0 1.0.1
     SET version_apache_mod_security=2.9.3
         SET version_apache_mod_security_older=2.9.1 2.9.2
-    SET version_apache_tomcat9x=9.0.44
-        SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43
-    SET version_apache_tomcat10x=10.0.4
-        SET version_apache_tomcat10x_older=10.0.0 10.0.2
+    SET version_apache_tomcat9x=9.0.45
+        SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44
+    SET version_apache_tomcat10x=10.0.5
+        SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4
     SET version_double_commander=1.0.9651
         SET version_double_commander_older=1.0.9375 1.0.9483
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
@@ -131,7 +131,7 @@ GOTO END
     SET url_apache_mod_evasive=https://www.apachelounge.com/download/VS16/modules/%url_apache_mod_evasive_archive%
     SET url_apache_mod_fcgid_archive=mod_fcgid-%version_apache_mod_fcgid%-win64-VS16.zip
     SET url_apache_mod_fcgid_archive_includes_folder=No
-    SET url_apache_mod_fcgid=https://www.apachelounge.com/download/VS16/modules/%url_apache_mod_evasive_archive%
+    SET url_apache_mod_fcgid=https://www.apachelounge.com/download/VS16/modules/%url_apache_mod_fcgid_archive%
     SET url_apache_mod_log_rotate_archive=mod_log_rotate-%version_apache_mod_log_rotate%-win64-VS16.zip
     SET url_apache_mod_log_rotate_archive_includes_folder=No
     SET url_apache_mod_log_rotate=https://www.apachelounge.com/download/VS16/modules/%url_apache_mod_log_rotate_archive%

@@ -1482,7 +1482,7 @@ GOTO Menu__InstallationsToDo
     SET application_action_to_do=TreeSize
     SET action_to_do=remove_old_versions
     CALL :MultipleActionsToDo
-GOTO END
+GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__VLC
     SET application_main_binary=%vlc__application_main_binary%

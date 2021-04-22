@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.1.4
+    SET this_script_version=1.1.5
     SET this_script_release_date=2021-04-22
 GOTO END
 
@@ -41,10 +41,10 @@ GOTO END
     SET version_jdk=16
     SET version_jdk_subfolder=7863447f0ab643c585b9bdebf67c69db/36
         SET version_jdk_older=15.0.0 15.0.1 15.0.2
-    SET version_mysql_router=8.0.23
-        SET version_mysql_router_older=8.0.20 8.0.21 8.0.22
-    SET version_mysql_server_community=8.0.23
-        SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22
+    SET version_mysql_router=8.0.24
+        SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23
+    SET version_mysql_server_community=8.0.24
+        SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23
     SET version_notepad_plus_plus=7.9.5
         SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4
     SET version_nodejs_current=15.11.0
@@ -64,11 +64,11 @@ GOTO END
     SET version_python37x_major_minor_build=3.7.9
         SET version_python37x_major_minor_build_older=3.7.0 3.7.1 3.7.2 3.7.3 3.7.4 3.7.5 3.7.6 3.7.7 3.7.8
     SET version_python38x_major_minor=3.8
-    SET version_python38x_major_minor_build=3.8.8
-        SET version_python38x_major_minor_build_older=3.8.0 3.8.1 3.8.2 3.8.3 3.8.4 3.8.5 3.8.6 3.8.7
+    SET version_python38x_major_minor_build=3.8.9
+        SET version_python38x_major_minor_build_older=3.8.0 3.8.1 3.8.2 3.8.3 3.8.4 3.8.5 3.8.6 3.8.7 3.8.8
     SET version_python39x_major_minor=3.9
-    SET version_python39x_major_minor_build=3.9.2
-        SET version_python39x_major_minor_build_older=3.9.0 3.9.1
+    SET version_python39x_major_minor_build=3.9.4
+        SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2
     SET version_treesize=4.4.2
         SET version_treesize_older=4.4.0 4.4.1
     SET version_vlc=3.0.12

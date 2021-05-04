@@ -1,0 +1,1 @@
+C:\www\App\MySQL\Server-8.0.24-64bit\bin\mysqld.exe --defaults-file=C:/www/Config/MySQL/my80x64.ini --initialize --basedir=C:/www/App/MySQL/Server-8.0.24-64bit/ --datadir=C:/www/Data/MySQL/8.0.24/

@@ -1,0 +1,1 @@
+C:\www\App\MySQL\Server-8.0.24-64bit\bin\mysql.exe --user=root --port=8024 -p  --default-character-set=utf8mb4 --no-beep --host=127.0.0.1

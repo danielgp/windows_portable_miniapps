@@ -1,0 +1,1 @@
+C:\www\App\MySQL\Server-8.0.24-64bit\bin\mysql.exe --host=127.0.0.1 --port=8024 --user=root ---comments --compress < C:\www\Downloads\test.sql

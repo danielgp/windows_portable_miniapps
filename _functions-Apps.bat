@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.1.7
-    SET this_script_release_date=2021-05-04
+    SET this_script_version=1.1.8
+    SET this_script_release_date=2021-05-06
 GOTO END
 
 :EstablishVersions
@@ -51,10 +51,10 @@ GOTO END
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0
     SET version_peazip=7.9.0
         SET version_peazip_older=7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0 7.7.1 7.8.0
-    SET version_php74x=7.4.18
-        SET version_php74x_older=7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15 7.4.16
-    SET version_php80x=8.0.5
-        SET version_php80x_older=8.0.0 8.0.1 8.0.2 8.0.3
+    SET version_php74x=7.4.19
+        SET version_php74x_older=7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15 7.4.16 7.4.18
+    SET version_php80x=8.0.6
+        SET version_php80x_older=8.0.0 8.0.1 8.0.2 8.0.3 8.0.5
     SET version_putty=0.74
         SET version_putty_older=0.72 0.73
     SET version_python36x_major_minor=3.6

@@ -71,8 +71,8 @@ GOTO END
         SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2
     SET version_treesize=4.4.2
         SET version_treesize_older=4.4.0 4.4.1
-    SET version_vlc=3.0.13
-        SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12
+    SET version_vlc=3.0.12
+        SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11
     SET version_winscp=5.17.10
         SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9
     SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0

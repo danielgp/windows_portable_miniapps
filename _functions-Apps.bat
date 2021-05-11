@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.1.8
-    SET this_script_release_date=2021-05-06
+    SET this_script_version=1.1.9
+    SET this_script_release_date=2021-05-12
 GOTO END
 
 :EstablishVersions
@@ -25,8 +25,8 @@ GOTO END
         SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44
     SET version_apache_tomcat10x=10.0.5
         SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4
-    SET version_double_commander=1.0.9651
-        SET version_double_commander_older=1.0.9375 1.0.9483
+    SET version_double_commander=1.0.9773
+        SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.31.1
     SET version_git_windows_compilation=.windows.1
@@ -38,9 +38,9 @@ GOTO END
         SET version_git_enhanced=%version_git%.3
     )
         SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0
-    SET version_jdk=16
-    SET version_jdk_subfolder=7863447f0ab643c585b9bdebf67c69db/36
-        SET version_jdk_older=15.0.0 15.0.1 15.0.2
+    SET version_jdk=16.0.1
+    SET version_jdk_subfolder=7147401fd7354114ac51ef3e1328291f/9
+        SET version_jdk_older=15.0.0 15.0.1 15.0.2 16
     SET version_mysql_router=8.0.24
         SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23
     SET version_mysql_server_community=8.0.24
@@ -64,11 +64,11 @@ GOTO END
     SET version_python37x_major_minor_build=3.7.9
         SET version_python37x_major_minor_build_older=3.7.0 3.7.1 3.7.2 3.7.3 3.7.4 3.7.5 3.7.6 3.7.7 3.7.8
     SET version_python38x_major_minor=3.8
-    SET version_python38x_major_minor_build=3.8.9
-        SET version_python38x_major_minor_build_older=3.8.0 3.8.1 3.8.2 3.8.3 3.8.4 3.8.5 3.8.6 3.8.7 3.8.8
+    SET version_python38x_major_minor_build=3.8.10
+        SET version_python38x_major_minor_build_older=3.8.0 3.8.1 3.8.2 3.8.3 3.8.4 3.8.5 3.8.6 3.8.7 3.8.8 3.8.9
     SET version_python39x_major_minor=3.9
-    SET version_python39x_major_minor_build=3.9.4
-        SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2
+    SET version_python39x_major_minor_build=3.9.5
+        SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2 3.9.4
     SET version_treesize=4.4.2
         SET version_treesize_older=4.4.0 4.4.1
     SET version_vlc=3.0.12
@@ -353,7 +353,7 @@ GOTO END
                 )
             )
             IF /I "%url_application_archive:~-3%"==".7z" (
-                CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZip
+                CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZipImpartial
                 ECHO Will extract downloaded kit %path_downloads%%url_application_archive% to a folder from where it will reside for user to enjoy, using PowerShell
                 %path_developer_applications_peazip%\res\7z\7z.exe x %path_downloads%%url_application_archive% -o%path_developer_application_specific%
             )
@@ -1285,7 +1285,7 @@ GOTO Menu__InstallationsToDo
     CALL :MultipleActionsToDo
 GOTO Menu__InstallationsToDo
 
-:InitiateOrUpdateFrameworkInfrastructure__PeaZip
+:InitiateOrUpdateFrameworkInfrastructure__PeaZipImpartial
     SET application_main_binary=%peazip__application_main_binary%
     SET application_name=%peazip__application_name%
     SET path_developer_application_specific=%path_developer_applications_peazip%
@@ -1298,6 +1298,10 @@ GOTO Menu__InstallationsToDo
     SET application_action_to_do=PeaZip
     SET action_to_do=remove_old_versions
     CALL :MultipleActionsToDo
+GOTO END
+
+:InitiateOrUpdateFrameworkInfrastructure__PeaZip
+    CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZipImpartial
 GOTO Menu__InstallationsToDo
 
 :InitiateOrUpdateFrameworkInfrastructure__Php74x

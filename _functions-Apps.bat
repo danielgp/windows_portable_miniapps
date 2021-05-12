@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.1.10
+    SET this_script_version=1.1.11
     SET this_script_release_date=2021-05-12
 GOTO END
 
@@ -41,10 +41,10 @@ GOTO END
     SET version_jdk=16.0.1
     SET version_jdk_subfolder=7147401fd7354114ac51ef3e1328291f/9
         SET version_jdk_older=15.0.0 15.0.1 15.0.2 16
-    SET version_mysql_router=8.0.24
-        SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23
-    SET version_mysql_server_community=8.0.24
-        SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23
+    SET version_mysql_router=8.0.25
+        SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24
+    SET version_mysql_server_community=8.0.25
+        SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24
     SET version_notepad_plus_plus=7.9.5
         SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4
     SET version_nodejs_current=16.0.0

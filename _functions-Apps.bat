@@ -1498,7 +1498,7 @@ GOTO Menu__InstallationsToDo
     SET url_application_full=%url_vlc%
     SET version_application=%version_vlc%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
-    SET application_action_to_do=WinSCP
+    SET application_action_to_do=VLC
     SET action_to_do=remove_old_versions
     CALL :MultipleActionsToDo
 GOTO Menu__InstallationsToDo

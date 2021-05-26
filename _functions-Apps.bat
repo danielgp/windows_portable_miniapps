@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.1.13
-    SET this_script_release_date=2021-05-18
+    SET this_script_version=1.2.0
+    SET this_script_release_date=2021-05-26
 GOTO END
 
 :EstablishVersions
@@ -41,6 +41,8 @@ GOTO END
     SET version_jdk=16.0.1
     SET version_jdk_subfolder=7147401fd7354114ac51ef3e1328291f/9
         SET version_jdk_older=15.0.0 15.0.1 15.0.2 16
+    SET version_json_edit=0.9.37
+        SET version_json_edit_older=0.9.36
     SET version_mysql_router=8.0.25
         SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24
     SET version_mysql_server_community=8.0.25
@@ -99,6 +101,8 @@ GOTO END
     SET git__application_name=Git for Windows
     SET jdk__application_main_binary=bin\java.exe
     SET jdk__application_name=Java Development Kit for Windows
+    SET json_edit__application_main_binary=JSONedit.exe
+    SET json_edit__application_name=JSON Editor
     SET mysql_server_community__application_main_binary=bin\mysql.exe
     SET mysql_server_community__application_name=MySQL Server Community
     SET mysql_router__application_main_binary=mysql-router.exe
@@ -157,6 +161,9 @@ GOTO END
     SET url_jdk_archive_includes_folder=Yes
     SET url_jdk_archive_included_folder_name=jdk-%version_jdk%
     SET url_jdk=https://download.java.net/java/GA/jdk%version_jdk%/%version_jdk_subfolder%/GPL/%url_jdk_archive%
+    SET url_json_edit_archive=JSONedit_%version_json_edit:.=_%.zip
+    SET url_json_edit_archive_includes_folder=No
+    SET url_json_edit=https://tomeko.net/software/JSONedit/bin/%url_json_edit_archive%
     SET url_mysql_router_archive=mysql-router-%version_mysql_router%-winx64.zip
     SET url_mysql_router_archive_includes_folder=Yes
     SET url_mysql_router_archive_includes_folder_name=mysql-router-%version_mysql_router%-winx64
@@ -241,6 +248,8 @@ GOTO END
     SET path_developer_applications_git=%path_developer_applications__root__git%\%version_git_enhanced%-64bit
     SET path_developer_applications__root__jdk=%path_web_applications%Java_Development_Kit
     SET path_developer_applications_jdk=%path_developer_applications__root__jdk%\%version_jdk%-64bit
+    SET path_developer_applications__root__json_edit=%path_developer_applications%JSONedit
+    SET path_developer_applications_json_edit=%path_developer_applications__root__json_edit%\%version_json_edit%-32bit
     SET path_developer_applications__rootS__mysql=MySQL
     SET path_developer_applications__root__mysql=%path_web_applications%%path_developer_applications__rootS__mysql%
     SET path_developer_applications_mysql_router=%path_developer_applications__root__mysql%\Router-%version_mysql_server_community%-64bit
@@ -502,6 +511,12 @@ GOTO END
                 SET detected_version_jdk_newer=***
             )
         )
+        IF /I "%application_action_to_do%"=="JsonEdit" (
+            SET detected_version_json_edit=%exact_version:_=.%
+            IF "%version_json_edit%" NEQ "%exact_version:_=.%" (
+                SET detected_version_json_edit_newer=***
+            )
+        )
         IF /I "%application_action_to_do%"=="NodeJS_Current" (
             SET detected_version_nodejs_current=%exact_version%
             IF "%version_nodejs_current%" NEQ "%exact_version%" (
@@ -752,6 +767,21 @@ GOTO END
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=openjdk-%%i_windows-x64_bin.zip
+            CALL :MultipleActionsToDo_AllSequences
+        )
+    )
+    IF /I "%application_action_to_do%"=="JsonEdit" (
+        SET detected_version_json_edit_newer=_
+        SET exact_version=%version_json_edit:.=_%
+        SET exact_version_folder=%version_json_edit%-32bit
+        SET generic_application_folder=%path_developer_applications__root__json_edit%
+        IF /I "%action_to_do%"=="detect_versions" (
+            CALL :DetectVersions__Generic
+        )
+        for %%i in (%version_json_edit_older%) do (
+            SET exact_version=%%i
+            SET exact_version_folder=%%i-32bit
+            SET url_application_archive=JSONedit_%%i.zip
             CALL :MultipleActionsToDo_AllSequences
         )
     )
@@ -1023,6 +1053,8 @@ GOTO END
     CALL :MultipleActionsToDo
     SET application_action_to_do=JDK
     CALL :MultipleActionsToDo
+    SET application_action_to_do=JsonEdit
+    CALL :MultipleActionsToDo
     SET application_action_to_do=MySqlRouter
     CALL :MultipleActionsToDo
     SET application_action_to_do=MySqlServerCommunity
@@ -1204,6 +1236,21 @@ GOTO Menu__InstallationsToDo
     SET version_application=%version_jdk%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     SET application_action_to_do=JDK
+    SET action_to_do=remove_old_versions
+    CALL :MultipleActionsToDo
+GOTO Menu__InstallationsToDo
+
+:InitiateOrUpdateFrameworkInfrastructure__JsonEdit
+    SET application_main_binary=%json_edit__application_main_binary%
+    SET application_name=%json_edit__application_name%
+    SET path_developer_application_specific=%path_developer_applications_json_edit%
+    SET url_application_archive=%url_json_edit_archive%
+    SET url_application_archive_includes_folder=%url_json_edit_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_json_edit_archive_includes_folder_name%
+    SET url_application_full=%url_json_edit%
+    SET version_application=%version_json_edit%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    SET application_action_to_do=JsonEdit
     SET action_to_do=remove_old_versions
     CALL :MultipleActionsToDo
 GOTO Menu__InstallationsToDo
@@ -1605,6 +1652,7 @@ GOTO END
     ECHO id.....Double Commander for Windows....File manager..........................%version_double_commander%....%detected_version_double_commander%..%detected_version_double_commander_newer%
     ECHO ig.....Git for Windows.................Versioning engine.....................%version_git_enhanced%....%detected_version_git%..%detected_version_git_newer%
     ECHO ij.....Java Development Kit for Win....Multi-platform engine.................%version_jdk%......%detected_version_jdk%....%detected_version_jdk_newer%
+    ECHO ije....JSON Editor.....................JSON Editor...........................%version_json_edit%......%detected_version_json_edit%....%detected_version_json_edit_newer%
     ECHO imr....MySQL Router....................Database Proxy Server.................%version_mysql_router%......%detected_version_mysql_router%....%detected_version_mysql_router_newer%
     ECHO imsc...MySQL Server Community..........Database Server.......................%version_mysql_server_community%......%detected_version_mysql_server_community%....%detected_version_mysql_server_community_newer%
     ECHO in.....Notepad++.......................Advanced text editor..................%version_notepad_plus_plus%.......%detected_version_notepad_plus_plus%.....%detected_version_notepad_plus_plus_newer%
@@ -1640,6 +1688,7 @@ GOTO END
     IF /I "%CHOICE_INSTALL%"=="id" ( CALL :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ig" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Git ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ij" ( CALL :InitiateOrUpdateFrameworkInfrastructure__JDK ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="ije" ( CALL :InitiateOrUpdateFrameworkInfrastructure__JsonEdit ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="imr" ( CALL :InitiateOrUpdateFrameworkInfrastructure__MySqlRouter ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="imsc" ( CALL :InitiateOrUpdateFrameworkInfrastructure__MySqlServerCommunity ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="in" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NotepadPlusPlus ) ELSE (
@@ -1668,6 +1717,7 @@ GOTO END
         )
         )
         )
+    )
     )
     )
     )

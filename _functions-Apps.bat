@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.2.1
-    SET this_script_release_date=2021-06-02
+    SET this_script_version=1.2.2
+    SET this_script_release_date=2021-06-07
 GOTO END
 
 :EstablishVersions
@@ -47,8 +47,8 @@ GOTO END
         SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24
     SET version_mysql_server_community=8.0.25
         SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24
-    SET version_notepad_plus_plus=7.9.5
-        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4
+    SET version_notepad_plus_plus=8.0
+        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5
     SET version_nodejs_current=16.1.0
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0
     SET version_peazip=7.9.0
@@ -178,7 +178,7 @@ GOTO END
     SET url_nodejs_current=https://nodejs.org/dist/v%version_nodejs_current%/%url_nodejs_current_archive%
     SET url_notepad_plus_plus_archive=npp.%version_notepad_plus_plus%.portable.x64.zip
     SET url_notepad_plus_plus_archive_includes_folder=No
-    SET url_notepad_plus_plus=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v%version_notepad_plus_plus%/%url_notepad_plus_plus_archive%
+    SET url_notepad_plus_plus=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v%version_notepad_plus_plus:.0=%/%url_notepad_plus_plus_archive%
     SET url_peazip_archive=peazip_portable-%version_peazip%.WIN64.zip
     SET url_peazip_archive_includes_folder=Yes
     SET url_peazip_archive_included_folder_name=peazip_portable-%version_peazip%.WIN64

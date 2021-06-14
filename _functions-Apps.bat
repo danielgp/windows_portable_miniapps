@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.2.2
-    SET this_script_release_date=2021-06-07
+    SET this_script_version=1.2.3
+    SET this_script_release_date=2021-06-15
 GOTO END
 
 :EstablishVersions
@@ -51,8 +51,8 @@ GOTO END
         SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5
     SET version_nodejs_current=16.1.0
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0
-    SET version_peazip=7.9.0
-        SET version_peazip_older=7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0 7.7.1 7.8.0
+    SET version_peazip=8.0.0
+        SET version_peazip_older=7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0 7.7.1 7.8.0 7.9.0
     SET version_php74x=7.4.20
         SET version_php74x_older=7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15 7.4.16 7.4.18 7.4.19
     SET version_php80x=8.0.7
@@ -73,11 +73,11 @@ GOTO END
         SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2 3.9.4
     SET version_treesize=4.4.2
         SET version_treesize_older=4.4.0 4.4.1
-    SET version_vlc=3.0.14
-        SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13
+    SET version_vlc=3.0.15
+        SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14
     SET version_winscp=5.17.10
         SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9
-    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0
+    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0
 GOTO END
 
 :EstablishApplications

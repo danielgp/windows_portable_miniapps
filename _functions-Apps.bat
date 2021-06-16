@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.2.3
-    SET this_script_release_date=2021-06-15
+    SET this_script_version=1.3.0
+    SET this_script_release_date=2021-06-16
 GOTO END
 
 :EstablishVersions
@@ -25,6 +25,8 @@ GOTO END
         SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45
     SET version_apache_tomcat10x=10.0.6
         SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5
+    SET version_cherry_tree=0.99.38.0
+        SET version_cherry_tree_older=0.99.37.0
     SET version_double_commander=1.0.9773
         SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
@@ -95,6 +97,8 @@ GOTO END
     SET apache_tomcat9x__application_name=Apache Tomcat 9.x for Windows
     SET apache_tomcat10x__application_main_binary=bin\tomcat10.exe
     SET apache_tomcat10x__application_name=Apache Tomcat 10.x for Windows
+    SET cherry_tree__application_main_binary=mingw64\bin\cherrytree.exe
+    SET cherry_tree__application_name=CherryTree
     SET double_commander__application_main_binary=doublecmd.exe
     SET double_commander__application_name=Double Commander for Windows
     SET git__application_main_binary=git-cmd.exe
@@ -150,6 +154,10 @@ GOTO END
     SET url_apache_tomcat10x_archive_includes_folder=Yes
     SET url_apache_tomcat10x_archive_included_folder_name=apache-tomcat-%version_apache_tomcat10x%
     SET url_apache_tomcat10x=https://mirrors.hostingromania.ro/apache.org/tomcat/tomcat-10/v%version_apache_tomcat10x%/bin/%url_apache_tomcat10x_archive%
+    SET url_cherry_tree_archive=cherrytree_%version_cherry_tree%_win64_portable.7z
+    SET url_cherry_tree_archive_includes_folder=Yes
+    SET url_cherry_tree_archive_included_folder_name=cherrytree_%version_cherry_tree%_win64_portable
+    SET url_cherry_tree=https://www.giuspen.com/software/%url_cherry_tree_archive%
     SET url_double_commander_archive=DoubleCmd-%version_double_commander_kit%-Win32X64.7z
     SET url_double_commander_archive_includes_folder=No
     SET url_double_commander=https://github.com/double-commander/doublecmd/releases/download/%version_double_commander%/%url_double_commander_archive%
@@ -242,6 +250,8 @@ GOTO END
     SET path_developer_applications_apache_tomcat9x=%path_developer_applications__root__apache_tomcat9x%\%version_apache_tomcat9x%-64bit
     SET path_developer_applications__root__apache_tomcat10x=%path_web_applications%Apache_Tomcat
     SET path_developer_applications_apache_tomcat10x=%path_developer_applications__root__apache_tomcat10x%\%version_apache_tomcat10x%-64bit
+    SET path_developer_applications__root__cherry_tree=%path_developer_applications%CherryTree
+    SET path_developer_applications_cherry_tree=%path_developer_applications__root__cherry_tree%\%version_cherry_tree%-64bit
     SET path_developer_applications__root__double_commander=%path_developer_applications%DoubleCommander
     SET path_developer_applications_double_commander=%path_developer_applications__root__double_commander%\%version_double_commander%-64bit
     SET path_developer_applications__root__git=%path_developer_applications%Git
@@ -362,9 +372,16 @@ GOTO END
                 )
             )
             IF /I "%url_application_archive:~-3%"==".7z" (
-                CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZipImpartial
-                ECHO Will extract downloaded kit %path_downloads%%url_application_archive% to a folder from where it will reside for user to enjoy, using PowerShell
-                %path_developer_applications_peazip%\res\7z\7z.exe x %path_downloads%%url_application_archive% -o%path_developer_application_specific%
+                IF "%url_application_archive_includes_folder%"=="No" (
+                    CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZipImpartial
+                    ECHO Will extract downloaded kit %path_downloads%%url_application_archive% to a folder from where it will reside for user to enjoy, using PowerShell
+                    %path_developer_applications_peazip%\res\7z\7z.exe x %path_downloads%%url_application_archive% -o%path_developer_application_specific%
+                ) ELSE (
+                    IF EXIST "%path_downloads%%url_application_archive%" (
+                        ECHO Will extract downloaded kit %url_application_archive% to an intermediary destination folder %url_application_archive_included_folder_name%, using PeaZip utility
+                        %path_developer_applications_peazip%\res\7z\7z.exe x %path_downloads%%url_application_archive% -o%path_downloads%
+                    )
+                )
             )
             IF /I "%url_application_archive:~-4%"==".zip" (
                 IF "%url_application_archive_includes_folder%"=="No" (
@@ -379,8 +396,9 @@ GOTO END
             )
             IF "%url_application_archive_includes_folder%"=="Yes" (
                 IF NOT EXIST %path_developer_application_specific%\%application_main_binary% (
-                    ECHO Will move files from intermediary destination folder %path_downloads%%url_application_archive_included_folder_name% to final destination %path_developer_application_specific%
-                    XCOPY %path_downloads%%url_application_archive_included_folder_name% %path_developer_application_specific% /Q /C /S /J /R /H /Y
+                    ECHO Will move files from intermediary folder destination folder %path_downloads%%url_application_archive_included_folder_name% to final destination %path_developer_application_specific%
+                    ECHO XCOPY %path_downloads%%url_application_archive_included_folder_name% %path_developer_application_specific% /Q /C /E /J /R /H /Y
+                    XCOPY %path_downloads%%url_application_archive_included_folder_name% %path_developer_application_specific% /Q /C /E /J /R /H /Y
                     ECHO Will delete all files from intermediary destination folder, %url_application_archive_included_folder_name%
                     RMDIR /Q /S %path_downloads%%url_application_archive_included_folder_name%
                 )
@@ -491,6 +509,12 @@ GOTO END
             SET detected_version_apache_tomcat10x=%exact_version%
             IF "%version_apache_tomcat10x%" NEQ "%exact_version%" (
                 SET detected_version_apache_tomcat10x_newer=***
+            )
+        )
+        IF /I "%application_action_to_do%"=="CherryTree" (
+            SET detected_version_cherry_tree=%exact_version%
+            IF "%version_cherry_tree%" NEQ "%exact_version%" (
+                SET detected_version_cherry_tree_newer=***
             )
         )
         IF /I "%application_action_to_do%"=="DoubleCommander" (
@@ -722,6 +746,21 @@ GOTO END
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=apache-tomcat-%%i-windows-x64.zip
+            CALL :MultipleActionsToDo_AllSequences
+        )
+    )
+    IF /I "%application_action_to_do%"=="CherryTree" (
+        SET detected_version_cherry_tree_newer=_
+        SET exact_version=%version_cherry_tree%
+        SET exact_version_folder=%version_cherry_tree%-64bit
+        SET generic_application_folder=%path_developer_applications__root__cherry_tree%
+        IF /I "%action_to_do%"=="detect_versions" (
+            CALL :DetectVersions__Generic
+        )
+        for %%i in (%version_cherry_tree_older%) do (
+            SET exact_version=%%i
+            SET exact_version_folder=%%i-64bit
+            SET url_application_archive=cherrytree_%%i_win64_portable.7z
             CALL :MultipleActionsToDo_AllSequences
         )
     )
@@ -1047,6 +1086,8 @@ GOTO END
     CALL :MultipleActionsToDo
     SET application_action_to_do=ApacheTomcat10x
     CALL :MultipleActionsToDo
+    SET application_action_to_do=CherryTree
+    CALL :MultipleActionsToDo
     SET application_action_to_do=DoubleCommander
     CALL :MultipleActionsToDo
     SET application_action_to_do=Git
@@ -1191,6 +1232,21 @@ GOTO Menu__InstallationsToDo
     SET version_application=%version_apache_tomcat10x%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
     SET application_action_to_do=ApacheTomcat10x
+    SET action_to_do=remove_old_versions
+    CALL :MultipleActionsToDo
+GOTO Menu__InstallationsToDo
+
+:InitiateOrUpdateFrameworkInfrastructure__CherryTree
+    SET application_main_binary=%cherry_tree__application_main_binary%
+    SET application_name=%cherry_tree__application_name%
+    SET path_developer_application_specific=%path_developer_applications_cherry_tree%
+    SET url_application_archive=%url_cherry_tree_archive%
+    SET url_application_archive_includes_folder=%url_cherry_tree_archive_includes_folder%
+    SET url_application_archive_included_folder_name=%url_cherry_tree_archive_included_folder_name%
+    SET url_application_full=%url_cherry_tree%
+    SET version_application=%version_cherry_tree%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    SET application_action_to_do=CherryTree
     SET action_to_do=remove_old_versions
     CALL :MultipleActionsToDo
 GOTO Menu__InstallationsToDo
@@ -1649,6 +1705,7 @@ GOTO END
     ECHO iams...Mod Security for Apache HTTPd...Web Security module...................%version_apache_mod_security%.......%detected_version_apache_mod_security%.....%detected_version_apache_mod_security_newer%
     ECHO iat09..Apache Tomcat  9.x for Windows..Web server Java.......................%version_apache_tomcat9x%......%detected_version_apache_tomcat9x%....%detected_version_apache_tomcat9x_newer%
     ECHO iat10..Apache Tomcat 10.x for Windows..Web server Java.......................%version_apache_tomcat10x%......%detected_version_apache_tomcat10x%....%detected_version_apache_tomcat10x_newer%
+    ECHO ic.....CherryTree......................Hierarchical notes editor.............%version_cherry_tree%....%detected_version_cherry_tree%..%detected_version_cherry_tree_newer%
     ECHO id.....Double Commander for Windows....File manager..........................%version_double_commander%....%detected_version_double_commander%..%detected_version_double_commander_newer%
     ECHO ig.....Git for Windows.................Versioning engine.....................%version_git_enhanced%....%detected_version_git%..%detected_version_git_newer%
     ECHO ij.....Java Development Kit for Win....Multi-platform engine.................%version_jdk%......%detected_version_jdk%....%detected_version_jdk_newer%
@@ -1685,6 +1742,7 @@ GOTO END
     IF /I "%CHOICE_INSTALL%"=="iams" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheModSecurity ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="iat09" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheTomcat9x ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="iat10" ( CALL :InitiateOrUpdateFrameworkInfrastructure__ApacheTomcat10x ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="ic" ( CALL :InitiateOrUpdateFrameworkInfrastructure__CherryTree ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="id" ( CALL :InitiateOrUpdateFrameworkInfrastructure__DoubleCommander ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ig" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Git ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ij" ( CALL :InitiateOrUpdateFrameworkInfrastructure__JDK ) ELSE (
@@ -1717,6 +1775,7 @@ GOTO END
         )
         )
         )
+    )
     )
     )
     )

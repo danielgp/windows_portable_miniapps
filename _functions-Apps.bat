@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.3.3
-    SET this_script_release_date=2021-07-06
+    SET this_script_version=1.3.4
+    SET this_script_release_date=2021-07-17
 GOTO END
 
 :EstablishVersions
@@ -31,7 +31,7 @@ GOTO END
         SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
     SET version_git=2.32.0
-    SET version_git_windows_compilation=.windows.1
+    SET version_git_windows_compilation=.windows.2
     SET version_git_enhanced=%version_git%
     IF "%version_git_windows_compilation%"==".windows.2" (
         SET version_git_enhanced=%version_git%.2
@@ -39,7 +39,7 @@ GOTO END
     IF "%version_git_windows_compilation%"==".windows.3" (
         SET version_git_enhanced=%version_git%.3
     )
-        SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1
+        SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1 2.32.0
     SET version_jdk=16.0.1
     SET version_jdk_subfolder=7147401fd7354114ac51ef3e1328291f/9
         SET version_jdk_older=15.0.0 15.0.1 15.0.2 16
@@ -79,7 +79,7 @@ GOTO END
         SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14 3.0.15
     SET version_winscp=5.19.1
         SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10
-    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0
+    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0
 GOTO END
 
 :EstablishApplications

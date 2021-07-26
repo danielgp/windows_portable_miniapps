@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.3.5
-    SET this_script_release_date=2021-07-20
+    SET this_script_version=1.3.6
+    SET this_script_release_date=2021-07-22
 GOTO END
 
 :EstablishVersions
@@ -40,15 +40,15 @@ GOTO END
         SET version_git_enhanced=%version_git%.3
     )
         SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1 2.32.0
-    SET version_jdk=16.0.1
-    SET version_jdk_subfolder=7147401fd7354114ac51ef3e1328291f/9
-        SET version_jdk_older=15.0.0 15.0.1 15.0.2 16
+    SET version_jdk=16.0.2
+    SET version_jdk_subfolder=d4a915d82b4c4fbb9bde534da945d746/7
+        SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1
     SET version_json_edit=0.9.37
         SET version_json_edit_older=0.9.36
-    SET version_mysql_router=8.0.25
-        SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24
-    SET version_mysql_server_community=8.0.25
-        SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24
+    SET version_mysql_router=8.0.26
+        SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25
+    SET version_mysql_server_community=8.0.26
+        SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25
     SET version_notepad_plus_plus=8.1.2
         SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1
     SET version_nodejs_current=16.1.0
@@ -73,12 +73,12 @@ GOTO END
     SET version_python39x_major_minor=3.9
     SET version_python39x_major_minor_build=3.9.5
         SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2 3.9.4
-    SET version_treesize=4.5.0
-        SET version_treesize_older=4.4.0 4.4.1 4.4.2
+    SET version_treesize=4.5.1
+        SET version_treesize_older=4.4.0 4.4.1 4.4.2 4.5.0
     SET version_vlc=3.0.16
         SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14 3.0.15
-    SET version_winscp=5.19.1
-        SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10
+    SET version_winscp=5.19.2
+        SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1
     SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0
 GOTO END
 

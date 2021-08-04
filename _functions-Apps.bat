@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.3.8
-    SET this_script_release_date=2021-07-30
+    SET this_script_version=1.3.9
+    SET this_script_release_date=2021-08-04
 GOTO END
 
 :EstablishVersions
@@ -71,15 +71,15 @@ GOTO END
     SET version_python38x_major_minor_build=3.8.10
         SET version_python38x_major_minor_build_older=3.8.0 3.8.1 3.8.2 3.8.3 3.8.4 3.8.5 3.8.6 3.8.7 3.8.8 3.8.9
     SET version_python39x_major_minor=3.9
-    SET version_python39x_major_minor_build=3.9.5
-        SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2 3.9.4
+    SET version_python39x_major_minor_build=3.9.6
+        SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2 3.9.4 3.9.5
     SET version_treesize=4.5.1
         SET version_treesize_older=4.4.0 4.4.1 4.4.2 4.5.0
     SET version_vlc=3.0.16
         SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14 3.0.15
     SET version_winscp=5.19.2
         SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1
-    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0
+    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0.2) Gecko/20100101 Firefox/90.0.2
 GOTO END
 
 :EstablishApplications

@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.3.9
-    SET this_script_release_date=2021-08-04
+    SET this_script_version=1.3.10
+    SET this_script_release_date=2021-08-10
 GOTO END
 
 :EstablishVersions
@@ -21,12 +21,12 @@ GOTO END
         SET version_apache_mod_log_rotate_older=1.0.0 1.0.1
     SET version_apache_mod_security=2.9.3
         SET version_apache_mod_security_older=2.9.1 2.9.2
-    SET version_apache_tomcat9x=9.0.50
-        SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48
+    SET version_apache_tomcat9x=9.0.52
+        SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48 9.0.50
     SET version_apache_tomcat10x=10.0.7
         SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6
-    SET version_cherry_tree=0.99.38.0
-        SET version_cherry_tree_older=0.99.37.0
+    SET version_cherry_tree=0.99.40.0
+        SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0
     SET version_double_commander=1.0.9773
         SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
@@ -79,7 +79,7 @@ GOTO END
         SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14 3.0.15
     SET version_winscp=5.19.2
         SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1
-    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0.2) Gecko/20100101 Firefox/90.0.2
+    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0
 GOTO END
 
 :EstablishApplications

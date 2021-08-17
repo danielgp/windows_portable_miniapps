@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.3.10
-    SET this_script_release_date=2021-08-10
+    SET this_script_version=1.3.11
+    SET this_script_release_date=2021-08-17
 GOTO END
 
 :EstablishVersions
@@ -30,8 +30,8 @@ GOTO END
     SET version_double_commander=1.0.9773
         SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
-    SET version_git=2.32.0
-    SET version_git_windows_compilation=.windows.2
+    SET version_git=2.33.0
+    SET version_git_windows_compilation=.windows.1
     SET version_git_enhanced=%version_git%
     IF "%version_git_windows_compilation%"==".windows.2" (
         SET version_git_enhanced=%version_git%.2
@@ -49,8 +49,8 @@ GOTO END
         SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25
     SET version_mysql_server_community=8.0.26
         SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25
-    SET version_notepad_plus_plus=8.1.2
-        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1
+    SET version_notepad_plus_plus=8.1.3
+        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2
     SET version_nodejs_current=16.1.0
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0
     SET version_peazip=8.1.0

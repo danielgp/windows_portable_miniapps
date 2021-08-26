@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.3.12
+    SET this_script_version=1.3.13
     SET this_script_release_date=2021-08-26
 GOTO END
 
@@ -39,7 +39,7 @@ GOTO END
     IF "%version_git_windows_compilation%"==".windows.3" (
         SET version_git_enhanced=%version_git%.3
     )
-        SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1 2.32.0
+        SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1 2.32.0 2.32.0.2
     SET version_jdk=16.0.2
     SET version_jdk_subfolder=d4a915d82b4c4fbb9bde534da945d746/7
         SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1
@@ -55,10 +55,10 @@ GOTO END
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0
     SET version_peazip=8.1.0
         SET version_peazip_older=7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0 7.7.1 7.8.0 7.9.0 8.0.0
-    SET version_php74x=7.4.22
-        SET version_php74x_older=7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15 7.4.16 7.4.18 7.4.19 7.4.20 7.4.21
-    SET version_php80x=8.0.9
-        SET version_php80x_older=8.0.0 8.0.1 8.0.2 8.0.3 8.0.5 8.0.6 8.0.7 8.0.8
+    SET version_php74x=7.4.23
+        SET version_php74x_older=7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15 7.4.16 7.4.18 7.4.19 7.4.20 7.4.21 7.4.22
+    SET version_php80x=8.0.10
+        SET version_php80x_older=8.0.0 8.0.1 8.0.2 8.0.3 8.0.5 8.0.6 8.0.7 8.0.8 8.0.9
     SET version_putty=0.74
         SET version_putty_older=0.72 0.73
     SET version_python36x_major_minor=3.6

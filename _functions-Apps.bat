@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.3.18
-    SET this_script_release_date=2021-09-26
+    SET this_script_version=1.3.19
+    SET this_script_release_date=2021-10-02
 GOTO END
 
 :EstablishVersions
@@ -25,8 +25,8 @@ GOTO END
         SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48 9.0.50 9.0.52
     SET version_apache_tomcat10x=10.0.11
         SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6 10.0.7 10.0.8 10.0.9 10.0.10
-    SET version_cherry_tree=0.99.40.0
-        SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0
+    SET version_cherry_tree=0.99.41.0
+        SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0 0.99.40.0
     SET version_double_commander=1.0.9773
         SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651
     SET version_double_commander_kit=%version_double_commander:0.=0a-%
@@ -49,8 +49,8 @@ GOTO END
         SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25
     SET version_mysql_server_community=8.0.26
         SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25
-    SET version_notepad_plus_plus=8.1.4
-        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3
+    SET version_notepad_plus_plus=8.1.5
+        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4
     SET version_nodejs_current=16.1.0
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0
     SET version_peazip=8.2.0

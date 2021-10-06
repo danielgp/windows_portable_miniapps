@@ -6,13 +6,13 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.3.19
-    SET this_script_release_date=2021-10-02
+    SET this_script_version=1.4.0
+    SET this_script_release_date=2021-10-06
 GOTO END
 
 :EstablishVersions
-    SET version_apache_httpd=2.4.49
-        SET version_apache_httpd_older=2.4.43 2.4.46 2.4.47 2.4.48
+    SET version_apache_httpd=2.4.50
+        SET version_apache_httpd_older=2.4.43 2.4.46 2.4.47 2.4.48 2.4.49
     SET version_apache_mod_evasive=2.2.0
         SET version_apache_mod_evasive_older=2.1.0
     SET version_apache_mod_fcgid=2.3.10
@@ -21,10 +21,10 @@ GOTO END
         SET version_apache_mod_log_rotate_older=1.0.0 1.0.1
     SET version_apache_mod_security=2.9.3
         SET version_apache_mod_security_older=2.9.1 2.9.2
-    SET version_apache_tomcat9x=9.0.53
-        SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48 9.0.50 9.0.52
-    SET version_apache_tomcat10x=10.0.11
-        SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6 10.0.7 10.0.8 10.0.9 10.0.10
+    SET version_apache_tomcat9x=9.0.54
+        SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48 9.0.50 9.0.52 9.0.53
+    SET version_apache_tomcat10x=10.0.12
+        SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6 10.0.7 10.0.8 10.0.9 10.0.10 10.0.11
     SET version_cherry_tree=0.99.41.0
         SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0 0.99.40.0
     SET version_double_commander=1.0.9773
@@ -73,6 +73,9 @@ GOTO END
     SET version_python39x_major_minor=3.9
     SET version_python39x_major_minor_build=3.9.7
         SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2 3.9.4 3.9.5 3.9.6
+    SET version_python310x_major_minor=3.10
+    SET version_python310x_major_minor_build=3.10.0
+        SET version_python310x_major_minor_build_older=3.10.-
     SET version_treesize=4.5.2
         SET version_treesize_older=4.4.0 4.4.1 4.4.2 4.5.0 4.5.1
     SET version_vlc=3.0.16
@@ -1503,6 +1506,17 @@ GOTO Menu__InstallationsToDo
     CALL :InitiateOrUpdateFrameworkInfrastructure__Python
 GOTO Menu__InstallationsToDo
 
+:InitiateOrUpdateFrameworkInfrastructure__Python310x
+    SET path_developer_applications_python=%path_developer_applications_python310x%
+    SET version_python_major_minor_build=%version_python310x_major_minor_build%
+    SET url_python=%url_python310x%
+    SET python_compiled_modules_archive=python310.zip
+    SET application_action_to_do=Python310x
+    SET action_to_do=remove_old_versions
+    CALL :MultipleActionsToDo
+    CALL :InitiateOrUpdateFrameworkInfrastructure__Python
+GOTO Menu__InstallationsToDo
+
 :InitiateOrUpdate__Python36xVirtualEnvironment
     SET version_python_major_minor_build=%version_python36x_major_minor_build%
     SET url_python_virtualenv=%url_python36x_virtualenv%
@@ -1536,6 +1550,15 @@ GOTO END
     SET path_developer_applications_python_modules=%path_developer_applications_python39x_modules%
     SET path_developer_applications_python=%path_developer_applications_python39x%
     SET applied_virtual_environment_folder=virtual_environment_%version_python39x_major_minor%.x
+    CALL :AdditionalTask_InitiatePythonVirtualEnvironment
+GOTO END
+
+:InitiateOrUpdate__Python310xVirtualEnvironment
+    SET version_python_major_minor_build=%version_python310x_major_minor_build%
+    SET url_python_virtualenv=%url_python310x_virtualenv%
+    SET path_developer_applications_python_modules=%path_developer_applications_python310x_modules%
+    SET path_developer_applications_python=%path_developer_applications_python310x%
+    SET applied_virtual_environment_folder=virtual_environment_%version_python310x_major_minor%.x
     CALL :AdditionalTask_InitiatePythonVirtualEnvironment
 GOTO END
 
@@ -1720,7 +1743,8 @@ GOTO END
     ECHO ip36...Python 3.6.x for Windows........Script engine legacy..................%version_python36x_major_minor_build%.......%detected_version_python36x%.....%detected_version_python36x_newer%
     ECHO ip37...Python 3.7.x for Windows........Script engine legacy..................%version_python37x_major_minor_build%.......%detected_version_python37x%.....%detected_version_python37x_newer%
     ECHO ip38...Python 3.8.x for Windows........Script engine legacy..................%version_python38x_major_minor_build%.......%detected_version_python38x%.....%detected_version_python38x_newer%
-    ECHO ip39...Python 3.9.x for Windows........Script engine latest GA...............%version_python39x_major_minor_build%.......%detected_version_python39x%.....%detected_version_python39x_newer%
+    ECHO ip39...Python 3.9.x for Windows........Script engine latest..................%version_python39x_major_minor_build%.......%detected_version_python39x%.....%detected_version_python39x_newer%
+    ECHO ip310..Python 3.10.x for Windows.......Script engine latest GA...............%version_python310x_major_minor_build%......%detected_version_python310x%....%detected_version_python310x_newer%
     ECHO it.....TreeSize Free for Windows.......Files/folders/drives analysis.........%version_treesize%.......%detected_version_treesize%.....%detected_version_treesize_newer%
     ECHO iv.....VLC.............................Multimedia files player...............%version_vlc%......%detected_version_vlc%....%detected_version_vlc_newer%
     ECHO iw.....WinSCP..........................Multiple prot. file handler...........%version_winscp%.....%detected_version_winscp%...%detected_version_winscp_newer%
@@ -1759,6 +1783,7 @@ GOTO END
         IF /I "%CHOICE_INSTALL%"=="ip37" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python37x ) ELSE (
         IF /I "%CHOICE_INSTALL%"=="ip38" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python38x ) ELSE (
         IF /I "%CHOICE_INSTALL%"=="ip39" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python39x ) ELSE (
+        IF /I "%CHOICE_INSTALL%"=="ip310" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python310x ) ELSE (
         IF /I "%CHOICE_INSTALL%"=="ipve" ( CALL :Menu__PythonProject ) ELSE (
             IF /I "%CHOICE_INSTALL%"=="it" ( CALL :InitiateOrUpdateFrameworkInfrastructure__TreeSize ) ELSE (
             IF /I "%CHOICE_INSTALL%"=="iv" ( CALL :InitiateOrUpdateFrameworkInfrastructure__VLC ) ELSE (
@@ -1769,6 +1794,7 @@ GOTO END
             )
             )
             )
+        )
         )
         )
         )

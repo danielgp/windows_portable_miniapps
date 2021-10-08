@@ -6,13 +6,13 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.0
-    SET this_script_release_date=2021-10-06
+    SET this_script_version=1.4.1
+    SET this_script_release_date=2021-10-09
 GOTO END
 
 :EstablishVersions
-    SET version_apache_httpd=2.4.50
-        SET version_apache_httpd_older=2.4.43 2.4.46 2.4.47 2.4.48 2.4.49
+    SET version_apache_httpd=2.4.51
+        SET version_apache_httpd_older=2.4.43 2.4.46 2.4.47 2.4.48 2.4.49 2.4.50
     SET version_apache_mod_evasive=2.2.0
         SET version_apache_mod_evasive_older=2.1.0
     SET version_apache_mod_fcgid=2.3.10

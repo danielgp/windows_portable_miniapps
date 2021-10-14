@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.1
-    SET this_script_release_date=2021-10-09
+    SET this_script_version=1.4.2
+    SET this_script_release_date=2021-10-13
 GOTO END
 
 :EstablishVersions
@@ -49,8 +49,8 @@ GOTO END
         SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25
     SET version_mysql_server_community=8.0.26
         SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25
-    SET version_notepad_plus_plus=8.1.5
-        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4
+    SET version_notepad_plus_plus=8.1.6
+        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5
     SET version_nodejs_current=16.1.0
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0
     SET version_peazip=8.2.0
@@ -82,7 +82,7 @@ GOTO END
         SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14 3.0.15
     SET version_winscp=5.19.2
         SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1
-    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0
+    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0
 GOTO END
 
 :EstablishApplications

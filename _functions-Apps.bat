@@ -82,7 +82,8 @@ GOTO END
         SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14 3.0.15
     SET version_winscp=5.19.3
         SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1 5.19.2
-    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0
+    SET custom_user_agent_version=94.0
+    SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:%custom_user_agent_version%) Gecko/20100101 Firefox/%custom_user_agent_version%
 GOTO END
 
 :EstablishApplications

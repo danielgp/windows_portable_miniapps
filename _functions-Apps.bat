@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.8
-    SET this_script_release_date=2021-11-23
+    SET this_script_version=1.4.9
+    SET this_script_release_date=2021-12-08
 GOTO END
 
 :EstablishVersions
@@ -21,8 +21,8 @@ GOTO END
         SET version_apache_mod_log_rotate_older=1.0.0 1.0.1
     SET version_apache_mod_security=2.9.3
         SET version_apache_mod_security_older=2.9.1 2.9.2
-    SET version_apache_tomcat9x=9.0.55
-        SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48 9.0.50 9.0.52 9.0.53 9.0.54
+    SET version_apache_tomcat9x=9.0.56
+        SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48 9.0.50 9.0.52 9.0.53 9.0.54 9.0.55
     SET version_apache_tomcat10x=10.0.13
         SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6 10.0.7 10.0.8 10.0.9 10.0.10 10.0.11 10.0.12
     SET version_cherry_tree=0.99.43.0

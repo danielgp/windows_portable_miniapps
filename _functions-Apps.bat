@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.6
-    SET this_script_release_date=2021-11-01
+    SET this_script_version=1.4.8
+    SET this_script_release_date=2021-11-23
 GOTO END
 
 :EstablishVersions
@@ -21,16 +21,15 @@ GOTO END
         SET version_apache_mod_log_rotate_older=1.0.0 1.0.1
     SET version_apache_mod_security=2.9.3
         SET version_apache_mod_security_older=2.9.1 2.9.2
-    SET version_apache_tomcat9x=9.0.54
-        SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48 9.0.50 9.0.52 9.0.53
-    SET version_apache_tomcat10x=10.0.12
-        SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6 10.0.7 10.0.8 10.0.9 10.0.10 10.0.11
-    SET version_cherry_tree=0.99.42.1
-        SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0 0.99.40.0 0.99.41.0
-    SET version_double_commander=1.0.9773
-        SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651
-    SET version_double_commander_kit=%version_double_commander:0.=0a-%
-    SET version_git=2.33.1
+    SET version_apache_tomcat9x=9.0.55
+        SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48 9.0.50 9.0.52 9.0.53 9.0.54
+    SET version_apache_tomcat10x=10.0.13
+        SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6 10.0.7 10.0.8 10.0.9 10.0.10 10.0.11 10.0.12
+    SET version_cherry_tree=0.99.43.0
+        SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0 0.99.40.0 0.99.41.0 0.99.43.0
+    SET version_double_commander=1.0.1
+        SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651 1.0.9773 1.0.0
+    SET version_git=2.34.0
     SET version_git_windows_compilation=.windows.1
     SET version_git_enhanced=%version_git%
     IF "%version_git_windows_compilation%"==".windows.2" (
@@ -39,7 +38,7 @@ GOTO END
     IF "%version_git_windows_compilation%"==".windows.3" (
         SET version_git_enhanced=%version_git%.3
     )
-        SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1 2.32.0 2.32.0.2 2.33.0
+        SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1 2.32.0 2.32.0.2 2.33.0 2.33.1
     SET version_jdk=17.0.1
     SET version_jdk_subfolder=2a2082e5a09d4267845be086888add4f/12
         SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1 16.0.2 17
@@ -49,16 +48,16 @@ GOTO END
         SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26
     SET version_mysql_server_community=8.0.27
         SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26
-    SET version_notepad_plus_plus=8.1.9
-        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5 8.1.6 8.1.7 8.1.8
+    SET version_notepad_plus_plus=8.1.9.2
+        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5 8.1.6 8.1.7 8.1.8 8.1.9 8.1.9.1
     SET version_nodejs_current=16.1.0
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0
-    SET version_peazip=8.2.0
-        SET version_peazip_older=7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0 7.7.1 7.8.0 7.9.0 8.0.0 8.1.0
-    SET version_php74x=7.4.25
-        SET version_php74x_older=7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15 7.4.16 7.4.18 7.4.19 7.4.20 7.4.21 7.4.22 7.4.23 7.4.24
-    SET version_php80x=8.0.12
-        SET version_php80x_older=8.0.0 8.0.1 8.0.2 8.0.3 8.0.5 8.0.6 8.0.7 8.0.8 8.0.9 8.0.10 8.0.11
+    SET version_peazip=8.3.0
+        SET version_peazip_older=7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0 7.7.1 7.8.0 7.9.0 8.0.0 8.1.0 8.2.0
+    SET version_php74x=7.4.26
+        SET version_php74x_older=7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15 7.4.16 7.4.18 7.4.19 7.4.20 7.4.21 7.4.22 7.4.23 7.4.24 7.4.25
+    SET version_php80x=8.0.13
+        SET version_php80x_older=8.0.0 8.0.1 8.0.2 8.0.3 8.0.5 8.0.6 8.0.7 8.0.8 8.0.9 8.0.10 8.0.11 8.0.12
     SET version_putty=0.76
         SET version_putty_older=0.72 0.73 0.74 0.75
     SET version_python36x_major_minor=3.6
@@ -71,17 +70,17 @@ GOTO END
     SET version_python38x_major_minor_build=3.8.10
         SET version_python38x_major_minor_build_older=3.8.0 3.8.1 3.8.2 3.8.3 3.8.4 3.8.5 3.8.6 3.8.7 3.8.8 3.8.9
     SET version_python39x_major_minor=3.9
-    SET version_python39x_major_minor_build=3.9.7
-        SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2 3.9.4 3.9.5 3.9.6
+    SET version_python39x_major_minor_build=3.9.9
+        SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2 3.9.4 3.9.5 3.9.6 3.9.7 3.9.8
     SET version_python310x_major_minor=3.10
     SET version_python310x_major_minor_build=3.10.0
         SET version_python310x_major_minor_build_older=3.10.-
-    SET version_treesize=4.5.2
-        SET version_treesize_older=4.4.0 4.4.1 4.4.2 4.5.0 4.5.1
+    SET version_treesize=4.5.3
+        SET version_treesize_older=4.4.0 4.4.1 4.4.2 4.5.0 4.5.1 4.5.2
     SET version_vlc=3.0.16
         SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14 3.0.15
-    SET version_winscp=5.19.3
-        SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1 5.19.2
+    SET version_winscp=5.19.4
+        SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1 5.19.2 5.19.3
     SET custom_user_agent_version=94.0
     SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:%custom_user_agent_version%) Gecko/20100101 Firefox/%custom_user_agent_version%
 GOTO END
@@ -162,9 +161,10 @@ GOTO END
     SET url_cherry_tree_archive_includes_folder=Yes
     SET url_cherry_tree_archive_included_folder_name=cherrytree_%version_cherry_tree%_win64_portable
     SET url_cherry_tree=https://www.giuspen.com/software/%url_cherry_tree_archive%
-    SET url_double_commander_archive=DoubleCmd-%version_double_commander_kit%-Win32X64.7z
-    SET url_double_commander_archive_includes_folder=No
-    SET url_double_commander=https://github.com/double-commander/doublecmd/releases/download/%version_double_commander%/%url_double_commander_archive%
+    SET url_double_commander_archive=doublecmd-%version_double_commander%.x86_64-win64.zip
+    SET url_double_commander_archive_includes_folder=Yes
+    SET url_double_commander_archive_includes_folder_name=doublecmd
+    SET url_double_commander=https://github.com/doublecmd/doublecmd/releases/download/v%version_double_commander%/%url_double_commander_archive%
     SET url_git_archive=PortableGit-%version_git_enhanced%-64-bit.7z.exe
     SET url_git_archive_includes_folder=Yes
     SET url_git_archive_included_folder_name=PortableGit

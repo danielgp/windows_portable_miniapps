@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.9
-    SET this_script_release_date=2021-12-08
+    SET this_script_version=1.4.10
+    SET this_script_release_date=2021-12-13
 GOTO END
 
 :EstablishVersions
@@ -23,12 +23,12 @@ GOTO END
         SET version_apache_mod_security_older=2.9.1 2.9.2
     SET version_apache_tomcat9x=9.0.56
         SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48 9.0.50 9.0.52 9.0.53 9.0.54 9.0.55
-    SET version_apache_tomcat10x=10.0.13
-        SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6 10.0.7 10.0.8 10.0.9 10.0.10 10.0.11 10.0.12
-    SET version_cherry_tree=0.99.43.0
-        SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0 0.99.40.0 0.99.41.0 0.99.43.0
-    SET version_double_commander=1.0.1
-        SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651 1.0.9773 1.0.0
+    SET version_apache_tomcat10x=10.0.14
+        SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6 10.0.7 10.0.8 10.0.9 10.0.10 10.0.11 10.0.12 10.0.13
+    SET version_cherry_tree=0.99.44.0
+        SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0 0.99.40.0 0.99.41.0 0.99.42.0 0.99.43.0
+    SET version_double_commander=1.0.2
+        SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651 1.0.9773 1.0.0 1.0.1
     SET version_git=2.34.0
     SET version_git_windows_compilation=.windows.1
     SET version_git_enhanced=%version_git%
@@ -48,8 +48,8 @@ GOTO END
         SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26
     SET version_mysql_server_community=8.0.27
         SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26
-    SET version_notepad_plus_plus=8.1.9.2
-        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5 8.1.6 8.1.7 8.1.8 8.1.9 8.1.9.1
+    SET version_notepad_plus_plus=8.1.9.3
+        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5 8.1.6 8.1.7 8.1.8 8.1.9 8.1.9.1 8.1.9.2
     SET version_nodejs_current=16.1.0
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0
     SET version_peazip=8.3.0
@@ -73,15 +73,15 @@ GOTO END
     SET version_python39x_major_minor_build=3.9.9
         SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2 3.9.4 3.9.5 3.9.6 3.9.7 3.9.8
     SET version_python310x_major_minor=3.10
-    SET version_python310x_major_minor_build=3.10.0
-        SET version_python310x_major_minor_build_older=3.10.-
+    SET version_python310x_major_minor_build=3.10.1
+        SET version_python310x_major_minor_build_older=3.10.0
     SET version_treesize=4.5.3
         SET version_treesize_older=4.4.0 4.4.1 4.4.2 4.5.0 4.5.1 4.5.2
     SET version_vlc=3.0.16
         SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14 3.0.15
     SET version_winscp=5.19.4
         SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1 5.19.2 5.19.3
-    SET custom_user_agent_version=94.0
+    SET custom_user_agent_version=95.0
     SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:%custom_user_agent_version%) Gecko/20100101 Firefox/%custom_user_agent_version%
 GOTO END
 
@@ -163,7 +163,7 @@ GOTO END
     SET url_cherry_tree=https://www.giuspen.com/software/%url_cherry_tree_archive%
     SET url_double_commander_archive=doublecmd-%version_double_commander%.x86_64-win64.zip
     SET url_double_commander_archive_includes_folder=Yes
-    SET url_double_commander_archive_includes_folder_name=doublecmd
+    SET url_double_commander_archive_included_folder_name=doublecmd
     SET url_double_commander=https://github.com/doublecmd/doublecmd/releases/download/v%version_double_commander%/%url_double_commander_archive%
     SET url_git_archive=PortableGit-%version_git_enhanced%-64-bit.7z.exe
     SET url_git_archive_includes_folder=Yes
@@ -178,15 +178,15 @@ GOTO END
     SET url_json_edit=https://tomeko.net/software/JSONedit/bin/%url_json_edit_archive%
     SET url_mysql_router_archive=mysql-router-%version_mysql_router%-winx64.zip
     SET url_mysql_router_archive_includes_folder=Yes
-    SET url_mysql_router_archive_includes_folder_name=mysql-router-%version_mysql_router%-winx64
+    SET url_mysql_router_archive_included_folder_name=mysql-router-%version_mysql_router%-winx64
     SET url_mysql_router=https://dev.mysql.com/get/Downloads/MySQL-Router/%url_mysql_router_archive%
     SET url_mysql_server_community_archive=mysql-%version_mysql_server_community%-winx64.zip
     SET url_mysql_server_community_archive_includes_folder=Yes
-    SET url_mysql_server_community_archive_includes_folder_name=mysql-%version_mysql_server_community%-winx64
+    SET url_mysql_server_community_archive_included_folder_name=mysql-%version_mysql_server_community%-winx64
     SET url_mysql_server_community=https://dev.mysql.com/get/Downloads/MySQL-8.0/%url_mysql_server_community_archive%
     SET url_nodejs_current_archive=node-v%version_nodejs_current%-win-x64.zip
     SET url_nodejs_current_archive_includes_folder=Yes
-    SET url_nodejs_current_archive_includes_folder_name=node-v%version_nodejs_current%-win-x64
+    SET url_nodejs_current_archive_included_folder_name=node-v%version_nodejs_current%-win-x64
     SET url_nodejs_current=https://nodejs.org/dist/v%version_nodejs_current%/%url_nodejs_current_archive%
     SET url_notepad_plus_plus_archive=npp.%version_notepad_plus_plus%.portable.x64.zip
     SET url_notepad_plus_plus_archive_includes_folder=No
@@ -1305,7 +1305,7 @@ GOTO Menu__InstallationsToDo
     SET path_developer_application_specific=%path_developer_applications_json_edit%
     SET url_application_archive=%url_json_edit_archive%
     SET url_application_archive_includes_folder=%url_json_edit_archive_includes_folder%
-    SET url_application_archive_included_folder_name=%url_json_edit_archive_includes_folder_name%
+    SET url_application_archive_included_folder_name=%url_json_edit_archive_included_folder_name%
     SET url_application_full=%url_json_edit%
     SET version_application=%version_json_edit%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
@@ -1320,7 +1320,7 @@ GOTO Menu__InstallationsToDo
     SET path_developer_application_specific=%path_developer_applications_mysql_router%
     SET url_application_archive=%url_mysql_router_archive%
     SET url_application_archive_includes_folder=%url_mysql_router_archive_includes_folder%
-    SET url_application_archive_included_folder_name=%url_mysql_router_archive_includes_folder_name%
+    SET url_application_archive_included_folder_name=%url_mysql_router_archive_included_folder_name%
     SET url_application_full=%url_mysql_router%
     SET version_application=%version_mysql_router%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
@@ -1344,7 +1344,7 @@ GOTO Menu__InstallationsToDo
     SET path_developer_application_specific=%path_developer_applications_mysql_server_community%
     SET url_application_archive=%url_mysql_server_community_archive%
     SET url_application_archive_includes_folder=%url_mysql_server_community_archive_includes_folder%
-    SET url_application_archive_included_folder_name=%url_mysql_server_community_archive_includes_folder_name%
+    SET url_application_archive_included_folder_name=%url_mysql_server_community_archive_included_folder_name%
     SET url_application_full=%url_mysql_server_community%
     SET version_application=%version_mysql_server_community%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
@@ -1368,7 +1368,7 @@ GOTO Menu__InstallationsToDo
     SET path_developer_application_specific=%path_developer_applications_nodejs_current%
     SET url_application_archive=%url_nodejs_current_archive%
     SET url_application_archive_includes_folder=%url_nodejs_current_archive_includes_folder%
-    SET url_application_archive_included_folder_name=%url_nodejs_current_archive_includes_folder_name%
+    SET url_application_archive_included_folder_name=%url_nodejs_current_archive_included_folder_name%
     SET url_application_full=%url_nodejs_current%
     SET version_application=%version_nodejs_current%
     CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined

@@ -6,13 +6,13 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.10
-    SET this_script_release_date=2021-12-13
+    SET this_script_version=1.4.11
+    SET this_script_release_date=2021-12-20
 GOTO END
 
 :EstablishVersions
-    SET version_apache_httpd=2.4.51
-        SET version_apache_httpd_older=2.4.43 2.4.46 2.4.47 2.4.48 2.4.49 2.4.50
+    SET version_apache_httpd=2.4.52
+        SET version_apache_httpd_older=2.4.43 2.4.46 2.4.47 2.4.48 2.4.49 2.4.50 2.4.51
     SET version_apache_mod_evasive=2.2.0
         SET version_apache_mod_evasive_older=2.1.0
     SET version_apache_mod_fcgid=2.3.10
@@ -52,12 +52,14 @@ GOTO END
         SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5 8.1.6 8.1.7 8.1.8 8.1.9 8.1.9.1 8.1.9.2
     SET version_nodejs_current=16.1.0
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0
-    SET version_peazip=8.3.0
-        SET version_peazip_older=7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0 7.7.1 7.8.0 7.9.0 8.0.0 8.1.0 8.2.0
-    SET version_php74x=7.4.26
-        SET version_php74x_older=7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15 7.4.16 7.4.18 7.4.19 7.4.20 7.4.21 7.4.22 7.4.23 7.4.24 7.4.25
-    SET version_php80x=8.0.13
-        SET version_php80x_older=8.0.0 8.0.1 8.0.2 8.0.3 8.0.5 8.0.6 8.0.7 8.0.8 8.0.9 8.0.10 8.0.11 8.0.12
+    SET version_peazip=8.4.0
+        SET version_peazip_older=7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0 7.7.1 7.8.0 7.9.0 8.0.0 8.1.0 8.2.0 8.3.0
+    SET version_php74x=7.4.27
+        SET version_php74x_older=7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15 7.4.16 7.4.18 7.4.19 7.4.20 7.4.21 7.4.22 7.4.23 7.4.24 7.4.25 7.4.26
+    SET version_php80x=8.0.14
+        SET version_php80x_older=8.0.0 8.0.1 8.0.2 8.0.3 8.0.5 8.0.6 8.0.7 8.0.8 8.0.9 8.0.10 8.0.11 8.0.12 8.0.13
+    SET version_php81x=8.1.1
+        SET version_php81x_older=8.1.0
     SET version_putty=0.76
         SET version_putty_older=0.72 0.73 0.74 0.75
     SET version_python36x_major_minor=3.6
@@ -201,6 +203,9 @@ GOTO END
     SET url_php_archive_80x=php-%version_php80x%-nts-Win32-vs16-x64.zip
     SET url_php_archive_80x_includes_folder=No
     SET url_php80x=https://windows.php.net/downloads/releases/%url_php_archive_80x%
+    SET url_php_archive_81x=php-%version_php81x%-nts-Win32-vs16-x64.zip
+    SET url_php_archive_81x_includes_folder=No
+    SET url_php81x=https://windows.php.net/downloads/releases/%url_php_archive_81x%
     SET url_putty_archive=putty.zip
     SET url_putty_archive_includes_folder=No
     SET url_putty=https://the.earth.li/~sgtatham/putty/latest/w64/%url_putty_archive%
@@ -1115,6 +1120,8 @@ GOTO END
     CALL :MultipleActionsToDo
     SET application_action_to_do=PHP80x
     CALL :MultipleActionsToDo
+    SET application_action_to_do=PHP81x
+    CALL :MultipleActionsToDo
     SET application_action_to_do=Putty
     CALL :MultipleActionsToDo
     SET application_action_to_do=Python36x
@@ -1448,6 +1455,25 @@ GOTO Menu__InstallationsToDo
     CALL :MultipleActionsToDo
 GOTO Menu__InstallationsToDo
 
+:InitiateOrUpdateFrameworkInfrastructure__Php81x
+    SET application_main_binary=%php__application_main_binary%
+    SET application_name=%php__application_name%
+    SET path_developer_application_specific=%path_developer_applications_php81x%
+    SET url_application_archive=%url_php_archive_81x%
+    SET url_application_archive_includes_folder=%url_php_archive_81x_includes_folder%
+    SET url_application_full=%url_php81x%
+    SET version_application=%version_php81x%
+    CALL :InitiateOrUpdateFrameworkInfrastructure__GenericWithSpecificVariablesDefined
+    CALL :CreateWebApplicationsOperationalFolders
+    IF NOT EXIST %path_web_applications_temporary%\%path_developer_applications__rootS__php%\%version_php81x%-64bit (
+        ECHO Creating %php__application_name% temporary folder
+        MD %path_web_applications_temporary%\%path_developer_applications__rootS__php%\%version_php81x%-64bit
+    )
+    SET application_action_to_do=PHP81x
+    SET action_to_do=remove_old_versions
+    CALL :MultipleActionsToDo
+GOTO Menu__InstallationsToDo
+
 :InitiateOrUpdateFrameworkInfrastructure__PuTTY
     SET application_main_binary=%putty__application_main_binary%
     SET application_name=%putty__application_name%
@@ -1740,6 +1766,7 @@ GOTO END
     ECHO iz.....PeaZip for Windows..............Archiver..............................%version_peazip%.......%detected_version_peazip%.....%detected_version_peazip_newer%
     ECHO ih74...PHP 7.4.x for Windows...........Script engine.........................%version_php74x%......%detected_version_php74x%....%detected_version_php74x_newer%
     ECHO ih80...PHP 8.0.x for Windows...........Script engine.........................%version_php80x%.......%detected_version_php80x%.....%detected_version_php80x_newer%
+    ECHO ih81...PHP 8.1.x for Windows...........Script engine.........................%version_php81x%.......%detected_version_php81x%.....%detected_version_php81x_newer%
     ECHO iy.....PuTTY for Windows...............Remote shell..........................%version_putty%........%detected_version_putty%......%detected_version_putty_newer%
     ECHO ip36...Python 3.6.x for Windows........Script engine legacy..................%version_python36x_major_minor_build%.......%detected_version_python36x%.....%detected_version_python36x_newer%
     ECHO ip37...Python 3.7.x for Windows........Script engine legacy..................%version_python37x_major_minor_build%.......%detected_version_python37x%.....%detected_version_python37x_newer%
@@ -1778,6 +1805,7 @@ GOTO END
     IF /I "%CHOICE_INSTALL%"=="injl" ( CALL :InitiateOrUpdateFrameworkInfrastructure__NodeJS_LongTimeSupport ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ih74" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php74x ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="ih80" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php80x ) ELSE (
+    IF /I "%CHOICE_INSTALL%"=="ih81" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Php81x ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="iz" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZip ) ELSE (
     IF /I "%CHOICE_INSTALL%"=="iy" ( CALL :InitiateOrUpdateFrameworkInfrastructure__PuTTY ) ELSE (
         IF /I "%CHOICE_INSTALL%"=="ip36" ( CALL :InitiateOrUpdateFrameworkInfrastructure__Python36x ) ELSE (
@@ -1801,6 +1829,7 @@ GOTO END
         )
         )
         )
+    )
     )
     )
     )

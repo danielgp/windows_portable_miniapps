@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.14
+    SET this_script_version=1.4.15
     SET this_script_release_date=2022-01-12
 GOTO END
 
@@ -381,13 +381,13 @@ GOTO END
                 )
             )
             IF /I "%url_application_archive:~-3%"==".7z" (
+                CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZipImpartial
                 IF "%url_application_archive_includes_folder%"=="No" (
-                    CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZipImpartial
-                    ECHO Will extract downloaded kit %path_downloads%%url_application_archive% to a folder from where it will reside for user to enjoy, using PowerShell
+                    ECHO Will extract downloaded kit %path_downloads%%url_application_archive% to a folder from where it will reside for user to enjoy, using PeaZip utility: %path_developer_applications_peazip%\res\bin\7z\7z.exe x %path_downloads%%url_application_archive% -o%path_downloads%
                     %path_developer_applications_peazip%\res\bin\7z\7z.exe x %path_downloads%%url_application_archive% -o%path_developer_application_specific%
                 ) ELSE (
                     IF EXIST "%path_downloads%%url_application_archive%" (
-                        ECHO Will extract downloaded kit %path_downloads%%url_application_archive% to an intermediary destination folder %url_application_archive_included_folder_name%, using PeaZip utility
+                        ECHO Will extract downloaded kit %path_downloads%%url_application_archive% to an intermediary destination folder %url_application_archive_included_folder_name%, using PeaZip utility: %path_developer_applications_peazip%\res\bin\7z\7z.exe x %path_downloads%%url_application_archive% -o %path_downloads%
                         %path_developer_applications_peazip%\res\bin\7z\7z.exe x %path_downloads%%url_application_archive% -o%path_downloads%
                     )
                 )

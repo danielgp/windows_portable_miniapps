@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.13
-    SET this_script_release_date=2022-01-03
+    SET this_script_version=1.4.14
+    SET this_script_release_date=2022-01-12
 GOTO END
 
 :EstablishVersions
@@ -27,8 +27,8 @@ GOTO END
         SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6 10.0.7 10.0.8 10.0.9 10.0.10 10.0.11 10.0.12 10.0.13
     SET version_cherry_tree=0.99.44.0
         SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0 0.99.40.0 0.99.41.0 0.99.42.0 0.99.43.0
-    SET version_double_commander=1.0.2
-        SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651 1.0.9773 1.0.0 1.0.1
+    SET version_double_commander=1.0.3
+        SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651 1.0.9773 1.0.0 1.0.1 1.0.2
     SET version_git=2.34.1
     SET version_git_windows_compilation=.windows.1
     SET version_git_enhanced=%version_git%
@@ -163,7 +163,7 @@ GOTO END
     SET url_cherry_tree_archive_includes_folder=Yes
     SET url_cherry_tree_archive_included_folder_name=cherrytree_%version_cherry_tree%_win64_portable
     SET url_cherry_tree=https://www.giuspen.com/software/%url_cherry_tree_archive%
-    SET url_double_commander_archive=doublecmd-%version_double_commander%.x86_64-win64.zip
+    SET url_double_commander_archive=doublecmd-%version_double_commander%.x86_64-win64-qt5.dark.7z
     SET url_double_commander_archive_includes_folder=Yes
     SET url_double_commander_archive_included_folder_name=doublecmd
     SET url_double_commander=https://github.com/doublecmd/doublecmd/releases/download/v%version_double_commander%/%url_double_commander_archive%
@@ -384,11 +384,11 @@ GOTO END
                 IF "%url_application_archive_includes_folder%"=="No" (
                     CALL :InitiateOrUpdateFrameworkInfrastructure__PeaZipImpartial
                     ECHO Will extract downloaded kit %path_downloads%%url_application_archive% to a folder from where it will reside for user to enjoy, using PowerShell
-                    %path_developer_applications_peazip%\res\7z\7z.exe x %path_downloads%%url_application_archive% -o%path_developer_application_specific%
+                    %path_developer_applications_peazip%\res\bin\7z\7z.exe x %path_downloads%%url_application_archive% -o%path_developer_application_specific%
                 ) ELSE (
                     IF EXIST "%path_downloads%%url_application_archive%" (
-                        ECHO Will extract downloaded kit %url_application_archive% to an intermediary destination folder %url_application_archive_included_folder_name%, using PeaZip utility
-                        %path_developer_applications_peazip%\res\7z\7z.exe x %path_downloads%%url_application_archive% -o%path_downloads%
+                        ECHO Will extract downloaded kit %path_downloads%%url_application_archive% to an intermediary destination folder %url_application_archive_included_folder_name%, using PeaZip utility
+                        %path_developer_applications_peazip%\res\bin\7z\7z.exe x %path_downloads%%url_application_archive% -o%path_downloads%
                     )
                 )
             )
@@ -783,7 +783,7 @@ GOTO END
         for %%i in (%version_double_commander_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
-            SET url_application_archive=DoubleCmd-%%i-Win32X64.7z
+            SET url_application_archive=doubleCmd-%%i.x86_64-win64-qt5.dark.7z
             CALL :MultipleActionsToDo_AllSequences
         )
     )

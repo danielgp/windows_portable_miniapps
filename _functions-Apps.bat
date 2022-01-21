@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.16
-    SET this_script_release_date=2022-01-19
+    SET this_script_version=1.4.17
+    SET this_script_release_date=2022-01-21
 GOTO END
 
 :EstablishVersions
@@ -21,10 +21,10 @@ GOTO END
         SET version_apache_mod_log_rotate_older=1.0.0 1.0.1
     SET version_apache_mod_security=2.9.3
         SET version_apache_mod_security_older=2.9.1 2.9.2
-    SET version_apache_tomcat9x=9.0.56
-        SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48 9.0.50 9.0.52 9.0.53 9.0.54 9.0.55
-    SET version_apache_tomcat10x=10.0.14
-        SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6 10.0.7 10.0.8 10.0.9 10.0.10 10.0.11 10.0.12 10.0.13
+    SET version_apache_tomcat9x=9.0.58
+        SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48 9.0.50 9.0.52 9.0.53 9.0.54 9.0.55 9.0.56
+    SET version_apache_tomcat10x=10.0.16
+        SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6 10.0.7 10.0.8 10.0.9 10.0.10 10.0.11 10.0.12 10.0.13 10.0.14
     SET version_cherry_tree=0.99.45.0
         SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0 0.99.40.0 0.99.41.0 0.99.42.0 0.99.42.1 0.99.43.0 0.99.44.0
     SET version_double_commander=1.0.3
@@ -39,9 +39,9 @@ GOTO END
         SET version_git_enhanced=%version_git%.3
     )
         SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1 2.32.0 2.32.0.2 2.33.0 2.33.0.2 2.33.1 2.34.0
-    SET version_jdk=17.0.1
-    SET version_jdk_subfolder=2a2082e5a09d4267845be086888add4f/12
-        SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1 16.0.2 17
+    SET version_jdk=17.0.2
+    SET version_jdk_subfolder=dfd4a8d0985749f896bed50d7138ee7f/8
+        SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1 16.0.2 17 17.0.1
     SET version_json_edit=0.9.37
         SET version_json_edit_older=0.9.36
     SET version_mysql_router=8.0.28
@@ -83,7 +83,7 @@ GOTO END
         SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14 3.0.15
     SET version_winscp=5.19.4
         SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1 5.19.2 5.19.3
-    SET custom_user_agent_version=95.0
+    SET custom_user_agent_version=96.0
     SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:%custom_user_agent_version%) Gecko/20100101 Firefox/%custom_user_agent_version%
 GOTO END
 

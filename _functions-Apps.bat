@@ -283,6 +283,7 @@ GOTO END
     SET path_developer_applications__root__php=%path_web_applications%%path_developer_applications__rootS__php%
     SET path_developer_applications_php74x=%path_developer_applications__root__php%\%version_php74x%-64bit
     SET path_developer_applications_php80x=%path_developer_applications__root__php%\%version_php80x%-64bit
+    SET path_developer_applications_php81x=%path_developer_applications__root__php%\%version_php81x%-64bit
     SET path_developer_applications__root__putty=%path_developer_applications%PuTTY
     SET path_developer_applications_putty=%path_developer_applications__root__putty%\%version_putty%-64bit
     SET path_developer_applications__root__python=%path_developer_applications%Python
@@ -930,6 +931,21 @@ GOTO END
             CALL :DetectVersions__Generic
         )
         for %%i in (%version_php80x_older%) do (
+            SET exact_version=%%i
+            SET exact_version_folder=%%i-64bit
+            SET url_application_archive=php-%%i-nts-Win32-vs16-x64.zip
+            CALL :MultipleActionsToDo_AllSequences
+        )
+    )
+    IF /I "%application_action_to_do%"=="PHP81x" (
+        SET detected_version_php81x_newer=_
+        SET exact_version=%version_php81x%
+        SET exact_version_folder=%version_php81x%-64bit
+        SET generic_application_folder=%path_developer_applications__root__php%
+        IF /I "%action_to_do%"=="detect_versions" (
+            CALL :DetectVersions__Generic
+        )
+        for %%i in (%version_php81x_older%) do (
             SET exact_version=%%i
             SET exact_version_folder=%%i-64bit
             SET url_application_archive=php-%%i-nts-Win32-vs16-x64.zip

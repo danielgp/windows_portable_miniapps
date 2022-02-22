@@ -6,7 +6,7 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.22
+    SET this_script_version=1.4.23
     SET this_script_release_date=2022-02-22
 GOTO END
 
@@ -81,9 +81,9 @@ GOTO END
         SET version_treesize_older=4.4.0 4.4.1 4.4.2 4.5.0 4.5.1 4.5.2
     SET version_vlc=3.0.16
         SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14 3.0.15
-    SET version_winscp=5.19.4
-        SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1 5.19.2 5.19.3
-    SET custom_user_agent_version=96.0
+    SET version_winscp=5.19.6
+        SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1 5.19.2 5.19.3 5.19.4 5.19.5
+    SET custom_user_agent_version=97.0
     SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:%custom_user_agent_version%) Gecko/20100101 Firefox/%custom_user_agent_version%
 GOTO END
 

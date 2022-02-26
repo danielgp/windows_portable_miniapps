@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.23
-    SET this_script_release_date=2022-02-22
+    SET this_script_version=1.4.24
+    SET this_script_release_date=2022-02-26
 GOTO END
 
 :EstablishVersions
@@ -25,8 +25,8 @@ GOTO END
         SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48 9.0.50 9.0.52 9.0.53 9.0.54 9.0.55 9.0.56
     SET version_apache_tomcat10x=10.0.16
         SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6 10.0.7 10.0.8 10.0.9 10.0.10 10.0.11 10.0.12 10.0.13 10.0.14
-    SET version_cherry_tree=0.99.45.0
-        SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0 0.99.40.0 0.99.41.0 0.99.42.0 0.99.42.1 0.99.43.0 0.99.44.0
+    SET version_cherry_tree=0.99.46.0
+        SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0 0.99.40.0 0.99.41.0 0.99.42.0 0.99.42.1 0.99.43.0 0.99.44.0 0.99.45.0
     SET version_double_commander=1.0.4
         SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651 1.0.9773 1.0.0 1.0.1 1.0.2 1.0.3
     SET version_git=2.35.1
@@ -54,12 +54,12 @@ GOTO END
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0
     SET version_peazip=8.5.0
         SET version_peazip_older=7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0 7.7.1 7.8.0 7.9.0 8.0.0 8.1.0 8.2.0 8.3.0 8.4.0
-    SET version_php74x=7.4.27
-        SET version_php74x_older=7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15 7.4.16 7.4.18 7.4.19 7.4.20 7.4.21 7.4.22 7.4.23 7.4.24 7.4.25 7.4.26
-    SET version_php80x=8.0.15
-        SET version_php80x_older=8.0.0 8.0.1 8.0.2 8.0.3 8.0.5 8.0.6 8.0.7 8.0.8 8.0.9 8.0.10 8.0.11 8.0.12 8.0.13 8.0.14
-    SET version_php81x=8.1.2
-        SET version_php81x_older=8.1.0 8.1.1
+    SET version_php74x=7.4.28
+        SET version_php74x_older=7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15 7.4.16 7.4.18 7.4.19 7.4.20 7.4.21 7.4.22 7.4.23 7.4.24 7.4.25 7.4.26 7.4.27
+    SET version_php80x=8.0.16
+        SET version_php80x_older=8.0.0 8.0.1 8.0.2 8.0.3 8.0.5 8.0.6 8.0.7 8.0.8 8.0.9 8.0.10 8.0.11 8.0.12 8.0.13 8.0.14 8.0.15
+    SET version_php81x=8.1.3
+        SET version_php81x_older=8.1.0 8.1.1 8.1.2
     SET version_putty=0.76
         SET version_putty_older=0.72 0.73 0.74 0.75
     SET version_python36x_major_minor=3.6

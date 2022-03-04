@@ -48,7 +48,7 @@ GOTO END
         SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26 8.0.27
     SET version_mysql_server_community=8.0.28
         SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26 8.0.27
-    SET version_notepad_plus_plus=8.3.3
+    SET version_notepad_plus_plus=8.3.2
         SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5 8.1.6 8.1.7 8.1.8 8.1.9 8.1.9.1 8.1.9.2 8.1.9.3 8.2 8.2.1 8.3 8.3.1
     SET version_nodejs_current=16.1.0
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0

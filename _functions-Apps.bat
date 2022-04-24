@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.31
-    SET this_script_release_date=2022-04-14
+    SET this_script_version=1.4.32
+    SET this_script_release_date=2022-04-24
 GOTO END
 
 :EstablishVersions
@@ -39,9 +39,9 @@ GOTO END
         SET version_git_enhanced=%version_git%.3
     )
         SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1 2.32.0 2.32.0.2 2.33.0 2.33.0.2 2.33.1 2.34.0 2.34.1 2.35.0 2.35.1
-    SET version_jdk=18
-    SET version_jdk_subfolder=43f95e8614114aeaa8e8a5fcf20a682d/36
-        SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1 16.0.2 17 17.0.1 17.0.2
+    SET version_jdk=18.0.1
+    SET version_jdk_subfolder=3f48cabb83014f9fab465e280ccf630b/10
+        SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1 16.0.2 17 17.0.1 17.0.2 18
     SET version_json_edit=0.9.37
         SET version_json_edit_older=0.9.36
     SET version_mysql_router=8.0.28

@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.33
-    SET this_script_release_date=2022-04-24
+    SET this_script_version=1.4.34
+    SET this_script_release_date=2022-05-01
 GOTO END
 
 :EstablishVersions
@@ -44,12 +44,12 @@ GOTO END
         SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1 16.0.2 17 17.0.1 17.0.2 18
     SET version_json_edit=0.9.37
         SET version_json_edit_older=0.9.36
-    SET version_mysql_router=8.0.28
-        SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26 8.0.27
-    SET version_mysql_server_community=8.0.28
-        SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26 8.0.27
-    SET version_notepad_plus_plus=8.3.3
-        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5 8.1.6 8.1.7 8.1.8 8.1.9 8.1.9.1 8.1.9.2 8.1.9.3 8.2 8.2.1 8.3 8.3.1 8.3.2
+    SET version_mysql_router=8.0.29
+        SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26 8.0.27 8.0.28
+    SET version_mysql_server_community=8.0.29
+        SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26 8.0.27 8.0.28
+    SET version_notepad_plus_plus=8.4
+        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5 8.1.6 8.1.7 8.1.8 8.1.9 8.1.9.1 8.1.9.2 8.1.9.3 8.2 8.2.1 8.3 8.3.1 8.3.2 8.3.3
     SET version_nodejs_current=16.1.0
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0
     SET version_peazip=8.6.0
@@ -72,11 +72,11 @@ GOTO END
     SET version_python38x_major_minor_build=3.8.10
         SET version_python38x_major_minor_build_older=3.8.0 3.8.1 3.8.2 3.8.3 3.8.4 3.8.5 3.8.6 3.8.7 3.8.8 3.8.9
     SET version_python39x_major_minor=3.9
-    SET version_python39x_major_minor_build=3.9.11
-        SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2 3.9.4 3.9.5 3.9.6 3.9.7 3.9.8 3.9.9 3.9.10
+    SET version_python39x_major_minor_build=3.9.12
+        SET version_python39x_major_minor_build_older=3.9.0 3.9.1 3.9.2 3.9.4 3.9.5 3.9.6 3.9.7 3.9.8 3.9.9 3.9.10 3.9.11
     SET version_python310x_major_minor=3.10
-    SET version_python310x_major_minor_build=3.10.3
-        SET version_python310x_major_minor_build_older=3.10.0 3.10.1 3.10.2
+    SET version_python310x_major_minor_build=3.10.4
+        SET version_python310x_major_minor_build_older=3.10.0 3.10.1 3.10.2 3.10.3
     SET version_treesize=4.5.3
         SET version_treesize_older=4.4.0 4.4.1 4.4.2 4.5.0 4.5.1 4.5.2
     SET version_vlc=3.0.16

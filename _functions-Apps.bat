@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.34
-    SET this_script_release_date=2022-05-01
+    SET this_script_version=1.4.35
+    SET this_script_release_date=2022-05-12
 GOTO END
 
 :EstablishVersions
@@ -29,7 +29,7 @@ GOTO END
         SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0 0.99.40.0 0.99.41.0 0.99.42.0 0.99.42.1 0.99.43.0 0.99.44.0 0.99.45.0 0.99.46.0
     SET version_double_commander=1.0.5
         SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651 1.0.9773 1.0.0 1.0.1 1.0.2 1.0.3 1.0.4
-    SET version_git=2.36.0
+    SET version_git=2.36.1
     SET version_git_windows_compilation=.windows.1
     SET version_git_enhanced=%version_git%
     IF "%version_git_windows_compilation%"==".windows.2" (
@@ -38,28 +38,28 @@ GOTO END
     IF "%version_git_windows_compilation%"==".windows.3" (
         SET version_git_enhanced=%version_git%.3
     )
-        SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1 2.32.0 2.32.0.2 2.33.0 2.33.0.2 2.33.1 2.34.0 2.34.1 2.35.0 2.35.1
-    SET version_jdk=18.0.1
-    SET version_jdk_subfolder=3f48cabb83014f9fab465e280ccf630b/10
-        SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1 16.0.2 17 17.0.1 17.0.2 18
+        SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1 2.32.0 2.32.0.2 2.33.0 2.33.0.2 2.33.1 2.34.0 2.34.1 2.35.0 2.35.1 2.36.0
+    SET version_jdk=18.0.1.1
+    SET version_jdk_subfolder=65ae32619e2f40f3a9af3af1851d6e19/2
+        SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1 16.0.2 17 17.0.1 17.0.2 18 18.0.1
     SET version_json_edit=0.9.37
         SET version_json_edit_older=0.9.36
     SET version_mysql_router=8.0.29
         SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26 8.0.27 8.0.28
     SET version_mysql_server_community=8.0.29
         SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26 8.0.27 8.0.28
-    SET version_notepad_plus_plus=8.4
-        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5 8.1.6 8.1.7 8.1.8 8.1.9 8.1.9.1 8.1.9.2 8.1.9.3 8.2 8.2.1 8.3 8.3.1 8.3.2 8.3.3
+    SET version_notepad_plus_plus=8.4.1
+        SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5 8.1.6 8.1.7 8.1.8 8.1.9 8.1.9.1 8.1.9.2 8.1.9.3 8.2 8.2.1 8.3 8.3.1 8.3.2 8.3.3 8.4
     SET version_nodejs_current=16.1.0
         SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0
     SET version_peazip=8.6.0
         SET version_peazip_older=7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0 7.7.1 7.8.0 7.9.0 8.0.0 8.1.0 8.2.0 8.3.0 8.4.0 8.5.0
     SET version_php74x=7.4.29
         SET version_php74x_older=7.4.0 7.4.1 7.4.2 7.4.3 7.4.4 7.4.5 7.4.6 7.4.7 7.4.8 7.4.9 7.4.10 7.4.11 7.4.12 7.4.13 7.4.14 7.4.15 7.4.16 7.4.18 7.4.19 7.4.20 7.4.21 7.4.22 7.4.23 7.4.24 7.4.25 7.4.26 7.4.27 7.4.28
-    SET version_php80x=8.0.18
-        SET version_php80x_older=8.0.0 8.0.1 8.0.2 8.0.3 8.0.5 8.0.6 8.0.7 8.0.8 8.0.9 8.0.10 8.0.11 8.0.12 8.0.13 8.0.14 8.0.15 8.0.16 8.0.17
-    SET version_php81x=8.1.5
-        SET version_php81x_older=8.1.0 8.1.1 8.1.2 8.1.3 8.1.4
+    SET version_php80x=8.0.19
+        SET version_php80x_older=8.0.0 8.0.1 8.0.2 8.0.3 8.0.5 8.0.6 8.0.7 8.0.8 8.0.9 8.0.10 8.0.11 8.0.12 8.0.13 8.0.14 8.0.15 8.0.16 8.0.17 8.0.18
+    SET version_php81x=8.1.6
+        SET version_php81x_older=8.1.0 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5
     SET version_putty=0.76
         SET version_putty_older=0.72 0.73 0.74 0.75
     SET version_python36x_major_minor=3.6
@@ -79,11 +79,11 @@ GOTO END
         SET version_python310x_major_minor_build_older=3.10.0 3.10.1 3.10.2 3.10.3
     SET version_treesize=4.5.3
         SET version_treesize_older=4.4.0 4.4.1 4.4.2 4.5.0 4.5.1 4.5.2
-    SET version_vlc=3.0.16
-        SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14 3.0.15
+    SET version_vlc=3.0.17.4
+        SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14 3.0.15 3.0.16
     SET version_winscp=5.19.6
         SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1 5.19.2 5.19.3 5.19.4 5.19.5
-    SET custom_user_agent_version=99.0
+    SET custom_user_agent_version=100.0
     SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:%custom_user_agent_version%) Gecko/20100101 Firefox/%custom_user_agent_version%
 GOTO END
 

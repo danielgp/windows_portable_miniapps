@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.37
-    SET this_script_release_date=2022-06-27
+    SET this_script_version=1.4.38
+    SET this_script_release_date=2022-06-29
 GOTO END
 
 :EstablishVersions
@@ -25,11 +25,11 @@ GOTO END
         SET version_apache_tomcat9x_older=9.0.38 9.0.39 9.0.40 9.0.41 9.0.43 9.0.44 9.0.45 9.0.46 9.0.48 9.0.50 9.0.52 9.0.53 9.0.54 9.0.55 9.0.56 9.0.58 9.0.59 9.0.60 9.0.62 9.0.63
     SET version_apache_tomcat10x=10.0.22
         SET version_apache_tomcat10x_older=10.0.0 10.0.2 10.0.4 10.0.5 10.0.6 10.0.7 10.0.8 10.0.9 10.0.10 10.0.11 10.0.12 10.0.13 10.0.14 10.0.16 10.0.17 10.0.18 10.0.20 10.0.21 10.0.22
-    SET version_cherry_tree=0.99.47.0
-        SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0 0.99.40.0 0.99.41.0 0.99.42.0 0.99.42.1 0.99.43.0 0.99.44.0 0.99.45.0 0.99.46.0
+    SET version_cherry_tree=0.99.48.0
+        SET version_cherry_tree_older=0.99.37.0 0.99.38.0 0.99.39.0 0.99.40.0 0.99.41.0 0.99.42.0 0.99.42.1 0.99.43.0 0.99.44.0 0.99.45.0 0.99.46.0 0.99.47.0
     SET version_double_commander=1.0.6
         SET version_double_commander_older=1.0.9375 1.0.9483 1.0.9651 1.0.9773 1.0.0 1.0.1 1.0.2 1.0.3 1.0.4 1.0.5
-    SET version_git=2.36.1
+    SET version_git=2.37.0
     SET version_git_windows_compilation=.windows.1
     SET version_git_enhanced=%version_git%
     IF "%version_git_windows_compilation%"==".windows.2" (
@@ -38,7 +38,7 @@ GOTO END
     IF "%version_git_windows_compilation%"==".windows.3" (
         SET version_git_enhanced=%version_git%.3
     )
-        SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1 2.32.0 2.32.0.2 2.33.0 2.33.0.2 2.33.1 2.34.0 2.34.1 2.35.0 2.35.1 2.36.0
+        SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1 2.32.0 2.32.0.2 2.33.0 2.33.0.2 2.33.1 2.34.0 2.34.1 2.35.0 2.35.1 2.36.0 2.36.1
     SET version_jdk=18.0.1.1
     SET version_jdk_subfolder=65ae32619e2f40f3a9af3af1851d6e19/2
         SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1 16.0.2 17 17.0.1 17.0.2 18 18.0.1
@@ -81,9 +81,9 @@ GOTO END
         SET version_treesize_older=4.4.0 4.4.1 4.4.2 4.5.0 4.5.1 4.5.2
     SET version_vlc=3.0.17.4
         SET version_vlc_older=3.0.8 3.0.9 3.0.10 3.0.11 3.0.12 3.0.13 3.0.14 3.0.15 3.0.16
-    SET version_winscp=5.19.6
-        SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1 5.19.2 5.19.3 5.19.4 5.19.5
-    SET custom_user_agent_version=101.0
+    SET version_winscp=5.21.1
+        SET version_winscp_older=5.17.5 5.17.6 5.17.7 5.17.8 5.17.9 5.17.10 5.19.1 5.19.2 5.19.3 5.19.4 5.19.5 5.19.6 5.21
+    SET custom_user_agent_version=102.0
     SET custom_user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:%custom_user_agent_version%) Gecko/20100101 Firefox/%custom_user_agent_version%
 GOTO END
 

@@ -1789,7 +1789,7 @@ GOTO END
     ECHO ip38...Python 3.8.x for Windows........Script engine legacy..................%version_python38x_major_minor_build%.......%detected_version_python38x%.....%detected_version_python38x_newer%
     ECHO ip39...Python 3.9.x for Windows........Script engine latest..................%version_python39x_major_minor_build%.......%detected_version_python39x%.....%detected_version_python39x_newer%
     ECHO ip310..Python 3.10.x for Windows.......Script engine latest GA...............%version_python310x_major_minor_build%......%detected_version_python310x%....%detected_version_python310x_newer%
-    ECHO it.....TreeSize Free for Windows.......Files/folders/drives analysis.........%version_treesize%.......%detected_version_treesize%.....%detected_version_treesize_newer%
+    ECHO it.....TreeSize Free for Windows.......Files/folders/drives analysis.........%version_treesize%......%detected_version_treesize%.....%detected_version_treesize_newer%
     ECHO iv.....VLC.............................Multimedia files player...............%version_vlc%......%detected_version_vlc%....%detected_version_vlc_newer%
     ECHO iw.....WinSCP..........................Multiple prot. file handler...........%version_winscp%.....%detected_version_winscp%...%detected_version_winscp_newer%
     ECHO -----------------------------------------------------------------------------------------------------------

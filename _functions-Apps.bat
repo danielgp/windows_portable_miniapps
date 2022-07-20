@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.40
-    SET this_script_release_date=2022-07-16
+    SET this_script_version=1.4.41
+    SET this_script_release_date=2022-07-20
 GOTO END
 
 :EstablishVersions
@@ -39,9 +39,9 @@ GOTO END
         SET version_git_enhanced=%version_git%.3
     )
         SET version_git_enhanced_older=2.23.0 2.26.1 2.26.2 2.27.0 2.28.0 2.29.0 2.29.1 2.29.2 2.29.2.2 2.29.2.3 2.30.0 2.30.0.2 2.30.1 2.31.0 2.31.1 2.32.0 2.32.0.2 2.33.0 2.33.0.2 2.33.1 2.34.0 2.34.1 2.35.0 2.35.1 2.36.0 2.36.1 2.37.0
-    SET version_jdk=18.0.1.1
-    SET version_jdk_subfolder=65ae32619e2f40f3a9af3af1851d6e19/2
-        SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1 16.0.2 17 17.0.1 17.0.2 18 18.0.1
+    SET version_jdk=18.0.2
+    SET version_jdk_subfolder=f6ad4b4450fd4d298113270ec84f30ee/9/
+        SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1 16.0.2 17 17.0.1 17.0.2 18 18.0.1 18.0.1.1
     SET version_json_edit=0.9.37
         SET version_json_edit_older=0.9.36
     SET version_mysql_router=8.0.29
@@ -50,8 +50,8 @@ GOTO END
         SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26 8.0.27 8.0.28
     SET version_notepad_plus_plus=8.4.4
         SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5 8.1.6 8.1.7 8.1.8 8.1.9 8.1.9.1 8.1.9.2 8.1.9.3 8.2 8.2.1 8.3 8.3.1 8.3.2 8.3.3 8.4 8.4.1 8.4.2 8.4.3
-    SET version_nodejs_current=16.1.0
-        SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0
+    SET version_nodejs_current=18.6.0
+        SET version_nodejs_current_older=15.6.0 15.7.0 15.8.0 15.9.0 15.10.0 15.11.0 16.0.0 16.1.0 16.2.0 16.3.0 16.4.0 16.4.1 16.4.2 16.5.0 16.6.0 16.6.1 16.6.2 16.7.0 16.8.0 16.9.0 16.9.1 16.10.0 16.11.0 16.11.1 16.12.0 16.13.0 16.13.1 16.13.2 16.14.0 16.14.1 16.14.2 16.15.0 16.15.1 16.16.0 17.0.0 17.0.1 17.1.0 17.2.0 17.3.0 17.3.1 17.4.0 17.5.0 17.6.0 17.7.0 17.7.1 17.7.2 17.8.0 17.9.0 17.9.1 18.0.0 18.1.0 18.2.0 18.3.0 18.4.0 18.5.0
     SET version_peazip=8.7.0
         SET version_peazip_older=7.2.0 7.2.1 7.2.2 7.3.0 7.3.1 7.3.2 7.4.0 7.4.1 7.4.2 7.5.0 7.6.0 7.7.0 7.7.1 7.8.0 7.9.0 8.0.0 8.1.0 8.2.0 8.3.0 8.4.0 8.5.0 8.6.0
     SET version_php74x=7.4.30

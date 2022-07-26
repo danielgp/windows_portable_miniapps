@@ -1773,13 +1773,13 @@ GOTO END
     ECHO ic.....CherryTree......................Hierarchical notes editor.............%version_cherry_tree%..%detected_version_cherry_tree%..%detected_version_cherry_tree_newer%
     ECHO id.....Double Commander for Windows....File manager..........................%version_double_commander%......%detected_version_double_commander%..%detected_version_double_commander_newer%
     ECHO ig.....Git for Windows.................Versioning engine.....................%version_git_enhanced%.....%detected_version_git%..%detected_version_git_newer%
-    ECHO ij.....Java Development Kit for Win....Multi-platform engine.................%version_jdk%...%detected_version_jdk%....%detected_version_jdk_newer%
+    ECHO ij.....Java Development Kit for Win....Multi-platform engine.................%version_jdk%.....%detected_version_jdk%....%detected_version_jdk_newer%
     ECHO ije....JSON Editor.....................JSON Editor...........................%version_json_edit%......%detected_version_json_edit%....%detected_version_json_edit_newer%
-    ECHO imr....MySQL Router....................Database Proxy Server.................%version_mysql_router%......%detected_version_mysql_router%....%detected_version_mysql_router_newer%
+    ECHO imr....MySQL Router....................Database Proxy Server.................%version_mysql_router%.....%detected_version_mysql_router%....%detected_version_mysql_router_newer%
     ECHO imsc...MySQL Server Community..........Database Server.......................%version_mysql_server_community%......%detected_version_mysql_server_community%....%detected_version_mysql_server_community_newer%
-    ECHO in.....Notepad++.......................Advanced text editor..................%version_notepad_plus_plus%......%detected_version_notepad_plus_plus%.....%detected_version_notepad_plus_plus_newer%
+    ECHO in.....Notepad++.......................Advanced text editor..................%version_notepad_plus_plus%.......%detected_version_notepad_plus_plus%.....%detected_version_notepad_plus_plus_newer%
     ECHO injc...NodeJS Current..................Script engine Current.................%version_nodejs_current%......%detected_version_nodejs_current%.....%detected_version_nodejs_current_newer%
-    ECHO iz.....PeaZip for Windows..............Archiver..............................%version_peazip%......%detected_version_peazip%.....%detected_version_peazip_newer%
+    ECHO iz.....PeaZip for Windows..............Archiver..............................%version_peazip%.......%detected_version_peazip%.....%detected_version_peazip_newer%
     ECHO ih74...PHP 7.4.x for Windows...........Script engine.........................%version_php74x%......%detected_version_php74x%....%detected_version_php74x_newer%
     ECHO ih80...PHP 8.0.x for Windows...........Script engine.........................%version_php80x%.......%detected_version_php80x%.....%detected_version_php80x_newer%
     ECHO ih81...PHP 8.1.x for Windows...........Script engine.........................%version_php81x%.......%detected_version_php81x%.....%detected_version_php81x_newer%
@@ -1789,8 +1789,8 @@ GOTO END
     ECHO ip38...Python 3.8.x for Windows........Script engine legacy..................%version_python38x_major_minor_build%.......%detected_version_python38x%.....%detected_version_python38x_newer%
     ECHO ip39...Python 3.9.x for Windows........Script engine latest..................%version_python39x_major_minor_build%.......%detected_version_python39x%.....%detected_version_python39x_newer%
     ECHO ip310..Python 3.10.x for Windows.......Script engine latest GA...............%version_python310x_major_minor_build%......%detected_version_python310x%....%detected_version_python310x_newer%
-    ECHO it.....TreeSize Free for Windows.......Files/folders/drives analysis.........%version_treesize%......%detected_version_treesize%.....%detected_version_treesize_newer%
-    ECHO iv.....VLC.............................Multimedia files player...............%version_vlc%......%detected_version_vlc%....%detected_version_vlc_newer%
+    ECHO it.....TreeSize Free for Windows.......Files/folders/drives analysis.........%version_treesize%.......%detected_version_treesize%.....%detected_version_treesize_newer%
+    ECHO iv.....VLC.............................Multimedia files player...............%version_vlc%....%detected_version_vlc%....%detected_version_vlc_newer%
     ECHO iw.....WinSCP..........................Multiple prot. file handler...........%version_winscp%.....%detected_version_winscp%...%detected_version_winscp_newer%
     ECHO -----------------------------------------------------------------------------------------------------------
     ECHO ipve.  Python Virtual Environment initiation or update for Given Python project

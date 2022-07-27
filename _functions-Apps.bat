@@ -586,6 +586,12 @@ GOTO END
                 SET detected_version_php80x_newer=***
             )
         )
+        IF /I "%application_action_to_do%"=="PHP81x" (
+            SET detected_version_php81x=%exact_version%
+            IF "%version_php81x%" NEQ "%exact_version%" (
+                SET detected_version_php81x_newer=***
+            )
+        )
         IF /I "%application_action_to_do%"=="PeaZip" (
             SET detected_version_peazip=%exact_version%
             IF "%version_peazip%" NEQ "%exact_version%" (

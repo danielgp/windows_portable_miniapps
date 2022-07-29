@@ -6,8 +6,8 @@ REM Versioning
 REM ----------------------------------------------------------------------------
 
 :EstablishThisScriptVersionDetails
-    SET this_script_version=1.4.42
-    SET this_script_release_date=2022-07-25
+    SET this_script_version=1.4.43
+    SET this_script_release_date=2022-07-29
 GOTO END
 
 :EstablishVersions
@@ -44,10 +44,10 @@ GOTO END
         SET version_jdk_older=15.0.0 15.0.1 15.0.2 16 16.0.1 16.0.2 17 17.0.1 17.0.2 18 18.0.1 18.0.1.1
     SET version_json_edit=0.9.37
         SET version_json_edit_older=0.9.36
-    SET version_mysql_router=8.0.29
-        SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26 8.0.27 8.0.28
-    SET version_mysql_server_community=8.0.29
-        SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26 8.0.27 8.0.28
+    SET version_mysql_router=8.0.30
+        SET version_mysql_router_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26 8.0.27 8.0.28 8.0.29
+    SET version_mysql_server_community=8.0.30
+        SET version_mysql_server_community_older=8.0.20 8.0.21 8.0.22 8.0.23 8.0.24 8.0.25 8.0.26 8.0.27 8.0.28 8.0.29
     SET version_notepad_plus_plus=8.4.4
         SET version_notepad_plus_plus_older=7.8.1 7.8.2 7.8.3 7.8.4 7.8.5 7.8.6 7.8.7 7.8.8 7.8.9 7.9 7.9.1 7.9.2 7.9.3 7.9.4 7.9.5 8.0 8.1 8.1.1 8.1.2 8.1.3 8.1.4 8.1.5 8.1.6 8.1.7 8.1.8 8.1.9 8.1.9.1 8.1.9.2 8.1.9.3 8.2 8.2.1 8.3 8.3.1 8.3.2 8.3.3 8.4 8.4.1 8.4.2 8.4.3
     SET version_nodejs_current=18.6.0
